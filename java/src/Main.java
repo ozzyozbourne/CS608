@@ -64,15 +64,16 @@ final public class Main {
     public static void main(final String... args) {
         final Main mainTest1 = new Main();
 
-        // this also works for negative number
         mainTest1.arr = new int[] { -10, -15, -3, -20, -11 };
         System.out.println(mainTest1.maxSubArraySum(0, mainTest1.arr.length - 1));
         System.out.println(mainTest1.kadaneSliding());
+        System.out.println(mainTest1.kadane());
 
         System.out.println("--------------------------------------------------");
         mainTest1.arr = new int[] { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
         System.out.println(mainTest1.maxSubArraySum(0, mainTest1.arr.length - 1));
         System.out.println(mainTest1.kadaneSliding());
+        System.out.println(mainTest1.kadane());
         System.out.println("--------------------------------------------------");
 
         // getSizeOfTheArray(mainTest1);
@@ -104,22 +105,12 @@ final public class Main {
         System.out.println();
     }
 
-    private int kadane() {
-        var maxSum = this.arr[0];
-        var currSum = Integer.MIN_VALUE;
-        for (final int num : this.arr) {
-            currSum += Math.max(0, currSum) + num;
-            maxSum = Math.max(maxSum, currSum);
-        }
-        return maxSum;
-    }
-
     private SumAndIndex kadaneSliding() {
         int maxl = 0, maxr = 0, l = 0, currSum = 0, maxSum = this.arr[0];
         for (int r = 0; r < this.arr.length; r++) {
             if (currSum < 0) {
                 currSum = 0;
-                l = r;
+                l = r; // shrinking the window back to r
             }
             currSum += this.arr[r];
             if (currSum > maxSum) {
@@ -129,6 +120,15 @@ final public class Main {
             }
         }
         return new SumAndIndex(maxl, maxr, maxSum);
+    }
+
+    private int kadane() {
+        int maxSum = this.arr[0], currSum = 0;
+        for (final int num : this.arr) {
+            currSum = Math.max(0, currSum) + num;
+            maxSum = Math.max(maxSum, currSum);
+        }
+        return maxSum;
     }
 
 }
