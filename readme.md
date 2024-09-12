@@ -39,5 +39,5 @@
 4. Run the program:
 
    ```bash
-   java SubArraySum
+   java <FILENAME>
    ```
