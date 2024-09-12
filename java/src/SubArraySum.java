@@ -161,21 +161,21 @@ final public class SubArraySum {
         var res = subArraySum.divideAndConquer(0, subArraySum.arr.length - 1);
         var endTime = System.nanoTime();
         System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> \n" + res);
+        System.out.println("the ouput is -> " + res);
 
         System.out.println("Brute force algo execution time");
         startTime = System.nanoTime();
         res = subArraySum.bruteForce();
         endTime = System.nanoTime();
         System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> \n" + res);
+        System.out.println("the ouput is -> " + res);
 
         System.out.println("Brute force algo execution time");
         startTime = System.nanoTime();
         res = subArraySum.kadaneSlidingWindow();
         endTime = System.nanoTime();
         System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> \n" + res);
+        System.out.println("the ouput is -> " + res);
 
     }
 
