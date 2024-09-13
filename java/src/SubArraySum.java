@@ -7,9 +7,9 @@
  *
  *  Course: CS 608
  *  Team members:
- *  1) Osaid Khan
- *  2)
- *  3)
+ *  1) Adam Miftahelidrissi
+ *  2) Marlen Cuevas Duarte
+ *  3) Osaid Khan
  *
  *  Other collaborators: None.
  *  References:
@@ -26,7 +26,13 @@
  *
  *  Input:
  *  Output:
+ *  
+ *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
+ *                     |  n = 10^3  |    n = 10^4   |    n = 10^5   |    n = 10^6	|  n = 10^7
+ *  Brute force        |  6475750   |    57551375   |    4508993916 |    452237946416 	|  45232397846215
+ *  Divide and conquer |  781084    |    2304625    |	 15474542   |    36157958       |  288954334
+ *  Kadane             |            |               |               |                   | 
  *
  *
  * Problem 1.
@@ -49,15 +55,15 @@ import java.util.Scanner;
 
 final public class SubArraySum {
 
-    private record SumAndIndex(int l, int h, int sum) {
+    private static record SumAndIndex(int l, int h, int sum) {
     }
 
-    private int[] arr;
+    private static int[] arr;
 
     private SubArraySum() {
     }
 
-    private SumAndIndex divideAndConquer(int l, int h) {
+    private static SumAndIndex divideAndConquer(final int l, final int h) {
         // base case
         if (l == h)
             return new SumAndIndex(l, h, arr[l]);
@@ -78,14 +84,14 @@ final public class SubArraySum {
 
     }
 
-    private SumAndIndex maxCrossingSum(final int l, final int m, final int h) {
+    private static SumAndIndex maxCrossingSum(final int l, final int m, final int h) {
 
         // calculate the sum from the mid to the left of the array
         // also get the index from where the starting from l to mid here we find the max
         // sum
         int sum = 0, lSum = Integer.MIN_VALUE, maxLeft = m;
         for (int i = m; i >= l; i--) {
-            sum += this.arr[i];
+            sum += arr[i];
             if (sum > lSum) {
                 lSum = sum;
                 maxLeft = i;
@@ -96,7 +102,7 @@ final public class SubArraySum {
         sum = 0;
         int rSum = Integer.MIN_VALUE, maxRight = m + 1;
         for (int i = m + 1; i <= h; i++) {
-            sum += this.arr[i];
+            sum += arr[i];
             if (sum > rSum) {
                 rSum = sum;
                 maxRight = i;
@@ -107,14 +113,14 @@ final public class SubArraySum {
 
     }
 
-    private SumAndIndex kadaneSlidingWindow() {
-        int maxl = 0, maxr = 0, l = 0, currSum = 0, maxSum = this.arr[0];
-        for (int r = 0; r < this.arr.length; r++) {
+    private static SumAndIndex kadane() {
+        int maxl = 0, maxr = 0, l = 0, currSum = 0, maxSum = arr[0];
+        for (int r = 0; r < arr.length; r++) {
             if (currSum < 0) {
                 currSum = 0;
                 l = r; // shrinking the window back to r
             }
-            currSum += this.arr[r];
+            currSum += arr[r];
             if (currSum > maxSum) {
                 maxSum = currSum;
                 maxl = l;
@@ -124,13 +130,13 @@ final public class SubArraySum {
         return new SumAndIndex(maxl, maxr, maxSum);
     }
 
-    private SumAndIndex bruteForce() {
-        var maxSum = this.arr[0];
+    private static SumAndIndex bruteForce() {
+        var maxSum = arr[0];
         int maxL = 0, maxR = 0;
-        for (int i = 0; i < this.arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             int currSum = 0;
-            for (int j = i; j < this.arr.length; j++) {
-                currSum += this.arr[j];
+            for (int j = i; j < arr.length; j++) {
+                currSum += arr[j];
                 if (currSum > maxSum) {
                     maxSum = currSum;
                     maxL = i;
@@ -141,47 +147,39 @@ final public class SubArraySum {
         return new SumAndIndex(maxL, maxR, maxSum);
     }
 
-    private int kadane() {
-        int maxSum = this.arr[0], currSum = 0;
-        for (final int num : this.arr) {
-            currSum = Math.max(0, currSum) + num;
-            maxSum = Math.max(maxSum, currSum);
-        }
-        return maxSum;
-    }
-
     public static void main(final String... args) {
-        // setting up the array so run which custom n sizes
-        final SubArraySum subArraySum = new SubArraySum();
-        getSizeOfTheArray(subArraySum);
-        fillArrayWithRandomNumbers(subArraySum, 200);
+        // initialize the array
+        initArray(200);
 
-        System.out.println("Divide and conquer algo execution time");
+        System.out.println("****************************************************\n");
+        System.out.println("Brute Force method");
         var startTime = System.nanoTime();
-        var res = subArraySum.divideAndConquer(0, subArraySum.arr.length - 1);
+        var res = bruteForce();
         var endTime = System.nanoTime();
-        System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> " + res);
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("The output is -> " + res);
+        System.out.println("\n****************************************************\n");
 
-        System.out.println("Brute force algo execution time");
+        System.out.println("Divide and conquer method");
         startTime = System.nanoTime();
-        res = subArraySum.bruteForce();
+        res = divideAndConquer(0, arr.length - 1);
         endTime = System.nanoTime();
-        System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> " + res);
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("The output is -> " + res);
+        System.out.println("\n****************************************************\n");
 
-        System.out.println("Brute force algo execution time");
+        System.out.println("Kadane method");
         startTime = System.nanoTime();
-        res = subArraySum.kadaneSlidingWindow();
+        res = kadane();
         endTime = System.nanoTime();
-        System.out.println("Time take in nano seconds -> " + (endTime - startTime));
-        System.out.println("the ouput is -> " + res);
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("The output is -> " + res);
 
     }
 
     // util functions start from here
     // ------------------------------------------------
-    private static void getSizeOfTheArray(final SubArraySum main) {
+    private static void initArray(final int rangeOfNumber) {
 
         final Scanner sc = new Scanner(System.in);
         System.out.println("Enter the size of the array");
@@ -190,17 +188,11 @@ final public class SubArraySum {
         System.out.println("The size of the array will be -> " + size);
         sc.close();
 
-        main.arr = new int[size];
-    }
-
-    private static void fillArrayWithRandomNumbers(final SubArraySum main, final int rangeOfNumber) {
+        arr = new int[size];
         final Random rand = new Random();
-        for (int i = 0; i < main.arr.length; i++)
-            main.arr[i] = rand.nextInt(rangeOfNumber) - 100;
-        System.out.println("The input Array is -> ");
-        for (final var num : main.arr)
-            System.out.print(num + " ");
-        System.out.println();
+        for (int i = 0; i < arr.length; i++)
+            arr[i] = rand.nextInt(rangeOfNumber) - 100;
+
     }
 
 }
