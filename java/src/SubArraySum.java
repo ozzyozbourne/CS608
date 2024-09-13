@@ -30,8 +30,8 @@
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *                     |  n = 10^3  |    n = 10^4   |    n = 10^5   |    n = 10^6	|  n = 10^7
- *  Brute force        |  6475750   |    57551375   |    4508993916 |    452237946416 	|  45232397846215
- *  Divide and conquer |  781084    |    2304625    |	 15474542   |    36157958       |  288954334
+ *  Brute force        |            |               |               |     	        |  
+ *  Divide and conquer |            |               |	            |                   |  
  *  Kadane             |            |               |               |                   | 
  *
  *
@@ -39,7 +39,7 @@
  * PROVIDE YOUR WRITTEN RESPONSE. IF THE QUESTION IS A CODING QUESTION JUST PROVIDE YOUR CODE AS SHOWN BELOW.
  *
  * Problem 2.
- *                     	|n = 10^3| n = 10^4| n = 10^5| n = 10^6|
+ *
  * Brute force
  * Divide and conquer
  *
@@ -178,7 +178,6 @@ final public class SubArraySum {
     }
 
     // util functions start from here
-    // ------------------------------------------------
     private static void initArray(final int rangeOfNumber) {
 
         final Scanner sc = new Scanner(System.in);
