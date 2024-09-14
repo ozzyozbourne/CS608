@@ -24,15 +24,37 @@
  *  (a) a brute-force algorithm that solves the problem in O(n2) steps, and
  *  (b) a divide-and- conquer algorithm that achieves O(n log n) running time.
  *
- *  Input:
- *  Output:
+ *  Input and Output ->
+ *
+ *  ozzy@osaids-Air src % java SubArraySum
+ *  Enter the size of the array
+ *  10000000
+ *  The size of the array will be -> 10000000
+ *  ****************************************************
+ *
+ *  Brute Force method
+ *  Time taken in nano seconds -> 27656933123708
+ *  The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *
+ *  ****************************************************
+ *
+ * Divide and conquer method
+ * Time taken in nano seconds -> 680475125
+ * The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *
+ * ****************************************************
+ *
+ * Kadane method
+ * Time taken in nano seconds -> 20994792
+ * The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *
  *  
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *                     |  n = 10^3  |    n = 10^4   |    n = 10^5   |    n = 10^6	|  n = 10^7
- *  Brute force        |            |               |               |     	        |  
- *  Divide and conquer |            |               |	            |                   |  
- *  Kadane             |            |               |               |                   | 
+ *  Brute force        |            |               |               |     	        |  27656933123708  
+ *  Divide and conquer |            |               |	            |                   |  680475125
+ *  Kadane             |            |               |               |                   |  20994792
  *
  *
  * Problem 1.
