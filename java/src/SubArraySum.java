@@ -23,6 +23,7 @@
  *  the sum of the maximum subarray were discussed in class:
  *  (a) a brute-force algorithm that solves the problem in O(n2) steps, and
  *  (b) a divide-and- conquer algorithm that achieves O(n log n) running time.
+ *  (c) a linear time O(n) using Kadane algo for extra credit 
  *
  *  Input and Output ->
  *  
@@ -175,7 +176,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-final public class SubArraySum {
+public final class SubArraySum {
 
     private static record SumAndIndex(int l, int h, int sum) {
     }
@@ -194,13 +195,13 @@ final public class SubArraySum {
         final int mid = l + (h - l) / 2;
 
         // calculate the left and right max recursively
-        final var leftMaxSum = divideAndConquer(l, mid);
-        final var rightMaxSum = divideAndConquer(mid + 1, h);
+        final SumAndIndex leftMaxSum = divideAndConquer(l, mid);
+        final SumAndIndex rightMaxSum = divideAndConquer(mid + 1, h);
         // find the max sum of the crossing
-        final var crossingMaxSum = maxCrossingSum(l, mid, h);
+        final SumAndIndex crossingMaxSum = maxCrossingSum(l, mid, h);
 
         // get the max of the left and right side of the mid
-        final var maxOfLeftAndRight = leftMaxSum.sum > rightMaxSum.sum ? leftMaxSum : rightMaxSum;
+        final SumAndIndex maxOfLeftAndRight = leftMaxSum.sum > rightMaxSum.sum ? leftMaxSum : rightMaxSum;
         // return of max of leftRight and crossing
         return maxOfLeftAndRight.sum > crossingMaxSum.sum ? maxOfLeftAndRight : crossingMaxSum;
 
@@ -253,8 +254,7 @@ final public class SubArraySum {
     }
 
     private static SumAndIndex bruteForce() {
-        var maxSum = arr[0];
-        int maxL = 0, maxR = 0;
+        int maxSum = arr[0], maxL = 0, maxR = 0;
         for (int i = 0; i < arr.length; i++) {
             int currSum = 0;
             for (int j = i; j < arr.length; j++) {
