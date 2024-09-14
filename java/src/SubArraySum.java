@@ -25,8 +25,8 @@
  *  (b) a divide-and- conquer algorithm that achieves O(n log n) running time.
  *
  *  Input and Output ->
- *
- *  ozzy@osaids-Air src % java SubArraySum
+ *  
+ *  ------------------------------------------------------------------- 
  *  Enter the size of the array
  *  10000000
  *  The size of the array will be -> 10000000
@@ -38,25 +38,125 @@
  *
  *  ****************************************************
  *
- * Divide and conquer method
- * Time taken in nano seconds -> 680475125
- * The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *  Divide and conquer method
+ *  Time taken in nano seconds -> 680475125
+ *  The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
  *
- * ****************************************************
+ *  ****************************************************
  *
- * Kadane method
- * Time taken in nano seconds -> 20994792
- * The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *  Kadane method
+ *  Time taken in nano seconds -> 20994792
+ *  The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
+ *  ---------------------------------------------------------------------- 
  *
- *  
+ *
+ *  -----------------------------------------------------------------------
+ *  Enter the size of the array
+ *  1000000
+ *  The size of the array will be -> 1000000
+ *  ****************************************************
+
+ *  Brute Force method
+ *  Time taken in nano seconds -> 320847910375
+ *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
+ *
+ *  ****************************************************
+
+ *  Divide and conquer method
+ *  Time taken in nano seconds -> 71207583
+ *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
+
+ *  ****************************************************
+
+ *  Kadane method
+ *  Time taken in nano seconds -> 5630833
+ *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
+ *  ------------------------------------------------------------------------
+ *
+ *
+ *  -------------------------------------------------------------------------
+ *  Enter the size of the array
+ *  100000
+ *  The size of the array will be -> 100000
+ *  ****************************************************
+ *
+ *  Brute Force method
+ *  Time taken in nano seconds -> 3204621167
+ *  The output is -> SumAndIndex[l=83475, h=94849, sum=8944]
+ *
+ *  ****************************************************
+ *
+ *  Divide and conquer method
+ *  Time taken in nano seconds -> 9913500
+ *  The output is -> SumAndIndex[l=83475, h=94849, sum=8944]
+ *
+ *  ****************************************************
+ * 
+ *  Kadane method
+ *  Time taken in nano seconds -> 2099583
+ *  The output is -> SumAndIndex[l=83475, h=94849, sum=8944]
+ *  ------------------------------------------------------------------------------
+ *
+ *
+ *  ------------------------------------------------------------------------------
+ *  Enter the size of the array
+ *  10000
+ *  The size of the array will be -> 10000
+ *  ****************************************************
+ * 
+ *  Brute Force method
+ *  Time taken in nano seconds -> 45091667
+ *  The output is -> SumAndIndex[l=1858, h=4762, sum=5889]
+ *
+ *  ****************************************************
+ *
+ *  Divide and conquer method
+ *  Time taken in nano seconds -> 1555125
+ *  The output is -> SumAndIndex[l=1858, h=4762, sum=5889]
+ *
+ *  ****************************************************
+ * 
+ *  Kadane method
+ *  Time taken in nano seconds -> 293833
+ *  The output is -> SumAndIndex[l=1858, h=4762, sum=5889]
+ *  ----------------------------------------------------------------------------------
+ *
+ *
+ *  ----------------------------------------------------------------------------------
+ *  Enter the size of the array
+ *  1000
+ *  The size of the array will be -> 1000
+ *  ****************************************************
+ * 
+ *  Brute Force method
+ *  Time taken in nano seconds -> 7241250
+ *  The output is -> SumAndIndex[l=3, h=488, sum=2556]
+ * 
+ *  ****************************************************
+ * 
+ *  Divide and conquer method
+ *  Time taken in nano seconds -> 729375
+ *  The output is -> SumAndIndex[l=3, h=488, sum=2556]
+ *
+ *  ****************************************************
+ * 
+ *  Kadane method
+ *  Time taken in nano seconds -> 32167
+ *  The output is -> SumAndIndex[l=3, h=488, sum=2556]
+ *  -----------------------------------------------------------------------------------
+ *
+ *
+ *  -----------------------------------------------------------------------------------
+ *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                     |  n = 10^3  |    n = 10^4   |    n = 10^5   |    n = 10^6	|  n = 10^7
- *  Brute force        |            |               |               |     	        |  27656933123708  
- *  Divide and conquer |            |               |	            |                   |  680475125
- *  Kadane             |            |               |               |                   |  20994792
+ *                     |  n = 10^3  |    n = 10^4   |    n = 10^5    |    n = 10^6	|  n = 10^7
+ *  Brute force        |  7241250   |    45091667   |    3204621167  |    320847910375  |  27656933123708  
+ *  Divide and conquer |  729375    |    1555125    |    9913500     |    71207583      |  680475125
+ *  Kadane             |  32167     |    293833     |    2099583     |    5630833       |  20994792
  *
  *
+ *  ------------------------------------------------------------------------------------
  * Problem 1.
  * PROVIDE YOUR WRITTEN RESPONSE. IF THE QUESTION IS A CODING QUESTION JUST PROVIDE YOUR CODE AS SHOWN BELOW.
  *
