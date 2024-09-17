@@ -277,6 +277,14 @@ public final class SubArraySum {
      * and it runs in linear time ie theta (n) since for given input of size n
      * the best and worst case are same due to the fact that it doesnt depend on
      * the arragement of the input
+     * Kadane algo works relies on the premise that when ever the sum goes below
+     * zero then there is no need to keep on adding the next element to the curr_sum
+     * simply make the cursum zero
+     * It behave like a sliding window where we keep on increasing the size of the
+     * window if the sum of window stays positived as soon as the sliding window sum
+     * goes below zero we collapse our window by make the left equal to the right
+     * and at each step we compare our window sum to the max_sum to see if we have
+     * greater value.
      * 
      * @return SumAndIndex record containing the low, high index value and the max
      *         sub array sum
@@ -286,7 +294,7 @@ public final class SubArraySum {
         for (int r = 0; r < arr.length; r++) {
             if (currSum < 0) {
                 currSum = 0;
-                l = r; // shrinking the window back to r
+                l = r; // shrinking the window
             }
             currSum += arr[r];
             if (currSum > maxSum) {
