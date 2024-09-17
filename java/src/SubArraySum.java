@@ -27,6 +27,9 @@
  *
  *  Input and Output ->
  *  
+ *  -----------------------------------------------------------------
+ *  FIRST RUN WITH THE MAX INPUT SIZE IE N^7
+ *
  *  ------------------------------------------------------------------- 
  *  Enter the size of the array
  *  10000000
@@ -50,6 +53,7 @@
  *  The output is -> SumAndIndex[l=2416491, h=2440620, sum=23055]
  *  ---------------------------------------------------------------------- 
  *
+ *  SECOND RUN WITH THE INPUT SIZE OF N^6
  *
  *  -----------------------------------------------------------------------
  *  Enter the size of the array
@@ -73,7 +77,8 @@
  *  Time taken in nano seconds -> 5630833
  *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
  *  ------------------------------------------------------------------------
- *
+ *  
+ *  THIRD RUN WITH THE INPUT SIZE OF N^5
  *
  *  -------------------------------------------------------------------------
  *  Enter the size of the array
@@ -97,7 +102,8 @@
  *  Time taken in nano seconds -> 2099583
  *  The output is -> SumAndIndex[l=83475, h=94849, sum=8944]
  *  ------------------------------------------------------------------------------
- *
+ *  
+ *  FOURTH RUN WITH INPUT SIZE OF N^4 
  *
  *  ------------------------------------------------------------------------------
  *  Enter the size of the array
@@ -121,7 +127,8 @@
  *  Time taken in nano seconds -> 293833
  *  The output is -> SumAndIndex[l=1858, h=4762, sum=5889]
  *  ----------------------------------------------------------------------------------
- *
+ *  
+ *  FIFTH RUN WITH INPUT SIZE OF N^3
  *
  *  ----------------------------------------------------------------------------------
  *  Enter the size of the array
@@ -145,7 +152,8 @@
  *  Time taken in nano seconds -> 32167
  *  The output is -> SumAndIndex[l=3, h=488, sum=2556]
  *  -----------------------------------------------------------------------------------
- *
+ *  
+ *  OBSERVATIONS ->  
  *
  *  -----------------------------------------------------------------------------------
  *
@@ -273,7 +281,6 @@ public final class SubArraySum {
      * @return SumAndIndex record containing the low, high index value and the max
      *         sub array sum
      */
-
     private static SumAndIndex kadane() {
         int maxl = 0, maxr = 0, l = 0, currSum = 0, maxSum = arr[0];
         for (int r = 0; r < arr.length; r++) {
