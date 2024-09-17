@@ -5,9 +5,9 @@
 
 ### Team Members:
 
-1. Osaid Khan
-2. [Add your team members]
-3. [Add your team members]
+1. Adam Miftahelidrissi
+2. Marlen Cuevas Duarte
+3. Osaid Khan
 
 ## Running the Program
 

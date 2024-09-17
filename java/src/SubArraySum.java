@@ -175,7 +175,10 @@
  *  ------------------------------------------------------------------------------------
  *  
  *  Plot Link -> https://colab.research.google.com/drive/1WHdEZiAfjpjjp99AaKnW2autX4mgyC0t?usp=sharing  
- *
+ *  
+ *  As shown in the chart in google colab the when the input is smaller ie n^3 then there is not 
+ *  much difference in the brute force and divide-and-conquer method since for smaller input the constants 
+ *  have a larger effect in the runtimes of an algorithm for  
  *
  *************************************************************************/
 
