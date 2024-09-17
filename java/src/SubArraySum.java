@@ -56,19 +56,19 @@
  *  1000000
  *  The size of the array will be -> 1000000
  *  ****************************************************
-
+ *
  *  Brute Force method
  *  Time taken in nano seconds -> 320847910375
  *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
  *
  *  ****************************************************
-
+ *
  *  Divide and conquer method
  *  Time taken in nano seconds -> 71207583
  *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
-
+ *
  *  ****************************************************
-
+ *
  *  Kadane method
  *  Time taken in nano seconds -> 5630833
  *  The output is -> SumAndIndex[l=356582, h=421927, sum=19767]
@@ -151,24 +151,20 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                     |  n = 10^3  |    n = 10^4   |    n = 10^5    |    n = 10^6	|  n = 10^7
- *  Brute force        |  7241250   |    45091667   |    3204621167  |    320847910375  |  27656933123708  
- *  Divide and conquer |  729375    |    1555125    |    9913500     |    71207583      |  680475125
- *  Kadane             |  32167     |    293833     |    2099583     |    5630833       |  20994792
+ *                     |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6	|  n = 10^7
+ *  Brute Force        |  7241250    |    45091667   |    3204621167  |    320847910375  |  27656933123708  
+ *  Divide and Conquer |  729375     |    1555125    |    9913500     |    71207583      |  680475125
+ *  Kadane             |  32167      |    293833     |    2099583     |    5630833       |  20994792
+ *  
  *
- *
+ *  
+ *  Table of time and space complexities of all three approached used to finding the max sub array sum 
+ *  
+ *                     | Time Complexity |  Space Complexity 
+ *  Brute Force        | Theta (n^2)     |  Theta (1)
+ *  Divide and Conquer | Theta (n logn)  |  Theta (log n)  
+ *  Kadane             | Theta (n)       |  Theta (1) 
  *  ------------------------------------------------------------------------------------
- * Problem 1.
- * PROVIDE YOUR WRITTEN RESPONSE. IF THE QUESTION IS A CODING QUESTION JUST PROVIDE YOUR CODE AS SHOWN BELOW.
- *
- * Problem 2.
- *
- * Brute force
- * Divide and conquer
- *
- *
- * Problem 3.
- * PROVIDE YOUR WRITTEN RESPONSE. IF THE QUESTION IS A CODING QUESTION JUST PROVIDE YOUR CODE AS ASKED BELOW.
  *
  *
  *************************************************************************/
@@ -178,14 +174,35 @@ import java.util.Scanner;
 
 public final class SubArraySum {
 
+    // Record type to store the low, high and max-sum of the sub array for a input
     private static record SumAndIndex(int l, int h, int sum) {
     }
 
+    // Global array declaration
     private static int[] arr;
 
+    // This class contains only static functions hence no need to create object
     private SubArraySum() {
     }
 
+    /**
+     * This function calculates the max sub array sub using divide-and-conquer
+     * strategy
+     *
+     * It uses the maxCrossingSum() function to get the max subarray that can be
+     * formed in the region of low to mid to high ie in the 'crossing' region
+     *
+     * It calculate the max sum from the low to mid and
+     * from mid + 1 to high and recursively and it return max
+     * value that it get from the three regions
+     * ie
+     * max(low to mid, mid + 1 to high, low to mid to high)
+     * 
+     * @param l low index value of the max sub array
+     * @param h high index value of the max sub array
+     * @return SumAndIndex record containing the low, high index value and the max
+     *         sub array sum
+     */
     private static SumAndIndex divideAndConquer(final int l, final int h) {
         // base case
         if (l == h)
@@ -207,11 +224,20 @@ public final class SubArraySum {
 
     }
 
+    /**
+     * This function get the max sub array sum that can be formed from
+     * low <- middle -> high
+     * 
+     * @param l low index value of the max sub array
+     * @param h high index value of the max sub array
+     * @param m middle index value of the max sub array
+     * @return SumAndIndex record containing the low, high index value and the max
+     *         sub array sum
+     */
     private static SumAndIndex maxCrossingSum(final int l, final int m, final int h) {
 
-        // calculate the sum from the mid to the left of the array
-        // also get the index from where the starting from l to mid here we find the max
-        // sum
+        // Calculate the max sum value we see when going from
+        // mid to low index of the array
         int sum = 0, lSum = Integer.MIN_VALUE, maxLeft = m;
         for (int i = m; i >= l; i--) {
             sum += arr[i];
@@ -221,7 +247,8 @@ public final class SubArraySum {
             }
         }
 
-        // calculate the sum from mid to the right of the array
+        // Calcute the max sum value we see when going from
+        // mid + 1 to high index of the array
         sum = 0;
         int rSum = Integer.MIN_VALUE, maxRight = m + 1;
         for (int i = m + 1; i <= h; i++) {
@@ -231,10 +258,21 @@ public final class SubArraySum {
                 maxRight = i;
             }
         }
-        // the index and the sum the max crossing sum
+        // the index and the sum of max crossing
         return new SumAndIndex(maxLeft, maxRight, lSum + rSum);
 
     }
+
+    /**
+     * This function get the max sub array sum and the indexes using the kadane
+     * algo which is the most optimal way to calculate the max sub array sum
+     * and it runs in linear time ie theta (n) since for given input of size n
+     * the best and worst case are same due to the fact that it doesnt depend on
+     * the arragement of the input
+     * 
+     * @return SumAndIndex record containing the low, high index value and the max
+     *         sub array sum
+     */
 
     private static SumAndIndex kadane() {
         int maxl = 0, maxr = 0, l = 0, currSum = 0, maxSum = arr[0];
@@ -252,6 +290,14 @@ public final class SubArraySum {
         }
         return new SumAndIndex(maxl, maxr, maxSum);
     }
+
+    /**
+     * This function get the max sub array sum and the indexes using the least
+     * optimal way
+     * 
+     * @return SumAndIndex record containing the low, high index value and the max
+     *         sub array sum
+     */
 
     private static SumAndIndex bruteForce() {
         int maxSum = arr[0], maxL = 0, maxR = 0;
@@ -299,7 +345,6 @@ public final class SubArraySum {
 
     }
 
-    // util functions start from here
     private static void initArray(final int rangeOfNumber) {
 
         final Scanner sc = new Scanner(System.in);
