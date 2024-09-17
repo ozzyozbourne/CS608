@@ -362,6 +362,14 @@ public final class SubArraySum {
 
     }
 
+    /**
+     * This function gets the size of the array from the user and initilizes the
+     * globally declared array to the user input size, fills the array with random
+     * numbers
+     * 
+     * @param rangeOfNumber Range of the number to generate random number from (0 to
+     *                      range of number) - 100
+     */
     private static void initArray(final int rangeOfNumber) {
 
         final Scanner sc = new Scanner(System.in);
