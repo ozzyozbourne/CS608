@@ -159,11 +159,11 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                     |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6	|  n = 10^7
- *  Brute Force        |  7241250    |    45091667   |    3204621167  |    320847910375  |  27656933123708  
- *  Divide and Conquer |  729375     |    1555125    |    9913500     |    71207583      |  680475125
- *  Kadane             |  32167      |    293833     |    2099583     |    5630833       |  20994792
- *  
+ *                           |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7        |  n = 10^8
+ *  Brute Force              |  7241250    |    45091667   |    3204621167  |    320847910375  |  27656933123708  |  N/A
+ *  Divide and Conquer       |  729375     |    1555125    |    9913500     |    71207583      |  680475125       |  N/A
+ *  Kadane                   |  32167      |    293833     |    2099583     |    5630833       |  20994792        | 98480625
+ *  Kadane(less operations)  |  135833     |    541167     |    4628625     |    5304250       |  13314875        | 96493417
  *
  *  
  *  Table of time and space complexities of all three approached used to finding the max sub array sum 
@@ -176,9 +176,21 @@
  *  
  *  Plot Link -> https://colab.research.google.com/drive/1WHdEZiAfjpjjp99AaKnW2autX4mgyC0t?usp=sharing  
  *  
- *  As shown in the chart in google colab the when the input is smaller ie n^3 then there is not 
- *  much difference in the brute force and divide-and-conquer method since for smaller input the constants 
- *  have a larger effect in the runtimes of an algorithm for  
+ *  As shown in the chart in google colab, we can draw the following conclusions 
+ *  For smaller input size ie n^3 or n^3 the difference in runtime of kadane, divide-and-conquer and brutes
+ *  are not perfectly aligning to the theoritcal time complexities for eg for when is input array of size n^3
+ *  the difference in the runtimes of kadane and brute forces is not n^2 and the difference in the runtimes 
+ *  if divide and conquer and brute force is less, this is due of the fact that in the brute force algorithm 
+ *  the constant number of operation are less in comparison with divide and conquer and kadane 
+ *  The nlogn and n appraches are theoritcal faster but they have a higher number of constant operation being 
+ *  performed per each iteration of the loop, since when the input less is smaller ie n^3 or n^4 as shown in the 
+ *  graph the brute force approach is not alot slower, but as we increase the number of input size, the brute 
+ *  force apprach runtime falls in line with the expected runtime of n^2 with n being the input size and we 
+ *  the divide-and-conquer and kadane apprach also performing a lot better than the brute approacha and kadane 
+ *  algorithm performing fasted since it is linear time algorithm and the kadane method with less number of operation
+ *  performed better than for larger input ie n^8 and n^9 indicating that constant operations can skewe the runto,e 
+ *  when the input size is smaller 
+ *  
  *
  *************************************************************************/
 
@@ -312,6 +324,22 @@ public final class SubArraySum {
     }
 
     /**
+     * This it the another kadane algo implementation but with less number of
+     * constant opertations
+     * as it keeps track only of the max and currsum
+     *
+     * @return maxSum
+     */
+    private static int kadaneLessOperations() {
+        int maxSum = arr[0], currSum = 0;
+        for (final int num : arr) {
+            currSum = Math.max(currSum, 0) + num;
+            maxSum = Math.max(currSum, maxSum);
+        }
+        return maxSum;
+    }
+
+    /**
      * This function get the max sub array sum and the indexes using the least
      * optimal way
      * 
@@ -362,6 +390,14 @@ public final class SubArraySum {
         endTime = System.nanoTime();
         System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
         System.out.println("The output is -> " + res);
+        System.out.println("\n****************************************************\n");
+
+        System.out.println("Kadane method less number of operations");
+        startTime = System.nanoTime();
+        int ans = kadaneLessOperations();
+        endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("The output is -> " + ans);
 
     }
 
