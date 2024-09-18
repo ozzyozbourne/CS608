@@ -176,20 +176,28 @@
  *  
  *  Plot Link -> https://colab.research.google.com/drive/1WHdEZiAfjpjjp99AaKnW2autX4mgyC0t?usp=sharing  
  *  
- *  As shown in the chart in google colab, we can draw the following conclusions 
- *  For smaller input size ie n^3 or n^3 the difference in runtime of kadane, divide-and-conquer and brutes
- *  are not perfectly aligning to the theoritcal time complexities for eg for when is input array of size n^3
- *  the difference in the runtimes of kadane and brute forces is not n^2 and the difference in the runtimes 
- *  if divide and conquer and brute force is less, this is due of the fact that in the brute force algorithm 
- *  the constant number of operation are less in comparison with divide and conquer and kadane 
- *  The nlogn and n appraches are theoritcal faster but they have a higher number of constant operation being 
- *  performed per each iteration of the loop, since when the input less is smaller ie n^3 or n^4 as shown in the 
- *  graph the brute force approach is not alot slower, but as we increase the number of input size, the brute 
- *  force apprach runtime falls in line with the expected runtime of n^2 with n being the input size and we 
- *  the divide-and-conquer and kadane apprach also performing a lot better than the brute approacha and kadane 
- *  algorithm performing fasted since it is linear time algorithm and the kadane method with less number of operation
- *  performed better than for larger input ie n^8 and n^9 indicating that constant operations can skewe the runto,e 
- *  when the input size is smaller 
+ *  Conclusion - 
+ *  
+ *  As the inoput size grows the time taken for the finding the max sub array increases
+ *  
+ *  Brute force technique -> worst performing since it checks every possible subarray. 
+ *  Initially when the input size is less then this technique performs only a little bit worse than 
+ *  divide and conquer since the for small input sizes the effect of number of constant 
+ *  operations is greater, but as the input size increase, runtime grows exponentially 
+ *  For larger input the effect of constant operations degrades and the size of input is the become 
+ *  the main bottleneck increasing the runtime exponentially 
+ * 
+ *  Divide and conquer technique -> Performs better then brute force as the input size grows, since it 
+ *  divides the problem into smaller problem and builds the solution recursively, this algo has the worst 
+ *  space complexity since we are using recursive to keep tract of the solutions generated, space complexcity 
+ *  depends on the height of the recursion generated (log n), but performs a lot better than brute force 
+ *   
+ *  Kadande technique -> Performs best of the three since it runs in linear time and has a constant space 
+ *  complexcity, it uses the fact that we can keep on adding the to the sum if positive else make 
+ *  the sum zero, it also has the least number of constant operations it need to perform hence 
+ *  even for smaller input size it out performs the other two algorithms by a huge margin
+ *  and we make it even faster by reducing the number of constant operations need, by only keeping 
+ *  track of the maxsum and currsum
  *  
  *
  *************************************************************************/
