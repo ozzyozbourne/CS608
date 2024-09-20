@@ -23,22 +23,50 @@ public final class BST {
     }
 
     public static void main(final String... args) {
-        final int range = getRange(args);
-        final TreeNode root = generateRightSkewedBST(range);
-        System.out.println(InorderTraversal(root));
-        System.out.println(PreorderTraversal(root));
-        System.out.println(PostorderTraversal(root));
-
+        final int nodeCount = getNodeCount(args);
+        final TreeNode root = generateBalancedBST(generateRightSkewedBST(nodeCount), nodeCount);
+        System.out.println("Inorder  -> " + InorderTraversal(root));
+        System.out.println("Preorder -> " + PreorderTraversal(root));
+        System.out.println("PreOrder -> " + PostorderTraversal(root));
     }
 
-    private static TreeNode generateRightSkewedBST(final int range) {
+    private static TreeNode generateRightSkewedBST(final int nodeCount) {
         final TreeNode dummy = new TreeNode();
         var curr = dummy;
-        for (int i = 1; i <= range; i++) {
+        for (int i = 1; i <= nodeCount; i++) {
             curr.right = new TreeNode(i);
             curr = curr.right;
         }
         return dummy.right;
+    }
+
+    private static TreeNode generateBalancedBST(final TreeNode root, final int nodeCount) {
+        final TreeNode dummy = new TreeNode(-1, null, root);
+        var perfectTreeNodeCount = getPerfectTreeNodeCount(nodeCount);
+        rotateLeftByAmount(dummy, nodeCount - perfectTreeNodeCount);
+        while (perfectTreeNodeCount > 1) {
+            perfectTreeNodeCount /= 2;
+            rotateLeftByAmount(dummy, perfectTreeNodeCount);
+        }
+        return dummy.right;
+    }
+
+    private static int getPerfectTreeNodeCount(final double count) {
+        return (int) Math.pow(2, (Math.floor(Math.log(count + 1) / Math.log(2)))) - 1;
+    }
+
+    private static void rotateLeft(final TreeNode parent, final TreeNode node) {
+        final TreeNode temp = node.right;
+        node.right = temp.left;
+        temp.left = node;
+        parent.right = temp;
+    }
+
+    private static void rotateLeftByAmount(TreeNode root, final int amount) {
+        for (int i = 0; i < amount; i++) {
+            rotateLeft(root, root.right);
+            root = root.right;
+        }
     }
 
     private static List<Integer> InorderTraversal(TreeNode root) {
@@ -111,7 +139,7 @@ public final class BST {
         return res;
     }
 
-    private static int getRange(final String... args) {
+    private static int getNodeCount(final String... args) {
         if (args.length == 0)
             throw new RuntimeException("Please enter the range of x");
         return Integer.valueOf(args[0]);
