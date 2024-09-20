@@ -88,6 +88,9 @@ import java.util.Collections;
 
 public final class BST {
 
+    /**
+     * A class representing a node in Binary Tree
+     */
     private static final class TreeNode {
         int val;
         TreeNode left, right;
@@ -117,6 +120,14 @@ public final class BST {
     /**************************************************************************************************
      ************************** DSW IMPLEMENTATION BEGIN HERE *****************************************
      ***************************************************************************************************/
+
+    /****
+     *
+     *
+     * @param root
+     * @param nodeCount
+     * @return
+     */
     private static TreeNode generateBalancedBST(final TreeNode root, final int nodeCount) {
         final TreeNode dummy = new TreeNode(-1, null, root);
         var perfectTreeNodeCount = getPerfectTreeNodeCount(nodeCount);
@@ -128,10 +139,22 @@ public final class BST {
         return dummy.right;
     }
 
+    /****
+     *
+     *
+     * @param count
+     * @return
+     */
     private static int getPerfectTreeNodeCount(final double count) {
         return (int) Math.pow(2, (Math.floor(Math.log(count + 1) / Math.log(2)))) - 1;
     }
 
+    /****
+     *
+     *
+     * @param parent
+     * @param node
+     */
     private static void rotateLeft(final TreeNode parent, final TreeNode node) {
         final TreeNode temp = node.right;
         node.right = temp.left;
@@ -139,6 +162,12 @@ public final class BST {
         parent.right = temp;
     }
 
+    /****
+     *
+     *
+     * @param root
+     * @param amount
+     */
     private static void rotateLeftByAmount(TreeNode root, final int amount) {
         for (int i = 0; i < amount; i++) {
             rotateLeft(root, root.right);
@@ -154,6 +183,13 @@ public final class BST {
      ************************** TREE TRAVERSAL FUNCTIONS BEGIN FROM HERE ******************************
      ******************** USING MORRIS TRAVERSAL TO OPTIMIZE SPACE COMPLEXCITY ************************
      ***************************************************************************************************/
+
+    /****
+     *
+     *
+     * @param root
+     * @return
+     */
     private static List<Integer> InorderTraversal(TreeNode root) {
         final List<Integer> res = new ArrayList<>();
         while (root != null) {
@@ -177,6 +213,12 @@ public final class BST {
         return res;
     }
 
+    /****
+     *
+     *
+     * @param root
+     * @return
+     */
     private static List<Integer> PreorderTraversal(TreeNode root) {
         final List<Integer> res = new ArrayList<>();
         while (root != null) {
@@ -200,6 +242,12 @@ public final class BST {
         return res;
     }
 
+    /****
+     *
+     *
+     * @param root
+     * @return
+     */
     private static List<Integer> PostorderTraversal(TreeNode root) {
         final List<Integer> res = new ArrayList<>();
         while (root != null) {
@@ -232,6 +280,12 @@ public final class BST {
      ************************** UTILITY FUNCTIONS BEGING HERE *****************************************
      ***************************************************************************************************/
 
+    /****
+     *
+     *
+     * @param nodeCount
+     * @return
+     */
     private static TreeNode generateRightSkewedBST(final int nodeCount) {
         final TreeNode dummy = new TreeNode();
         var curr = dummy;
@@ -242,6 +296,12 @@ public final class BST {
         return dummy.right;
     }
 
+    /****
+     *
+     *
+     * @param args
+     * @return
+     */
     private static int getNodeCount(final String... args) {
         if (args.length == 0)
             throw new RuntimeException("Please enter the range of x");
