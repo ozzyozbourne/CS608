@@ -1,3 +1,87 @@
+
+/*************************************************************************
+ *
+ *  Pace University
+ *  Fall 2024
+ *  Algorithms and Computing Theory
+ *
+ *  Course: CS 608
+ *  Team members:
+ *  1) Adam Miftahelidrissi
+ *  2) Marlen Cuevas Duarte
+ *  3) Osaid Khan
+ *
+ *  Other collaborators: None.
+ *  References:
+ *  1) https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/solutions/5791984/on-dsw-soln/ 
+ *  2) https://leetcode.com/problems/binary-tree-preorder-traversal/solutions/5690881/o-n-morris-traversal-soln/
+ *  3) https://leetcode.com/problems/binary-tree-inorder-traversal/solutions/5629922/o-n-morris-traversal-soln/
+ *  4) https://leetcode.com/problems/binary-tree-postorder-traversal/solutions/5704500/o-n-morris-traveral-soln/
+ *
+ *  Assignment No.: 2
+ *
+ *  Problem ->
+ *  The way that data is stored in a Binary Search Tree (BST) depends on the order in which the values are inserted.  
+ *  Create one right skewed bst (S) and one balanced bst (R).  
+ *  The purpose of this assignment is to highlight this striking difference in running time of searchig a value 
+ *  skewed BST and in a balanced BST, both with a large number of nodes, and measuring the execution time 
+ *  of search
+ *
+ *  Input and Output ->
+ *  
+ *  -----------------------------------------------------------------
+ *  FIRST RUN WITH THE MAX INPUT SIZE IE N^7
+ *
+ *  ------------------------------------------------------------------- 
+ *  ---------------------------------------------------------------------- 
+ *
+ *  SECOND RUN WITH THE INPUT SIZE OF N^6
+ *
+ *  -----------------------------------------------------------------------
+ *  ------------------------------------------------------------------------
+ *  
+ *  THIRD RUN WITH THE INPUT SIZE OF N^5
+ *
+ *  -------------------------------------------------------------------------
+ *  ------------------------------------------------------------------------------
+ *  
+ *  FOURTH RUN WITH INPUT SIZE OF N^4 
+ *
+ *  ------------------------------------------------------------------------------
+ *  ----------------------------------------------------------------------------------
+ *  
+ *  FIFTH RUN WITH INPUT SIZE OF N^3
+ *
+ *  ----------------------------------------------------------------------------------
+ *  -----------------------------------------------------------------------------------
+ *  
+ *  OBSERVATIONS ->  
+ *
+ *  -----------------------------------------------------------------------------------
+ *
+ *  Table with running times(in nanoseconds) measured for different values of 'n'
+ *
+ *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7        |  n = 10^8
+ *  Right skewed BST     |             |               |                |                  |                  |  
+ *  Balanced BST         |             |               |                |                  |                  |  
+ *                       |             |               |                |                  |                  | 
+ *
+ *  
+ *  Table of time and space complexities of all approaches used
+ *  
+ *                     | Time Complexity |  Space Complexity 
+ *  Right skewed BST   |                 |  
+ *  Balanced BST       |                 |    
+ *                     |                 |  
+ *
+ *  ------------------------------------------------------------------------------------
+ *  
+ *  Conclusion - 
+ *  
+ *    
+ *
+ *************************************************************************/
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
