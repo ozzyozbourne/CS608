@@ -30,16 +30,9 @@ public final class BST {
         System.out.println("PreOrder -> " + PostorderTraversal(root));
     }
 
-    private static TreeNode generateRightSkewedBST(final int nodeCount) {
-        final TreeNode dummy = new TreeNode();
-        var curr = dummy;
-        for (int i = 1; i <= nodeCount; i++) {
-            curr.right = new TreeNode(i);
-            curr = curr.right;
-        }
-        return dummy.right;
-    }
-
+    /**************************************************************************************************
+     ************************** DSW IMPLEMENTATION BEGIN HERE *****************************************
+     ***************************************************************************************************/
     private static TreeNode generateBalancedBST(final TreeNode root, final int nodeCount) {
         final TreeNode dummy = new TreeNode(-1, null, root);
         var perfectTreeNodeCount = getPerfectTreeNodeCount(nodeCount);
@@ -69,6 +62,14 @@ public final class BST {
         }
     }
 
+    /**************************************************************************************************
+     ************************** DSW IMPLEMENTATION END HERE *******************************************
+     ***************************************************************************************************/
+
+    /**************************************************************************************************
+     ************************** TREE TRAVERSAL FUNCTIONS BEGIN FROM HERE ******************************
+     ******************** USING MORRIS TRAVERSAL TO OPTIMIZE SPACE COMPLEXCITY ************************
+     ***************************************************************************************************/
     private static List<Integer> InorderTraversal(TreeNode root) {
         final List<Integer> res = new ArrayList<>();
         while (root != null) {
@@ -137,6 +138,24 @@ public final class BST {
         }
         Collections.reverse(res);
         return res;
+    }
+
+    /**************************************************************************************************
+     ************************** TREE TRAVERSAL FUNCTIONS END HERE *************************************
+     ***************************************************************************************************/
+
+    /**************************************************************************************************
+     ************************** UTILITY FUNCTIONS BEGING HERE *****************************************
+     ***************************************************************************************************/
+
+    private static TreeNode generateRightSkewedBST(final int nodeCount) {
+        final TreeNode dummy = new TreeNode();
+        var curr = dummy;
+        for (int i = 1; i <= nodeCount; i++) {
+            curr.right = new TreeNode(i);
+            curr = curr.right;
+        }
+        return dummy.right;
     }
 
     private static int getNodeCount(final String... args) {
