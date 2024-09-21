@@ -29,31 +29,6 @@
  *
  *  Input and Output ->
  *  
- *  -----------------------------------------------------------------
- *  FIRST RUN WITH THE MAX INPUT SIZE IE N^7
- *
- *  ------------------------------------------------------------------- 
- *  ---------------------------------------------------------------------- 
- *
- *  SECOND RUN WITH THE INPUT SIZE OF N^6
- *
- *  -----------------------------------------------------------------------
- *  ------------------------------------------------------------------------
- *  
- *  THIRD RUN WITH THE INPUT SIZE OF N^5
- *
- *  -------------------------------------------------------------------------
- *  ------------------------------------------------------------------------------
- *  
- *  FOURTH RUN WITH INPUT SIZE OF N^4 
- *
- *  ------------------------------------------------------------------------------
- *  ----------------------------------------------------------------------------------
- *  
- *  FIFTH RUN WITH INPUT SIZE OF N^3
- *
- *  ----------------------------------------------------------------------------------
- *  -----------------------------------------------------------------------------------
  *  
  *  OBSERVATIONS ->  
  *
@@ -61,10 +36,10 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7        |  n = 10^8
- *  Right skewed BST     |             |               |                |                  |                  |  
- *  Balanced BST         |             |               |                |                  |                  |  
- *                       |             |               |                |                  |                  | 
+ *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *  Right skewed BST     |             |               |                |                  |                    
+ *  Balanced BST         |             |               |                |                  |                    
+ *                       |             |               |                |                  |                   
  *
  *  
  *  Table of time and space complexities of all approaches used
@@ -110,11 +85,46 @@ public final class BST {
     }
 
     public static void main(final String... args) {
-        final int nodeCount = getNodeCount(args);
-        final TreeNode root = generateBalancedBST(generateRightSkewedBST(nodeCount), nodeCount);
-        System.out.println("Inorder  -> " + InorderTraversal(root));
-        System.out.println("Preorder -> " + PreorderTraversal(root));
-        System.out.println("PreOrder -> " + PostorderTraversal(root));
+        final List<Integer> nodeCountList = getNodeCountList(args);
+        for (final int nodeCount : nodeCountList) {
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println("\nTesting search time of skewed and balancedBST of size -> " + nodeCount + "\n");
+            System.out.println("------------------------------------------------------------------------------");
+
+            final TreeNode balancedBST = generateBalancedBST(generateRightSkewedBST(nodeCount), nodeCount);
+            final TreeNode rightSkewedBST = generateRightSkewedBST(nodeCount);
+            searchLastValue(rightSkewedBST, balancedBST, nodeCount);
+            searchValueNotInBST(rightSkewedBST, balancedBST, nodeCount + 1);
+            searchMiddleValue(rightSkewedBST, balancedBST, nodeCount / 2);
+
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println("\nTesting completed for skewed and balancedBST of size -> " + nodeCount + "\n");
+            System.out.println("------------------------------------------------------------------------------");
+
+        }
+    }
+
+    private static boolean recursiveSearch(final TreeNode root, final int key) {
+        return switch (root) {
+            case null -> false;
+            default -> switch (Integer.compare(root.val, key)) {
+                case 1 -> recursiveSearch(root.left, key);
+                case -1 -> recursiveSearch(root.right, key);
+                default -> true;
+            };
+        };
+    }
+
+    private static boolean iterativeSearch(TreeNode root, final int key) {
+        while (root != null) {
+            if (root.val == key)
+                return true;
+            else if (root.val > key)
+                root = root.left;
+            else
+                root = root.right;
+        }
+        return false;
     }
 
     /**************************************************************************************************
@@ -302,10 +312,76 @@ public final class BST {
      * @param args
      * @return
      */
-    private static int getNodeCount(final String... args) {
+    private static List<Integer> getNodeCountList(final String... args) {
         if (args.length == 0)
             throw new RuntimeException("Please enter the range of x");
-        return Integer.valueOf(args[0]);
+        final List<Integer> input = new ArrayList<>();
+        for (final String arg : args)
+            input.add(Integer.parseInt(arg));
+        return input;
+    }
+
+    private static void searchLastValue(final TreeNode rightSkewedBST, final TreeNode balancedBST,
+            final int key) {
+        System.out.println("****************************************************\n");
+        System.out.println("Searching last value in Right Skewed BST -> " + key);
+        var startTime = System.nanoTime();
+        var res = iterativeSearch(rightSkewedBST, key);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
+        System.out.println("Searching last value in balanced BST-> " + key);
+        startTime = System.nanoTime();
+        res = iterativeSearch(balancedBST, key);
+        endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
+    }
+
+    private static void searchValueNotInBST(final TreeNode rightSkewedBST, final TreeNode balancedBST,
+            final int key) {
+        System.out.println("****************************************************\n");
+        System.out.println("Searching a value not present in the Right Skewed BST -> " + key);
+        var startTime = System.nanoTime();
+        var res = iterativeSearch(rightSkewedBST, key);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
+        System.out.println("Searching a value not present in the Balanced BST-> " + key);
+        startTime = System.nanoTime();
+        res = iterativeSearch(balancedBST, key);
+        endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
+    }
+
+    private static void searchMiddleValue(final TreeNode rightSkewedBST, final TreeNode balancedBST,
+            final int key) {
+        System.out.println("****************************************************\n");
+        System.out.println("Searching a value in the middle of input range in Right Skewed BST -> " + key);
+        var startTime = System.nanoTime();
+        var res = iterativeSearch(rightSkewedBST, key);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
+        System.out.println("Searching a value in the middle of input range in the Balanced BST-> " + key);
+        startTime = System.nanoTime();
+        res = iterativeSearch(balancedBST, key);
+        endTime = System.nanoTime();
+        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+        System.out.println("Value found -> " + res);
+        System.out.println("\n****************************************************\n");
+
     }
 
 }
