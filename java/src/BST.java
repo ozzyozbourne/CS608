@@ -455,3 +455,340 @@ public final class BST {
     }
 
 }
+
+/*******************************************************************************
+ * ********************** INPUT AND OUTPUT ************************************
+ *
+ *
+ * ozzy@osaids-MacBook-Air src % java BST 1000 10000 100000 1000000 10000000
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing search time of skewed and balancedBST of size -> 1000
+ * 
+ * ------------------------------------------------------------------------------
+ ****************************************************
+ * 
+ * Searching first value of input range in Right Skewed BST -> 1
+ * Time taken in nano seconds -> 1000
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching first value of input range in the Balanced BST-> 1
+ * Time taken in nano seconds -> 791
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching middle value of input range in Right Skewed BST -> 500
+ * Time taken in nano seconds -> 5292
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching middle value of input range in the Balanced BST-> 500
+ * Time taken in nano seconds -> 375
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching last value in Right Skewed BST -> 1000
+ * Time taken in nano seconds -> 10125
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching last value in balanced BST-> 1000
+ * Time taken in nano seconds -> 542
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching a value not present in the Right Skewed BST -> 1001
+ * Time taken in nano seconds -> 10542
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * Searching a value not present in the Balanced BST-> 1001
+ * Time taken in nano seconds -> 333
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for skewed and balancedBST of size -> 1000
+ * 
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing search time of skewed and balancedBST of size -> 10000
+ * 
+ * ------------------------------------------------------------------------------
+ ****************************************************
+ * 
+ * Searching first value of input range in Right Skewed BST -> 1
+ * Time taken in nano seconds -> 125
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching first value of input range in the Balanced BST-> 1
+ * Time taken in nano seconds -> 416
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching middle value of input range in Right Skewed BST -> 5000
+ * Time taken in nano seconds -> 49375
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching middle value of input range in the Balanced BST-> 5000
+ * Time taken in nano seconds -> 333
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching last value in Right Skewed BST -> 10000
+ * Time taken in nano seconds -> 97417
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching last value in balanced BST-> 10000
+ * Time taken in nano seconds -> 416
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching a value not present in the Right Skewed BST -> 10001
+ * Time taken in nano seconds -> 97125
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * Searching a value not present in the Balanced BST-> 10001
+ * Time taken in nano seconds -> 250
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for skewed and balancedBST of size -> 10000
+ * 
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing search time of skewed and balancedBST of size -> 100000
+ * 
+ * ------------------------------------------------------------------------------
+ ****************************************************
+ * 
+ * Searching first value of input range in Right Skewed BST -> 1
+ * Time taken in nano seconds -> 208
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching first value of input range in the Balanced BST-> 1
+ * Time taken in nano seconds -> 583
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching middle value of input range in Right Skewed BST -> 50000
+ * Time taken in nano seconds -> 413125
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching middle value of input range in the Balanced BST-> 50000
+ * Time taken in nano seconds -> 500
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching last value in Right Skewed BST -> 100000
+ * Time taken in nano seconds -> 227250
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching last value in balanced BST-> 100000
+ * Time taken in nano seconds -> 625
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching a value not present in the Right Skewed BST -> 100001
+ * Time taken in nano seconds -> 230042
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * Searching a value not present in the Balanced BST-> 100001
+ * Time taken in nano seconds -> 333
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for skewed and balancedBST of size -> 100000
+ * 
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing search time of skewed and balancedBST of size -> 1000000
+ * 
+ * ------------------------------------------------------------------------------
+ ****************************************************
+ * 
+ * Searching first value of input range in Right Skewed BST -> 1
+ * Time taken in nano seconds -> 416
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching first value of input range in the Balanced BST-> 1
+ * Time taken in nano seconds -> 1500
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching middle value of input range in Right Skewed BST -> 500000
+ * Time taken in nano seconds -> 734625
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching middle value of input range in the Balanced BST-> 500000
+ * Time taken in nano seconds -> 5125
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching last value in Right Skewed BST -> 1000000
+ * Time taken in nano seconds -> 1880459
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching last value in balanced BST-> 1000000
+ * Time taken in nano seconds -> 1875
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching a value not present in the Right Skewed BST -> 1000001
+ * Time taken in nano seconds -> 1448583
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * Searching a value not present in the Balanced BST-> 1000001
+ * Time taken in nano seconds -> 708
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for skewed and balancedBST of size -> 1000000
+ * 
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing search time of skewed and balancedBST of size -> 10000000
+ * 
+ * ------------------------------------------------------------------------------
+ ****************************************************
+ * 
+ * Searching first value of input range in Right Skewed BST -> 1
+ * Time taken in nano seconds -> 750
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching first value of input range in the Balanced BST-> 1
+ * Time taken in nano seconds -> 4167
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching middle value of input range in Right Skewed BST -> 5000000
+ * Time taken in nano seconds -> 39010209
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching middle value of input range in the Balanced BST-> 5000000
+ * Time taken in nano seconds -> 3541
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching last value in Right Skewed BST -> 10000000
+ * Time taken in nano seconds -> 21926750
+ * Value found -> true
+ ****************************************************
+ * 
+ * 
+ * Searching last value in balanced BST-> 10000000
+ * Time taken in nano seconds -> 28500
+ * Value found -> true
+ ****************************************************
+ ****************************************************
+ * 
+ * 
+ * 
+ * Searching a value not present in the Right Skewed BST -> 10000001
+ * Time taken in nano seconds -> 19606750
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * Searching a value not present in the Balanced BST-> 10000001
+ * Time taken in nano seconds -> 3333
+ * Value found -> false
+ ****************************************************
+ * 
+ * 
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for skewed and balancedBST of size -> 10000000
+ * 
+ * ------------------------------------------------------------------------------
+ ******************************************************************************/
