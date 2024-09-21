@@ -37,10 +37,10 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed BST     |             |               |                |                  |                    
- *  Balanced BST         |             |               |                |                  |                    
- *                       |             |               |                |                  |                   
+ *  First Value          |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *
+ *  Right skewed BST     |  1000       |    125        |    208         |    416           |  750                  
+ *  Balanced BST         |  791        |    416        |    583         |    1500          |  4167                  
  *
  *
  *
@@ -50,10 +50,10 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed BST     |             |               |                |                  |                    
- *  Balanced BST         |             |               |                |                  |                    
- *                       |             |               |                |                  |                   
+ *  Middle value         |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *  
+ *  Right skewed BST     |  5292       |    49375      |    413125      |    734625        |  39010209                   
+ *  Balanced BST         |  375        |    333        |    500         |    5125          |  3541                  
  *
  *
  *
@@ -63,10 +63,10 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed BST     |             |               |                |                  |                    
- *  Balanced BST         |             |               |                |                  |                    
- *                       |             |               |                |                  |                   
+ *  Last Value           |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *
+ *  Right skewed BST     |  10125      |    97417      |    227250      |    1880459       |  21926750                  
+ *  Balanced BST         |  542        |    416        |    625         |    1875          |  28500                  
  *
  *
  *
@@ -76,10 +76,10 @@
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed BST     |             |               |                |                  |                    
- *  Balanced BST         |             |               |                |                  |                    
- *                       |             |               |                |                  |                   
+ *  Value not in Tree    |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *
+ *  Right skewed BST     |  10542      |    97125      |    230042      |    1448583       |  19606750                  
+ *  Balanced BST         |  333        |    250        |    333         |    708           |  3333                  
  * 
  *
  *
