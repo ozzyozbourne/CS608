@@ -121,6 +121,7 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public final class BST {
 
@@ -473,6 +474,118 @@ public final class BST {
 
     }
 
+    /**************************************************************************************************
+     ************************** TREE TRAVERSAL FUNCTIONS BEGIN FROM HERE ******************************
+     ******************** USING MORRIS TRAVERSAL TO OPTIMIZE SPACE COMPLEXCITY ************************
+     * 
+     * USE TRAVERSAL TO CONFIRM DSW IMPLEMENTATION GENERATES BALANCE BST FROM RIGHT
+     * SKEWED TREE
+     *
+     **/
+
+    /****
+     * This function gives the inorder traversal using right threaded binary tree
+     * ie before visting the left node to the left rightmost node and create a link
+     * to return back to current node
+     * morris traversal technique
+     *
+     * @param root root of the bst
+     * @return list containing in-order traversal values
+     */
+    private static List<Integer> InorderTraversal(TreeNode root) {
+        final List<Integer> res = new ArrayList<>();
+        while (root != null) {
+            if (root.left != null) {
+                var pre = root.left;
+                while (pre.right != null && pre.right != root)
+                    pre = pre.right;
+                if (pre.right != null) {
+                    res.add(root.val);
+                    pre.right = null;
+                    root = root.right;
+                } else {
+                    pre.right = root;
+                    root = root.left;
+                }
+            } else {
+                res.add(root.val);
+                root = root.right;
+            }
+        }
+        return res;
+    }
+
+    /****
+     * This function gives the inorder traversal using right threaded binary tree
+     * ie before visting the left node to the left rightmost node and create a link
+     * to return back to current node
+     * morris traversal technique
+     *
+     * @param root root of the bst
+     * @return list containing pre-order traversal values
+     */
+    private static List<Integer> PreorderTraversal(TreeNode root) {
+        final List<Integer> res = new ArrayList<>();
+        while (root != null) {
+            if (root.left != null) {
+                var pre = root.left;
+                while (pre.right != null && pre.right != root)
+                    pre = pre.right;
+                if (pre.right != null) {
+                    pre.right = null;
+                    root = root.right;
+                } else {
+                    res.add(root.val);
+                    pre.right = root;
+                    root = root.left;
+                }
+            } else {
+                res.add(root.val);
+                root = root.right;
+            }
+        }
+        return res;
+    }
+
+    /****
+     * This function gives the postorder traversal using left threaded binary tree
+     * since post order is opposite + reverse of preorder ie
+     * pre order -> root left right
+     * post order -> left right root or reverse of (root right left)
+     * since create left threads ie before visiting the right side
+     * create a thread from its leftmost side to the current node
+     * and reverse the values in the end
+     * morris traversal technique
+     *
+     * @param root root of the bst
+     * @return list containing post-order traversal values
+     */
+    private static List<Integer> PostorderTraversal(TreeNode root) {
+        final List<Integer> res = new ArrayList<>();
+        while (root != null) {
+            if (root.right != null) {
+                var pre = root.right;
+                while (pre.left != null && pre.left != root)
+                    pre = pre.left;
+                if (pre.left != null) {
+                    pre.left = null;
+                    root = root.left;
+                } else {
+                    res.add(root.val);
+                    pre.left = root;
+                    root = root.right;
+                }
+            } else {
+                res.add(root.val);
+                root = root.left;
+            }
+        }
+        Collections.reverse(res);
+        return res;
+    }
+    /**************************************************************************************************
+     ************************** TREE TRAVERSAL FUNCTIONS END HERE *************************************
+     ***************************************************************************************************/
 }
 
 /*******************************************************************************
