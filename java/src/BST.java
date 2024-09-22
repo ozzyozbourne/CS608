@@ -143,6 +143,13 @@ public final class BST {
         }
     }
 
+    /**
+     * This function searches a given key iterative in the bst
+     *
+     * @param root A bst
+     * @param key  value to be searched in the bst
+     * @return boolean
+     */
     private static boolean iterativeSearch(TreeNode root, final int key) {
         while (root != null) {
             if (root.val == key)
@@ -156,7 +163,8 @@ public final class BST {
     }
 
     /**************************************************************************************************
-     ************************** DSW IMPLEMENTATION BEGIN HERE *****************************************
+     ************************** DSW IMPLEMENTATION BEGIN HERE
+     * *****************************************
      ***************************************************************************************************/
 
     /****
@@ -297,10 +305,11 @@ public final class BST {
      ***************************************************************************************************/
 
     /****
-     *
+     * This functions generates a right skewed tree with
+     * Values from 1 to n inclusive
      *
      * @param nodeCount
-     * @return
+     * @return A right skewed tree
      */
     private static TreeNode generateRightSkewedBST(final int nodeCount) {
         final TreeNode dummy = new TreeNode();
@@ -313,10 +322,11 @@ public final class BST {
     }
 
     /****
+     * This function get the user input node count number
+     * and stores then in a list
      *
-     *
-     * @param args
-     * @return
+     * @param args Arguments passed to the main method
+     * @return A list of nodes for which we have to test search
      */
     private static List<Integer> getNodeCountList(final String... args) {
         if (args.length == 0)
@@ -327,6 +337,13 @@ public final class BST {
         return input;
     }
 
+    /**
+     * This function searched key in the both the BST
+     *
+     * @param rightSkewedBST A right skewed BST
+     * @param balancedBST    A balancesBST
+     * @param key            Last value of the input sequence
+     */
     private static void searchLastValue(final TreeNode rightSkewedBST, final TreeNode balancedBST,
             final int key) {
         System.out.println("****************************************************\n");
@@ -348,6 +365,13 @@ public final class BST {
 
     }
 
+    /**
+     * This function searched key in the both the BST
+     *
+     * @param rightSkewedBST A right skewed BST
+     * @param balancedBST    A balancesBST
+     * @param key            value not in input the sequence ie (n + 1)
+     */
     private static void searchValueNotInBST(final TreeNode rightSkewedBST, final TreeNode balancedBST,
             final int key) {
         System.out.println("****************************************************\n");
@@ -369,6 +393,13 @@ public final class BST {
 
     }
 
+    /**
+     * This function searched key in the both the BST
+     *
+     * @param rightSkewedBST A right skewed BST
+     * @param balancedBST    A balancesBST
+     * @param key            middle value of the input Sequence
+     */
     private static void searchMiddleValue(final TreeNode rightSkewedBST, final TreeNode balancedBST,
             final int key) {
         System.out.println("****************************************************\n");
@@ -390,6 +421,13 @@ public final class BST {
 
     }
 
+    /**
+     * This function searched key in the both the BST
+     *
+     * @param rightSkewedBST A right skewed BST
+     * @param balancedBST    A balancesBST
+     * @param key            first value of the input Sequence
+     */
     private static void searchFirstValue(final TreeNode rightSkewedBST, final TreeNode balancedBST,
             final int key) {
         System.out.println("****************************************************\n");
