@@ -44,19 +44,12 @@
  *
  *
  *
- *
- *
- *
- *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *  Middle value         |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
  *  
  *  Right skewed BST     |  5292       |    49375      |    413125      |    734625        |  39010209                   
  *  Balanced BST         |  375        |    333        |    500         |    5125          |  3541                  
- *
- *
- *
  *
  *
  *
@@ -71,9 +64,6 @@
  *
  *
  *
- *
- *
- *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *  Value not in Tree    |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
@@ -84,15 +74,16 @@
  *
  *
  *
- *
- *
- *
- *  Table of time and space complexities of all approaches used
+ *  Table of time and space complexities of search operations
  *  
- *                     | Time Complexity |  Space Complexity 
- *  Right skewed BST   |                 |  
- *  Balanced BST       |                 |    
- *                     |                 |  
+ *                     | Time Complexity          |  Space Complexity 
+ *  Right skewed BST   | best-case Omega (1)      |  theta (1)
+ *                       item is root 
+ *                       Worst-case O (n)
+ *                       item is last element   
+ *                       Average case theta (n)
+ *  
+ *  Balanced BST       |  theta (log n)          |  theta (1)  
  *
  *
  *
@@ -106,7 +97,6 @@
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public final class BST {
 
@@ -153,17 +143,6 @@ public final class BST {
         }
     }
 
-    private static boolean recursiveSearch(final TreeNode root, final int key) {
-        return switch (root) {
-            case null -> false;
-            default -> switch (Integer.compare(root.val, key)) {
-                case 1 -> recursiveSearch(root.left, key);
-                case -1 -> recursiveSearch(root.right, key);
-                default -> true;
-            };
-        };
-    }
-
     private static boolean iterativeSearch(TreeNode root, final int key) {
         while (root != null) {
             if (root.val == key)
@@ -181,11 +160,36 @@ public final class BST {
      ***************************************************************************************************/
 
     /****
-     *
+     * This function is driver function for the DSW implementation
+     * This taken in a right skewed bst ie Vine or backbone tree then performs
+     * neccessary left rotation make the a balanced bst
+     * This uses a dummy node right pointer as the attachment from which to performs
+     * a left rotation
+     * Since in a balanced BST the different in the height of the tree
+     * cannot exceed 1
+     * So first we get the count of the perfect tree ie we get the node count
+     * of the maximum level that we can fill for instance if the node count is 7
+     * that we can form a perfect tree of level 3 ie all leafs are at the same
+     * height, but that might not be the case since say for the 4 level to be
+     * completed filled we will need 8 more leafs ie log2 (nodecount + 1) = 4
+     * but if we have 10 leaves the last level will have 3 leaves nodes, will the
+     * height diff of the leaves of the bst will 1
+     * This building the level of the tree is done by the function
+     * rotateleftbyamount
+     * this function is run a loop and it take the amount count then is does the
+     * left rotationn by that amount so, each cal to this function build level
+     * by performing the left rotation from the parent and the parents right
+     * and moving the parent to is right node and does the left rotation where
+     * fist we do the left rotation by the difference of total node - perfect node
+     * if this difference is not zero, then the generated bst will have a height
+     * diff of
+     * 1 and then in the while loop will build the perferct tree levels
+     * and since the each time we do the rotation from the dummy and dummy,right
+     * since the balanced bst is attached to dummies right
      *
      * @param root
      * @param nodeCount
-     * @return
+     * @return A balanced BST
      */
     private static TreeNode generateBalancedBST(final TreeNode root, final int nodeCount) {
         final TreeNode dummy = new TreeNode(-1, null, root);
@@ -199,16 +203,56 @@ public final class BST {
     }
 
     /****
+     * calculate the amount of nodes present in the perfect trees for eg
+     * say we have the node count as 10 then this function will first calculate
+     * log2 of the nodecount + 1 since numbers of node in the tree is off by 1
+     * due to fact the root is 1
+     * so first we get the floor of log2 of nodecount + 1 ie log2 floor (11)
+     * and this will be 3 since 2 ^ 3 = 8
+     * so now we now the 3 level of the tree will completed completely
+     * ie level 0, 1 and 3 will have full nodes since the total number of
+     * node in this example is 10
+     * Now we know the max filled level, so now calculate the number of nodes in
+     * these level which will 2 ^ 3 -1 (since root is 1)
+     * so we get the perfect node count as 7
+     * hence the fourth level will have 3 node
+     * so we return the perfect node count ie 7 since we already have the
+     * total number of nodes
      *
-     *
-     * @param count
-     * @return
+     * @param count number of nodes in the perfect tree
+     * @return count of the nodes that will be present in the perfect tree
      */
     private static int getPerfectTreeNodeCount(final double count) {
         return (int) Math.pow(2, (Math.floor(Math.log(count + 1) / Math.log(2)))) - 1;
     }
 
     /****
+     * This function does the left rotation
+     * the visual for this is
+     * say we have a tree like
+     * ****** dummy
+     * *********** \
+     * ************ node1
+     * ***************** \
+     * ****************** node2
+     * so what is function it holds the dummy node
+     * and push the node1.right ie node2 upwards
+     * the best to think if we take a rorasy bead that is right skewed
+     * and we hold it from top (dummy) and push it from the bottom (node2 )
+     * then the node 1 will be pushed to the left node2
+     *
+     * so applying this function to the above tree now the tree will look
+     * like
+     * ****************dummy
+     * *********************\
+     * **********************node2
+     * ******************** /*****\
+     * ******************node1
+     *
+     * so we attahch the dummyies right to the node2
+     * and node2 left will have node1 and
+     * since and subtree present in the node2 left
+     * will now be attached to node1.right
      *
      *
      * @param parent
@@ -222,10 +266,20 @@ public final class BST {
     }
 
     /****
+     * this function builds a tree level the amount of rotation done by
+     * this function will generated the same number of nodes that level
+     * for example we have number of nodes as 10 so there will be 3 nodes
+     * in the last level so we will do three left rotation alternatively
+     * ie first will be done from dummy.right
+     * and now dummy will have a new right
+     * so we move down to the right and then do rotation there
+     * and so on..
      *
-     *
-     * @param root
-     * @param amount
+     * @param root   holder root from there the rotation will happen ie
+     *               it right->right will now be its right and its prevous
+     *               right now will be attach to the right->right.left
+     * @param amount the number of left rotations to be performed
+     * 
      */
     private static void rotateLeftByAmount(TreeNode root, final int amount) {
         for (int i = 0; i < amount; i++) {
@@ -236,103 +290,6 @@ public final class BST {
 
     /**************************************************************************************************
      ************************** DSW IMPLEMENTATION END HERE *******************************************
-     ***************************************************************************************************/
-
-    /**************************************************************************************************
-     ************************** TREE TRAVERSAL FUNCTIONS BEGIN FROM HERE ******************************
-     ******************** USING MORRIS TRAVERSAL TO OPTIMIZE SPACE COMPLEXCITY ************************
-     ***************************************************************************************************/
-
-    /****
-     *
-     *
-     * @param root
-     * @return
-     */
-    private static List<Integer> InorderTraversal(TreeNode root) {
-        final List<Integer> res = new ArrayList<>();
-        while (root != null) {
-            if (root.left != null) {
-                var pre = root.left;
-                while (pre.right != null && pre.right != root)
-                    pre = pre.right;
-                if (pre.right != null) {
-                    res.add(root.val);
-                    pre.right = null;
-                    root = root.right;
-                } else {
-                    pre.right = root;
-                    root = root.left;
-                }
-            } else {
-                res.add(root.val);
-                root = root.right;
-            }
-        }
-        return res;
-    }
-
-    /****
-     *
-     *
-     * @param root
-     * @return
-     */
-    private static List<Integer> PreorderTraversal(TreeNode root) {
-        final List<Integer> res = new ArrayList<>();
-        while (root != null) {
-            if (root.left != null) {
-                var pre = root.left;
-                while (pre.right != null && pre.right != root)
-                    pre = pre.right;
-                if (pre.right != null) {
-                    pre.right = null;
-                    root = root.right;
-                } else {
-                    res.add(root.val);
-                    pre.right = root;
-                    root = root.left;
-                }
-            } else {
-                res.add(root.val);
-                root = root.right;
-            }
-        }
-        return res;
-    }
-
-    /****
-     *
-     *
-     * @param root
-     * @return
-     */
-    private static List<Integer> PostorderTraversal(TreeNode root) {
-        final List<Integer> res = new ArrayList<>();
-        while (root != null) {
-            if (root.right != null) {
-                var pre = root.right;
-                while (pre.left != null && pre.left != root)
-                    pre = pre.left;
-                if (pre.left != null) {
-                    pre.left = null;
-                    root = root.left;
-                } else {
-                    res.add(root.val);
-                    pre.left = root;
-                    root = root.right;
-                }
-            } else {
-                res.add(root.val);
-                root = root.left;
-            }
-        }
-        Collections.reverse(res);
-        return res;
-    }
-
-    /**************************************************************************************************
-     ************************** TREE TRAVERSAL FUNCTIONS END HERE *************************************
      ***************************************************************************************************/
 
     /**************************************************************************************************
