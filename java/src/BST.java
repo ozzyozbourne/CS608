@@ -132,7 +132,25 @@ public final class BST {
             final TreeNode balancedBST = generateBalancedBST(nodeCount);
             final TreeNode rightSkewedBST = generateRightSkewedBST(nodeCount);
 
-            searchValueInBST(rightSkewedBST, balancedBST, nodeCount + 1);
+            var key = nodeCount + 1;
+            System.out.println("****************************************************\n");
+            System.out.println("Searching value in the Right Skewed BST -> " + key);
+            var startTime = System.nanoTime();
+            var res = iterativeSearch(rightSkewedBST, key);
+            var endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+            System.out.println("Value found -> " + res);
+            System.out.println("\n****************************************************\n");
+
+            final Random random = new Random();
+            key = random.nextInt(nodeCount);
+            System.out.println("Searching value in the Balanced BST-> " + key);
+            startTime = System.nanoTime();
+            res = iterativeSearch(balancedBST, key);
+            endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+            System.out.println("Value found -> " + res);
+            System.out.println("\n****************************************************\n");
 
             System.out.println("------------------------------------------------------------------------------");
             System.out.println("\nTesting completed for skewed and balancedBST of size -> " + nodeCount + "\n");
@@ -235,41 +253,12 @@ public final class BST {
         return input;
     }
 
-    /**
-     * This function searched key in the both the BST
-     *
-     * @param rightSkewedBST A right skewed BST
-     * @param balancedBST    A balancesBST
-     * @param key            value to be searched
-     */
-    private static void searchValueInBST(final TreeNode rightSkewedBST, final TreeNode balancedBST,
-            final int key) {
-        System.out.println("****************************************************\n");
-        System.out.println("Searching value in the Right Skewed BST -> " + key);
-        var startTime = System.nanoTime();
-        var res = iterativeSearch(rightSkewedBST, key);
-        var endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-        System.out.println("Searching value in the Balanced BST-> " + key);
-        startTime = System.nanoTime();
-        res = iterativeSearch(balancedBST, key);
-        endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-    }
-
 }
-/*********************************************************
- ************* INPUT AND OUTPUT***************************
+
+/***********************************************************************
+ ******************* INPUT AND OUTPUT
  *
- *
- *
- * ozzy@Mac src % java BST 1000 10000 100000 1000000 10000000
+ * ozzy@osaids-MacBook-Air src % java BST 1000 10000 100000 1000000 10000000
  * ------------------------------------------------------------------------------
  * 
  * Testing search time of skewed and balancedBST of size -> 1000
@@ -278,13 +267,13 @@ public final class BST {
  ****************************************************
  * 
  * Searching value in the Right Skewed BST -> 1001
- * Time taken in nano seconds -> 18042
+ * Time taken in nano seconds -> 17208
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching value in the Balanced BST-> 1001
- * Time taken in nano seconds -> 958
+ * Searching value in the Balanced BST-> 736
+ * Time taken in nano seconds -> 792
  * Value found -> false
  ****************************************************
  * 
@@ -302,13 +291,13 @@ public final class BST {
  ****************************************************
  * 
  * Searching value in the Right Skewed BST -> 10001
- * Time taken in nano seconds -> 168833
+ * Time taken in nano seconds -> 180083
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching value in the Balanced BST-> 10001
- * Time taken in nano seconds -> 458
+ * Searching value in the Balanced BST-> 4059
+ * Time taken in nano seconds -> 500
  * Value found -> false
  ****************************************************
  * 
@@ -326,13 +315,13 @@ public final class BST {
  ****************************************************
  * 
  * Searching value in the Right Skewed BST -> 100001
- * Time taken in nano seconds -> 1138500
+ * Time taken in nano seconds -> 1075833
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching value in the Balanced BST-> 100001
- * Time taken in nano seconds -> 2958
+ * Searching value in the Balanced BST-> 28839
+ * Time taken in nano seconds -> 1667
  * Value found -> false
  ****************************************************
  * 
@@ -350,13 +339,13 @@ public final class BST {
  ****************************************************
  * 
  * Searching value in the Right Skewed BST -> 1000001
- * Time taken in nano seconds -> 3435250
+ * Time taken in nano seconds -> 3897625
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching value in the Balanced BST-> 1000001
- * Time taken in nano seconds -> 1416
+ * Searching value in the Balanced BST-> 350072
+ * Time taken in nano seconds -> 6333
  * Value found -> false
  ****************************************************
  * 
@@ -374,13 +363,13 @@ public final class BST {
  ****************************************************
  * 
  * Searching value in the Right Skewed BST -> 10000001
- * Time taken in nano seconds -> 46213833
+ * Time taken in nano seconds -> 45671125
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching value in the Balanced BST-> 10000001
- * Time taken in nano seconds -> 3791
+ * Searching value in the Balanced BST-> 7110021
+ * Time taken in nano seconds -> 3833
  * Value found -> false
  ****************************************************
  * 
@@ -390,5 +379,4 @@ public final class BST {
  * Testing completed for skewed and balancedBST of size -> 10000000
  * 
  * ------------------------------------------------------------------------------
- * ozzy@Mac src %
- ****/
+ ******/
