@@ -33,11 +33,9 @@
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *                        |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed TreeMap  |             |               |                |                  |                    
- *  Balanced TreeMap      |             |               |                |                  |                    
+ *  Right skewed TreeMap  |  4958       |    2334       |    3333        |    6542          |  11542
+ *  Balanced TreeMap      |  1750       |    1500       |    4584        |    4041          |  5500
  * 
- *
- *
  *
  *  Table of time and space complexities of search operations
  *  
@@ -48,9 +46,18 @@
  *
  *  ------------------------------------------------------------------------------------
  *  
- *  Conclusion - 
- *  
- *    
+ *  plot link -> https://colab.research.google.com/drive/1DJqn4feCyVHUMihJAeWLiTEIuzZiHtd-?usp=sharing
+ *
+ *  Conclusion -> On creating the TreeMap by using the same procedures used in the BST assignment, 
+ *                that is creating two TreeMap using sorted ascending input from 1 to n, and creating another 
+ *                TreeMap using unique random values, then applying the same search methodoligies 
+ *                we, see that the search times for both treemap almost comparable to each other, this 
+ *                is due to the fact that java treemaps are red black trees meaning they are 
+ *                self balancing bst's so this makes them invarient on the arragment of the input 
+ *                if create treemap using sorted input in ascending, desending or randomly arragment
+ *                input, the bst formed in all tree cases will be same, since after each insertion it 
+ *                balances itself hence the height of the tree will also be the same regardless of the 
+ *                input arragment make the search time theta of log n
  *
  *************************************************************************/
 
