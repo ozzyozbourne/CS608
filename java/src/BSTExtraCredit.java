@@ -105,6 +105,18 @@ public final class BSTExtraCredit {
 
     }
 
+    /**
+     * This function generates a TreeMap using the same technique
+     * of the unique randowm number generation used in creating
+     * balanced BST for assignment 2, since treemap is red black
+     * tree ie a self balancing bst it is invarient on the arragment of
+     * the input ie we could have entered unique number in ascending order
+     * would have made no difference since after each insertion the tree
+     * balances itself.
+     * 
+     * @param nodeCount the number of nodes to be created
+     * @return TreeMap
+     */
     private static TreeMap<Integer, Integer> generateBalancedBST(final int nodeCount) {
         final TreeMap<Integer, Integer> treeMap = new TreeMap<>();
         for (final int val : generateUniqueRandomNumbers(nodeCount))
@@ -148,10 +160,15 @@ public final class BSTExtraCredit {
     }
 
     /****
-     *
+     * This functions insert value from 1 to n in ascending order to
+     * simulate the same steps that were taked to create the
+     * right skewed tree, but since we are using a tree map
+     * which is a red black tree ie a self balancing bst
+     * the order in which the input is arranged won't matter since after each
+     * insertions it used rotation to balance it self
      *
      * @param nodeCount
-     * @return
+     * @return TreeMap
      */
     private static TreeMap<Integer, Integer> generateRightSkewedBST(final int nodeCount) {
         final TreeMap<Integer, Integer> treeMap = new TreeMap<>();

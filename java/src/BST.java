@@ -148,7 +148,7 @@ public final class BST {
      * This function generates a balanced based using unique
      * random numbers
      *
-     * @param nodeCount
+     * @param nodeCount the number of nodes to be created
      * @return Balanced BST
      */
     private static TreeNode generateBalancedBST(final int nodeCount) {
