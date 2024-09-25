@@ -35,8 +35,8 @@
  *
  *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
  *
- *  Right skewed BST     |  17208      |    180083     |    1075833     |    3897625       |  45671125                  
- *  Balanced BST         |  792        |    500        |    1667        |    6333          |  3833                  
+ *  Right skewed BST     |  17208      |    180083     |    1075833     |    3897625       |  45671125
+ *  Balanced BST         |  792        |    500        |    1667        |    6333          |  3833
  * 
  *
  *
@@ -56,35 +56,20 @@
  *
  *  ------------------------------------------------------------------------------------
  *  
+ *  plot -> https://colab.research.google.com/drive/1o9XqbGMT8k4q9yg7_sBSyIbUJQLZ8n3u?usp=sharing   
+ *
  *  Conclusion -> 
+ *
  *  As we increase the input size the right skewed tree search start to increase linearly 
  *  since it is behaving like a linked list, if we search a last element or a element that is 
  *  not present in the right skewed then it has to traverse the whole tree since linear time 
  *
- *  While the balance bst search time doesnt increase linearly as the input size increase 
+ *  While in the balance bst the search time doesn't increase linearly as the input size increase 
  *  since at each step of find an element we are dividing our search space in half 
- *  hence due to this when searching for last value or a value that is not in the 
- *  the runtime is better since we are performing these operations in theta of log n 
+ *  hence due to this when searching for last value or a value that is not present in the balance bst 
+ *  the runtime is better since we are performing these operations in theta of (log n) 
  *  time.
- *
- *  when searching for a first value or a middle value in the right skewed tree 
- *  it performs is omega (1) for the first value since its the root of the bst 
- *  but for searching a middle value the average time complexcity is theta (n/2)
- *  so for smaller input size the 1/2 constant have a larger effect, as also shown in 
- *  the runtime data, right skewd tree is not significanly slower than the balanced bst 
- *  but as the input size grows the effect of the 1/2 constant diminishes and for the larger 
- *  input, finding the middle effect will take theta (n) time 
- *
- *  when searching for the first element in the balance bst the right skewed bst performs 
- *  better since for the right skewed bst it has to return the root so it is just a 
- *  constant operation for it. In contract the first element for the balance bst is pushed 
- *  down to the leaf node and as the size grows we have traverse the from the root to the leaf 
- *  node performing a log n time operation
- *  And for finding the middle element the balance bst is significanly better since for it 
- *  runtime is log n
- *
  *  
- *    
  *
  *************************************************************************/
 
@@ -159,6 +144,13 @@ public final class BST {
         }
     }
 
+    /**
+     * This function generates a balanced based using unique
+     * random numbers
+     *
+     * @param nodeCount
+     * @return Balanced BST
+     */
     private static TreeNode generateBalancedBST(final int nodeCount) {
         TreeNode root = null;
         for (final int val : generateUniqueRandomNumbers(nodeCount)) {
@@ -167,6 +159,13 @@ public final class BST {
         return root;
     }
 
+    /**
+     * This function insert a val in to an a bst
+     * 
+     * @param root tree for insertion
+     * @param val  value for insertion
+     * @return root of the new bst
+     */
     private static TreeNode insertIntoBST(final TreeNode root, final int val) {
         if (root == null)
             return new TreeNode(val);
@@ -191,7 +190,15 @@ public final class BST {
         return root;
     }
 
-    public static List<Integer> generateUniqueRandomNumbers(final int n) {
+    /**
+     * This function generated list of unique randoms number from 1 to n
+     * each multipled by a random constant
+     *
+     * @param n max random value
+     * @return List of unique random number from 1 to n each mutiplied by random
+     *         constant
+     */
+    private static List<Integer> generateUniqueRandomNumbers(final int n) {
         final Random random = new Random();
         List<Integer> numbers = new ArrayList<>();
 
@@ -220,7 +227,7 @@ public final class BST {
         return false;
     }
 
-    /****
+    /**
      * This functions generates a right skewed tree with
      * Values from 1 to n inclusive
      *
@@ -237,7 +244,7 @@ public final class BST {
         return dummy.right;
     }
 
-    /****
+    /**
      * This function get the user input node count number
      * and stores then in a list
      *
