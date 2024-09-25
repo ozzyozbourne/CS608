@@ -12,7 +12,9 @@
  *  3) Osaid Khan
  *
  *  Other collaborators: None.
+ *  
  *  References:
+ *  1) https://www.geeksforgeeks.org/treemap-in-java/
  *
  *  Assignment No.: 2
  *
@@ -20,49 +22,13 @@
  *  Carry out the same experiments on the Java API class TreeMap. Compare the measurements with the skewed tree and random tree.
  *  Argue why the running time functions observed are (roughly) equal/different.
  *
- *  Input and Output ->
+ *  Input and Output -> Mentioned at the end of the file since it was too large 
  *  
  *
  *
  *  OBSERVATIONS ->  
  *
  *  -----------------------------------------------------------------------------------
- *
- *  Table with running times(in nanoseconds) measured for different values of 'n'
- *
- *                           |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed TreeMap     |             |               |                |                  |                    
- *  Balanced TreeMap         |             |               |                |                  |                    
- *
- *
- *
- *
- *
- *
- *
- *  Table with running times(in nanoseconds) measured for different values of 'n'
- *
- *                           |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed TreeMap     |             |               |                |                  |                    
- *  Balanced TreeMap         |             |               |                |                  |                    
- *
- *
- *
- *
- *
- *
- *
- *  Table with running times(in nanoseconds) measured for different values of 'n'
- *
- *                           |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
- *  Right skewed TreeMap     |             |               |                |                  |                    
- *  Balanced TreeMap         |             |               |                |                  |                    
- *
- *
- *
- *
- *
- *
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
@@ -73,17 +39,12 @@
  *
  *
  *
- *
- *
- *
- *  Table of time and space complexities of all approaches used
+ *  Table of time and space complexities of search operations
  *  
  *                         | Time Complexity |  Space Complexity 
- *  Right skewed TreeMap   |                 |  
- *  Balanced TreeMap       |                 |    
+ *  Right skewed TreeMap   | theta (log n)   |  theta (1)
+ *  Balanced TreeMap       | theta (log n)   |  theta (1)
  *    
- *
- *
  *
  *  ------------------------------------------------------------------------------------
  *  
@@ -96,6 +57,8 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.Random;
+import java.util.Collections;
 
 public final class BSTExtraCredit {
 
@@ -111,13 +74,28 @@ public final class BSTExtraCredit {
             System.out.println("\nTesting search time of skewed and balanced TreeMap of size -> " + nodeCount + "\n");
             System.out.println("------------------------------------------------------------------------------");
 
-            final TreeMap<Integer, Integer> balancedBST = generateRightSkewedBST(nodeCount);
+            final TreeMap<Integer, Integer> balancedBST = generateBalancedBST(nodeCount);
             final TreeMap<Integer, Integer> rightSkewedBST = generateRightSkewedBST(nodeCount);
 
-            searchFirstValue(rightSkewedBST, balancedBST, 1);
-            searchMiddleValue(rightSkewedBST, balancedBST, nodeCount / 2);
-            searchLastValue(rightSkewedBST, balancedBST, nodeCount);
-            searchValueNotInBST(rightSkewedBST, balancedBST, nodeCount + 1);
+            var key = nodeCount + 1;
+            System.out.println("****************************************************\n");
+            System.out.println("Searching value in the Right Skewed TreeMap -> " + key);
+            var startTime = System.nanoTime();
+            var res = rightSkewedBST.containsKey(key);
+            var endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+            System.out.println("Value found -> " + res);
+            System.out.println("\n****************************************************\n");
+
+            final Random random = new Random();
+            key = random.nextInt(nodeCount);
+            System.out.println("Searching value in the Balanced TreeMap -> " + key);
+            startTime = System.nanoTime();
+            res = balancedBST.containsKey(key);
+            endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+            System.out.println("Value found -> " + res);
+            System.out.println("\n****************************************************\n");
 
             System.out.println("------------------------------------------------------------------------------");
             System.out.println("\nTesting completed for skewed and balanced TreeMap of size -> " + nodeCount + "\n");
@@ -127,99 +105,38 @@ public final class BSTExtraCredit {
 
     }
 
-    private static void searchLastValue(final TreeMap<Integer, Integer> rightSkewedBST,
-            final TreeMap<Integer, Integer> balancedBST,
-            final int key) {
-        System.out.println("****************************************************\n");
-        System.out.println("Searching last value in Right Skewed TreeMap -> " + key);
-        var startTime = System.nanoTime();
-        var res = rightSkewedBST.containsKey(key);
-        var endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-        System.out.println("Searching last value in Balanced TreeMap -> " + key);
-        startTime = System.nanoTime();
-        res = balancedBST.containsKey(key);
-        endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
+    private static TreeMap<Integer, Integer> generateBalancedBST(final int nodeCount) {
+        final TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+        for (final int val : generateUniqueRandomNumbers(nodeCount))
+            treeMap.put(val, val);
+        return treeMap;
 
     }
 
-    private static void searchValueNotInBST(final TreeMap<Integer, Integer> rightSkewedBST,
-            final TreeMap<Integer, Integer> balancedBST,
-            final int key) {
-        System.out.println("****************************************************\n");
-        System.out.println("Searching a value not present in the Right Skewed TreeMap -> " + key);
-        var startTime = System.nanoTime();
-        var res = rightSkewedBST.containsKey(key);
-        var endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-        System.out.println("Searching a value not present in the Balanced TreeMap -> " + key);
-        startTime = System.nanoTime();
-        res = balancedBST.containsKey(key);
-        endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-    }
-
-    private static void searchMiddleValue(final TreeMap<Integer, Integer> rightSkewedBST,
-            final TreeMap<Integer, Integer> balancedBST,
-            final int key) {
-        System.out.println("****************************************************\n");
-        System.out.println("Searching middle value of input range in Right Skewed TreeMap -> " + key);
-        var startTime = System.nanoTime();
-        var res = rightSkewedBST.containsKey(key);
-        var endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-        System.out.println("Searching middle value of input range in the Balanced TreeMap -> " + key);
-        startTime = System.nanoTime();
-        res = balancedBST.containsKey(key);
-        endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-    }
-
-    private static void searchFirstValue(final TreeMap<Integer, Integer> rightSkewedBST,
-            final TreeMap<Integer, Integer> balancedBST,
-            final int key) {
-        System.out.println("****************************************************\n");
-        System.out.println("Searching first value of input range in Right Skewed TreeMap -> " + key);
-        var startTime = System.nanoTime();
-        var res = rightSkewedBST.containsKey(key);
-        var endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-        System.out.println("Searching first value of input range in the Balanced TreeMap -> " + key);
-        startTime = System.nanoTime();
-        res = balancedBST.containsKey(key);
-        endTime = System.nanoTime();
-        System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
-        System.out.println("Value found -> " + res);
-        System.out.println("\n****************************************************\n");
-
-    }
-
-    /****
+    /**
+     * This function generated list of unique randoms number from 1 to n
+     * each multipled by a random constant
      *
+     * @param n max random value
+     * @return List of unique random number from 1 to n each mutiplied by random
+     *         constant
+     */
+    private static List<Integer> generateUniqueRandomNumbers(final int n) {
+        final Random random = new Random();
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i = 1; i <= n; i++)
+            numbers.add(i * random.nextInt(100000));
+        Collections.shuffle(numbers);
+        return numbers;
+    }
+
+    /**
+     * This function get the user input node count number
+     * and stores then in a list
      *
-     * @param args
-     * @return
+     * @param args Arguments passed to the main method
+     * @return A list of nodes for which we have to test search
      */
     private static List<Integer> getNodeCountList(final String... args) {
         if (args.length == 0)
@@ -245,11 +162,8 @@ public final class BSTExtraCredit {
 
 }
 
-/**************************************************************************
- ************************ INPUT AND OUTPUT **************************
- * 
- * ozzy@osaids-MacBook-Air src % java BSTExtraCredit 1000 10000 100000 1000000
- * 10000000
+/**
+ * ozzy@Mac src % java BSTExtraCredit 1000 10000 100000 1000000 10000000
  * ------------------------------------------------------------------------------
  * 
  * Testing search time of skewed and balanced TreeMap of size -> 1000
@@ -257,56 +171,14 @@ public final class BSTExtraCredit {
  * ------------------------------------------------------------------------------
  ****************************************************
  * 
- * Searching first value of input range in Right Skewed TreeMap -> 1
- * Time taken in nano seconds -> 2333
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching first value of input range in the Balanced TreeMap -> 1
- * Time taken in nano seconds -> 1583
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching middle value of input range in Right Skewed TreeMap -> 500
- * Time taken in nano seconds -> 1167
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching middle value of input range in the Balanced TreeMap -> 500
- * Time taken in nano seconds -> 1333
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching last value in Right Skewed TreeMap -> 1000
- * Time taken in nano seconds -> 1708
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching last value in Balanced TreeMap -> 1000
- * Time taken in nano seconds -> 1209
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching a value not present in the Right Skewed TreeMap -> 1001
- * Time taken in nano seconds -> 1292
+ * Searching value in the Right Skewed TreeMap -> 1001
+ * Time taken in nano seconds -> 4958
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching a value not present in the Balanced TreeMap -> 1001
- * Time taken in nano seconds -> 1042
+ * Searching value in the Balanced TreeMap -> 505
+ * Time taken in nano seconds -> 1750
  * Value found -> false
  ****************************************************
  * 
@@ -323,56 +195,14 @@ public final class BSTExtraCredit {
  * ------------------------------------------------------------------------------
  ****************************************************
  * 
- * Searching first value of input range in Right Skewed TreeMap -> 1
- * Time taken in nano seconds -> 1083
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching first value of input range in the Balanced TreeMap -> 1
- * Time taken in nano seconds -> 1208
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching middle value of input range in Right Skewed TreeMap -> 5000
- * Time taken in nano seconds -> 750
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching middle value of input range in the Balanced TreeMap -> 5000
- * Time taken in nano seconds -> 1000
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching last value in Right Skewed TreeMap -> 10000
- * Time taken in nano seconds -> 958
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching last value in Balanced TreeMap -> 10000
- * Time taken in nano seconds -> 1458
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching a value not present in the Right Skewed TreeMap -> 10001
- * Time taken in nano seconds -> 1000
+ * Searching value in the Right Skewed TreeMap -> 10001
+ * Time taken in nano seconds -> 2334
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching a value not present in the Balanced TreeMap -> 10001
- * Time taken in nano seconds -> 917
+ * Searching value in the Balanced TreeMap -> 7894
+ * Time taken in nano seconds -> 1500
  * Value found -> false
  ****************************************************
  * 
@@ -389,56 +219,14 @@ public final class BSTExtraCredit {
  * ------------------------------------------------------------------------------
  ****************************************************
  * 
- * Searching first value of input range in Right Skewed TreeMap -> 1
- * Time taken in nano seconds -> 6375
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching first value of input range in the Balanced TreeMap -> 1
- * Time taken in nano seconds -> 1584
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching middle value of input range in Right Skewed TreeMap -> 50000
- * Time taken in nano seconds -> 1541
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching middle value of input range in the Balanced TreeMap -> 50000
- * Time taken in nano seconds -> 6625
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching last value in Right Skewed TreeMap -> 100000
- * Time taken in nano seconds -> 2166
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching last value in Balanced TreeMap -> 100000
- * Time taken in nano seconds -> 8083
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching a value not present in the Right Skewed TreeMap -> 100001
- * Time taken in nano seconds -> 1125
+ * Searching value in the Right Skewed TreeMap -> 100001
+ * Time taken in nano seconds -> 3333
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching a value not present in the Balanced TreeMap -> 100001
- * Time taken in nano seconds -> 1000
+ * Searching value in the Balanced TreeMap -> 56902
+ * Time taken in nano seconds -> 4584
  * Value found -> false
  ****************************************************
  * 
@@ -455,56 +243,14 @@ public final class BSTExtraCredit {
  * ------------------------------------------------------------------------------
  ****************************************************
  * 
- * Searching first value of input range in Right Skewed TreeMap -> 1
- * Time taken in nano seconds -> 4083
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching first value of input range in the Balanced TreeMap -> 1
- * Time taken in nano seconds -> 1417
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching middle value of input range in Right Skewed TreeMap -> 500000
- * Time taken in nano seconds -> 2000
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching middle value of input range in the Balanced TreeMap -> 500000
- * Time taken in nano seconds -> 1208
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching last value in Right Skewed TreeMap -> 1000000
- * Time taken in nano seconds -> 1750
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching last value in Balanced TreeMap -> 1000000
- * Time taken in nano seconds -> 2667
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching a value not present in the Right Skewed TreeMap -> 1000001
- * Time taken in nano seconds -> 1250
+ * Searching value in the Right Skewed TreeMap -> 1000001
+ * Time taken in nano seconds -> 6542
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching a value not present in the Balanced TreeMap -> 1000001
- * Time taken in nano seconds -> 1208
+ * Searching value in the Balanced TreeMap -> 189293
+ * Time taken in nano seconds -> 4041
  * Value found -> false
  ****************************************************
  * 
@@ -521,56 +267,14 @@ public final class BSTExtraCredit {
  * ------------------------------------------------------------------------------
  ****************************************************
  * 
- * Searching first value of input range in Right Skewed TreeMap -> 1
- * Time taken in nano seconds -> 5166
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching first value of input range in the Balanced TreeMap -> 1
- * Time taken in nano seconds -> 1625
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching middle value of input range in Right Skewed TreeMap -> 5000000
- * Time taken in nano seconds -> 29542
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching middle value of input range in the Balanced TreeMap -> 5000000
- * Time taken in nano seconds -> 2834
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching last value in Right Skewed TreeMap -> 10000000
- * Time taken in nano seconds -> 1833
- * Value found -> true
- ****************************************************
- * 
- * 
- * Searching last value in Balanced TreeMap -> 10000000
- * Time taken in nano seconds -> 10916
- * Value found -> true
- ****************************************************
- ****************************************************
- * 
- * 
- * 
- * Searching a value not present in the Right Skewed TreeMap -> 10000001
- * Time taken in nano seconds -> 1709
+ * Searching value in the Right Skewed TreeMap -> 10000001
+ * Time taken in nano seconds -> 11542
  * Value found -> false
  ****************************************************
  * 
  * 
- * Searching a value not present in the Balanced TreeMap -> 10000001
- * Time taken in nano seconds -> 3583
+ * Searching value in the Balanced TreeMap -> 2989716
+ * Time taken in nano seconds -> 5500
  * Value found -> false
  ****************************************************
  * 
@@ -580,4 +284,5 @@ public final class BSTExtraCredit {
  * Testing completed for skewed and balanced TreeMap of size -> 10000000
  * 
  * ------------------------------------------------------------------------------
- *********************************************************************************/
+ * ozzy@Mac src %
+ **/
