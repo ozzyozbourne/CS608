@@ -73,17 +73,17 @@
  *  Right skewed BST     |  10,888      |    108,879   |    1,088,787   |    10,887,874    |  108,878,735
  *  Balanced BST         |  1,395       |    1,860     |    2,325       |    2,791         |  3,256
 
- *  Increase factors for skewed BST hypotical runtimes:
- *  From n^3 to n^4: 10.00
- *  From n^4 to n^5: 10.00
- *  From n^5 to n^6: 10.00
- *  From n^6 to n^7: 10.00
+ *  Increase factors for skewed BST hypotical runtimes: for a value not in bst 
+ *  From n^3 to n^4: 10.00 -> indicating a growth rate of roughly theta (n)
+ *  From n^4 to n^5: 10.00 -> indicating a growth rate of roughly theta (n)
+ *  From n^5 to n^6: 10.00 -> indicating a growth rate of roughly theta (n)
+ *  From n^6 to n^7: 10.00 -> indicating a growth rate of roughly theta (n)
  *  
- *  Increase factors for balanced BST hypotical runtimes:
- *  From n^3 to n^4: 1.33
- *  From n^4 to n^5: 1.25
- *  From n^5 to n^6: 1.20
- *  From n^6 to n^7: 1.17
+ *  Increase factors for balanced BST hypotical runtimes: for a value not in bst 
+ *  From n^3 to n^4: 1.33 -> indicating a growth rate of roughly theta (log n).
+ *  From n^4 to n^5: 1.25 -> indicating a growth rate of roughly theta (log n).
+ *  From n^5 to n^6: 1.20 -> indicating a growth rate of roughly theta (log n).
+ *  From n^6 to n^7: 1.17 -> indicating a growth rate of roughly theta (log n).
  *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
@@ -111,7 +111,7 @@
  *  Balanced BST       |  theta (log n)          |  theta (1)  
  *
  *
- *  Increase factors for skewed BST runtimes: for a value not in the tree
+ *  Increase factors for skewed BST runtimes: for a value not in bst 
  *  From n^3 to n^4: 10.47   -> indicating a growth rate of roughly theta (n) 
  *  From n^4 to n^5: 5.97    -> not exactly by a factor of 10, possible due be caching since could in laid 
  *                              linearly in memory like an array 
@@ -120,7 +120,7 @@
  *
  *  From n^6 to n^7: 11.72   -> indicating a growth rate of roughly theta (n)
  *
- *  Increase factors for balanced BST runtimes:
+ *  Increase factors for balanced BST runtimes: for a value not in bst
  *  From n^3 to n^4: 0.63    -> indicating a growth rate of roughly theta (log n).
  *  From n^4 to n^5: 3.33    -> indicating a growth rate of roughly theta (log n).
  *  From n^5 to n^6: 3.80    -> indicating a growth rate of roughly theta (log n).
