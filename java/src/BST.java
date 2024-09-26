@@ -73,11 +73,24 @@
  *  Right skewed BST     |  10,888      |    108,879   |    1,088,787   |    10,887,874    |  108,878,735
  *  Balanced BST         |  1,395       |    1,860     |    2,325       |    2,791         |  3,256
 
- *
+ *  Increase factors for skewed BST hypotical runtimes:
+ *  From n^3 to n^4: 10.00
+ *  From n^4 to n^5: 10.00
+ *  From n^5 to n^6: 10.00
+ *  From n^6 to n^7: 10.00
+ *  
+ *  Increase factors for balanced BST hypotical runtimes:
+ *  From n^3 to n^4: 1.33
+ *  From n^4 to n^5: 1.25
+ *  From n^5 to n^6: 1.20
+ *  From n^6 to n^7: 1.17
  *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
  *
+ *  plot -> https://colab.research.google.com/drive/1-0VEP6MW3T7LHpmYpEEnitphuSFRXQTW?usp=sharing   
+ *
+ *  ACTUAL RUNTIME
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
@@ -85,9 +98,6 @@
  *  Right skewed BST     |  17208      |    180083     |    1075833     |    3897625       |  45671125
  *  Balanced BST         |  792        |    500        |    1667        |    6333          |  3833
  * 
- *
- *
- *  plot -> https://colab.research.google.com/drive/1-0VEP6MW3T7LHpmYpEEnitphuSFRXQTW?usp=sharing   
  *
  *  Table of time and space complexities of search operations
  *  
@@ -101,12 +111,27 @@
  *  Balanced BST       |  theta (log n)          |  theta (1)  
  *
  *
+ *  Increase factors for skewed BST runtimes: for a value not in the tree
+ *  From n^3 to n^4: 10.47   -> indicating a growth rate of roughly theta (n) 
+ *  From n^4 to n^5: 5.97    -> not exactly by a factor of 10, possible due be caching since could in laid 
+ *                              linearly in memory like an array 
+ *  From n^5 to n^6: 3.62    -> not exactly by a factor of 10, possible due be caching since could in laid 
+ *                              linearly in memory like an array 
+ *
+ *  From n^6 to n^7: 11.72   -> indicating a growth rate of roughly theta (n)
+ *
+ *  Increase factors for balanced BST runtimes:
+ *  From n^3 to n^4: 0.63    -> indicating a growth rate of roughly theta (log n).
+ *  From n^4 to n^5: 3.33    -> indicating a growth rate of roughly theta (log n).
+ *  From n^5 to n^6: 3.80    -> indicating a growth rate of roughly theta (log n).
+ *  From n^6 to n^7: 0.61    -> indicating a growth rate of roughly theta (log n).
+ *
  *
  *  ------------------------------------------------------------------------------------
  *  
  *
  *  Conclusion -> 
- *
+ *      
  *  As we increase the input size the right skewed tree search start to increase linearly 
  *  since it is behaving like a linked list, if we search a last element or a element that is 
  *  not present in the right skewed then it has to traverse the whole tree since linear time 
