@@ -25,11 +25,58 @@
  *  of search
  *
  *  Input and Output -> Mentioned at the end of the file since it was too large 
+ *  
+ *  ----------------------------------------------------------------------------------------------------
  *
- *  OBSERVATIONS ->  
+ *  Hypothsis - 
+ *
+ *  Assumption for the Runtime as a function of input size ->
+ *
+ *      For Right Skewed BST ->  
+ *              we are assuming that the time taken will be equal to the 
+ *              to the size of input mutiplied by the mean scaling constant
+ *              to accout for constant operations
+ *
+ *      For Balanced BST -> 
+ *              we are assuming that the time taken will be equal to the log of 
+ *              input size mutiplied by the mean scaling constant
+ *              to accout for constant operations
+ *
+ *      Mean/Average scaling constant -> 
+ *              Ideally the runtime equal to the size of input for right skewed tree
+ *              and log of size of the input for the balanced BST but there are constant 
+ *              operation always being perform that breaks this assumptions specially for 
+ *              smaller inputs, we multiply over hypotical runtime time with the average of 
+ *              sum of all actual runtime / sum of all hypothical runtime = scaling constant 
+ *
+ *              for instance we assume that the hypotical runtime for searching value not in 
+ *              right skewed tree or an input of 1000 nodes will 1000 nanoseconds, 
+ *              and we got an actual time of 17208 nanoseconds hence the scaling constant will be 
+ *              sc = sum of actual / sum of expected which in this example will be 
+ *              17208 / 1000
+ *
+ *  
+ *  Formae -> 
+ *
+ *     skewed BST   =  (size of input/nodes * average scaling constant ) nanoseconds
+ *     Balance BST  =  (log2 (size of the input/nodes) * average scaling constant) nanoseconds
+ *
+ *   Calculated Average scaling constant for skewed BST: 11
+ *   Calculated Average scaling constant for balanced BST: 140
+ *  
+ *  HYPOTHICAL RUNTIME ->
+ *
+ *  Table with running times(in nanoseconds) hypotical for different value of n 
+ *
+ *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *
+ *  Right skewed BST     |  10,888      |    108,879   |    1,088,787   |    10,887,874    |  108,878,735
+ *  Balanced BST         |  1,395       |    1,860     |    2,325       |    2,791         |  3,256
+
+ *
  *
  *  -----------------------------------------------------------------------------------
- *
+ *  Actual Observation -> 
  *
  *  Table with running times(in nanoseconds) measured for different values of 'n'
  *
@@ -40,6 +87,7 @@
  * 
  *
  *
+ *  plot -> https://colab.research.google.com/drive/1-0VEP6MW3T7LHpmYpEEnitphuSFRXQTW?usp=sharing   
  *
  *  Table of time and space complexities of search operations
  *  
@@ -56,7 +104,6 @@
  *
  *  ------------------------------------------------------------------------------------
  *  
- *  plot -> https://colab.research.google.com/drive/1o9XqbGMT8k4q9yg7_sBSyIbUJQLZ8n3u?usp=sharing   
  *
  *  Conclusion -> 
  *
