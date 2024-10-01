@@ -26,32 +26,36 @@
  *  -----------------------------------------------------------------------------------
  *
  *
- *  Table with running times(in nanoseconds) measured for different values of 'n'
+ *  Table with construction times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
  *
- *  Right skewed BST     |  17208      |    180083     |    1075833     |    3897625       |  45671125
- *  Balanced BST         |  792        |    500        |    1667        |    6333          |  3833
+ *  Hypothical           |  72133      |    721332     |    7213323     |    72133233      |  721332330
+ *  Actual               |  60083      |    2569625    |    1871041     |    13670209      |  112400458
+ * 
+ *
+ *
+ *  Table with search times(in nanoseconds) measured for different values of 'n'
+ *
+ *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
+ *
+ *  Hypothical           |  12333      |    123329     |    1233285     |    12332850      |  123328503
+ *  Actual               |  35917      |    135916     |    668708      |    3819209       |  16493625
  * 
  *
  *
  *
- *  Table of time and space complexities of search operations
+ *  Table of time and space complexities of search and construction operations
  *  
  *                     | Time Complexity          |  Space Complexity 
- *  Right skewed BST   | best-case Omega (1)      |  theta (1)
- *                       item is root 
- *                       Worst-case O (n)
- *                       item is last element   
- *                       Average case theta (n)
- *  
- *  Balanced BST       |  theta (log n)          |  theta (1)  
+ *  Construction       |                          |  
+ *  Search             |                          |    
  *
  *
  *
  *  ------------------------------------------------------------------------------------
  *  
- *  plot ->  
+ *  plot ->  https://colab.research.google.com/drive/1yfKNJ6nXibAz41b-98kencUYu1pM57GW?usp=sharing
  *
  *  Conclusion -> 
  *
