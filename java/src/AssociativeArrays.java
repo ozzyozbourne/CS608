@@ -48,8 +48,11 @@
  *  Table of time and space complexities of search and construction operations
  *  
  *                     | Time Complexity          |  Space Complexity 
- *  Construction       |                          |  
- *  Search             |                          |    
+ *  Construction       |                          |  theta (1) for input size 100 since the default size is 1000
+ *                                                   then will be O(n) for input size greater than  750 since the laod
+ *                                                   factor is 0.75 so for input from n^3 to n^6 
+ *                                                   the space complexity will be O (n)
+ *  Search             |                          |  theta (1)
  *
  *
  *
