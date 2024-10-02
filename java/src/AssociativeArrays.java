@@ -21,27 +21,72 @@
  *
  *  Input and Output -> Mentioned at the end of the file since it was too large 
  *
- *  OBSERVATIONS ->  
+ *  Hypothesis -> 
+ *
+ *  Assumption for the runtimes as a function of the input size
+ *
+ *  Construction Time -> 
+ *
+ *      Here we assuming that time takes to create a hastable will be equal to the 
+ *      size of the given array multiplied by an scaling constant, since by default 
+ *      the size of the hashtable is 1000 with a load factor of the 75% this means that 
+ *      for input size less than 750, only the insertion time will affect the creation time 
+ *      but for input greater than 1000 there will be some overhead since hastable will have 
+ *      allocate double the memory and then copy the existing items to the new memory locations 
+ *      we are assuming that will be the main bottleneck as the size increase
+ *
+ * 
+ *  Search Time -> 
+ *
+ *      Since the input element are unique and they mapping directly the indexes of the array 
+ *      hence even a simple hash function that just does mod of the key with the size the array 
+ *      will map one key to one slot, 
+ *      Hence we have also assuming each bucket/linked-list of hash table will contain 
+ *      only one element, and there will be no collosion, due to the fact that the 
+ *      keys are directly mapping to array indexes and the most naive hash function 
+ *      implementation should be able to avoid collosion, due to this for each 
+ *      input size the search time for finding an key that is not in the hash-table 
+ *      will have constant time
+ *
+ *      Hence we are assuming that the creation time will be theta (n) 
+ *      and the search time will be theta (1)
+ *      for all input sizes
+ *
+ *
+ * 
+ *  Calculated scaling constant for the hast-table creation -> 721
+ *      This is calculated as the average sum of (actual runtimes / assumed runtime) 
+ *      assume runtime is the number of input size for example for input size of 1000
+ *      we are assuming that the creation time is 1000 nanoseconds.
+ *      
+ *
+ *  Calculated constant value for the search time ->  35917    
+ *      For runtime for search we assumed as constant so we take that as actual search time
+ *      observed with input size of 100 
+ *
+ *      
+ *
+ *  Table with hypotical construction and search times(in nanoseconds) measured for different values of 'n'
+ *
+ *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
+ *
+ *  Construction         |  72133      |    721332   |    7213323   |    72133233   |  721332330
+ *  Search               |  35917      |    35917    |    35917     |    35917      |  35917
+ * 
  *
  *  -----------------------------------------------------------------------------------
  *
+ *  OBSERVATIONS ->  
+ *  
  *
- *  Table with construction times(in nanoseconds) measured for different values of 'n'
- *
- *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
- *
- *  Hypothical           |  72133      |    721332     |    7213323     |    72133233      |  721332330
- *  Actual               |  60083      |    2569625    |    1871041     |    13670209      |  112400458
- * 
- *
- *
- *  Table with search times(in nanoseconds) measured for different values of 'n'
+ *  Table with Actual construction and search times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
  *
- *  Hypothical           |  12333      |    123329     |    1233285     |    12332850      |  123328503
- *  Actual               |  35917      |    135916     |    668708      |    3819209       |  16493625
- * 
+ *  Construction         |  60083      |    2569625    |    1871041     |    13670209      |  112400458
+ *  Search               |  35917      |    135916     |    668708      |    3819209       |  16493625
+ *
+ *
  *
  *
  *
