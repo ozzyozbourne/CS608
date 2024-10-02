@@ -65,20 +65,31 @@
  *      observed with input size of 100 
  *
  *      
- *
+ *  HYPOTHICAL RUNTIME -> 
  *  Table with hypotical construction and search times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
  *
  *  Construction         |  72133      |    721332   |    7213323   |    72133233   |  721332330
  *  Search               |  35917      |    35917    |    35917     |    35917      |  35917
+ *
+ *
+ *
+ *  Increase Factor for creation of hastable for hypotical runtimes ->
+ *      From n^2 to n^3: 10.00 -> indicating a growth rate of roughly theta (n)
+ *      From n^3 to n^4: 10.00 -> indicating a growth rate of roughly theta (n)
+ *      From n^4 to n^5: 10.00 -> indicating a growth rate of roughly theta (n)
+ *      From n^5 to n^6: 10.00 -> indicating a growth rate of roughly theta (n)
  * 
+ *  No increase in factors for the search operation since we have assuming search time to be constant
+ *  operation
  *
  *  -----------------------------------------------------------------------------------
  *
  *  OBSERVATIONS ->  
  *  
  *
+ *  ACTUAL RUNTIME -> 
  *  Table with Actual construction and search times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
@@ -93,13 +104,31 @@
  *  Table of time and space complexities of search and construction operations
  *  
  *                     | Time Complexity          |  Space Complexity 
- *  Construction       |                          |  theta (1) for input size 100 since the default size is 1000
+ *  Construction       | theta (n)                |  theta (1) for input size 100 since the default size is 1000
  *                                                   then will be O(n) for input size greater than  750 since the laod
  *                                                   factor is 0.75 so for input from n^3 to n^6 
  *                                                   the space complexity will be O (n)
- *  Search             |                          |  theta (1)
+ *  Search             | theta (1)                |  theta (1)
  *
+ *  Increase Factor for creation of hastable for Actual runtimes ->
+ *      From n^2 to n^3: 42.77 -> not exactly factor of 10, possible due to alot of collision happening along
+ *                                inefficient allocation of memory and copying to the new memory location overhead.      
  *
+ *      From n^3 to n^4: 0.73  -> not exactly factor of 10, possible due to jvm anticapating memory allocation 
+ *                                requirements and jitting the code to naive machine code for better performance 
+ *                                along with not a alot of collision happening here, since no overhead for adding extra
+ *                                nodes to the linked list(bucket) and traversing the linked list for a key that 
+ *                                has a lot of collisions
+ *
+ *      From n^4 to n^5: 7.31  -> indicating a growth rate of roughly theta (n)
+ *      From n^5 to n^6: 8.22  -> indicating a growth rate of roughly theta (n)
+ *
+ *  Increase factors for searching in hashtable for Actual runtimes ->
+ *      From n^2 to n^3: 3.78  ->  This indicating a search time of roughly theta (1) for a value not in 
+ *      From n^3 to n^4: 4.92  ->  in the hastable. Although is not doesn't remain constant as we size of 
+ *      From n^4 to n^5: 5.71  ->  input increases indicating that the hashing function isn't mapping 
+ *      From n^5 to n^6: 4.32  ->  a key to only one bucket, there are some collision happens which is causing 
+ *                             ->  the search time to not remain constant.
  *
  *  ------------------------------------------------------------------------------------
  *  
