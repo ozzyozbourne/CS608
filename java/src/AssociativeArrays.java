@@ -48,8 +48,9 @@
  *      input size the search time for finding an key that is not in the hash-table 
  *      will have constant time
  *
- *      Hence we are assuming that the creation time will be theta (n) 
- *      and the search time will be theta (1)
+ *      Hence we are assuming that the creation time will be theta (n) since the best and worst 
+ *      case are same here
+ *      and the search time will be theta (1) 
  *      for all input sizes
  *
  *
@@ -108,7 +109,9 @@
  *                                                   then will be O(n) for input size greater than  750 since the laod
  *                                                   factor is 0.75 so for input from n^3 to n^6 
  *                                                   the space complexity will be O (n)
- *  Search             | theta (1)                |  theta (1)
+ *  Search             | theta (1) when no        |  theta (1)
+ *                       collision or O(n) 
+    *                    when there is collision   
  *
  *  Increase Factor for creation of hastable for Actual runtimes ->
  *      From n^2 to n^3: 42.77 -> not exactly factor of 10, possible due to alot of collision happening along
@@ -144,7 +147,7 @@
  *                increase due to hashing function not distributing the keys-value property, hence forming clusters
  *                where one index stores alot of values since the hashing function for different keys is mapping to 
  *                the same index forming a large linked-list which add extra overhead while if the searched value is in that 
- *                bucket 
+ *                bucket, this will push the search time to be O(n).
  *
  *
  *************************************************************************/
