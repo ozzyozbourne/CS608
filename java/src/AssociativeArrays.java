@@ -134,7 +134,17 @@
  *  
  *  plot ->  https://colab.research.google.com/drive/1yfKNJ6nXibAz41b-98kencUYu1pM57GW?usp=sharing
  *
- *  Conclusion -> 
+ *  Conclusion -> As we increase the input size the construction time of the hastable increases linearly theta (n), 
+ *                the only factors that might add extra runtime are the inefficient hashing funtion creating collision 
+ *                hence now the hashtable has to traverse the whole linked list on insertion, inefficient memory allocation 
+ *                and copying exsisting data to the new memory location due to load factor, 
+ *                adding more runtime time overhead
+ *
+ *                While the searching runtime remains roughly constant as we increase the input size, but might 
+ *                increase due to hashing function not distributing the keys-value property, hence forming clusters
+ *                where one index stores alot of values since the hashing function for different keys is mapping to 
+ *                the same index forming a large linked-list which add extra overhead while if the searched value is in that 
+ *                bucket 
  *
  *
  *************************************************************************/
