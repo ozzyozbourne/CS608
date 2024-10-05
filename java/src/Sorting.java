@@ -39,8 +39,8 @@
  *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
  *
  *  1)  Insertion Sort     
- *  2a) Quick Sort (Fixed Pivot)      
- *  2b) Quick Sort (Random Pivot)          
+ *  2a) Quick Sort (Left Pivot)      
+ *  2b) Quick Sort (Median Pivot)          
  *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
@@ -53,16 +53,16 @@
  *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
  *
  *  1)  Insertion Sort     
- *  2a) Quick Sort (Fixed Pivot)      
- *  2b) Quick Sort (Random Pivot)          
+ *  2a) Quick Sort (Left Pivot)      
+ *  2b) Quick Sort (Median Pivot)          
  * 
  *
  *  Table of time and space complexities of search operations
  *  
  *                                   | Time Complexity          |  Space Complexity 
  *  1)  Insertion Sort               |                          |
- *  2a) Quick Sort (Fixed Pivot)     |                          | 
- *  2b) Quick Sort (Random Pivot)    |                          |      
+ *  2a) Quick Sort (Left Pivot)      |                          | 
+ *  2b) Quick Sort (Median Pivot)    |                          |      
  * 
  *
  *
@@ -77,50 +77,96 @@
  *************************************************************************/
 
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public final class Sorting {
-
-    // Globally declared array of size 10^6
-    private static final int[] arr = new int[1_000_000];
 
     private Sorting() {
     }
 
     public static void main(final String... args) {
+        final int size = 100;
+        final int[] arr1 = generateUniqueRandomNumbersArray(size);
+        final int[] arr2 = generateUniqueRandomNumbersArray(size);
 
+        System.out.println("Before Sorting:");
+        System.out.println("Array for Quick Sort (Left Pivot):");
+        printArray(arr1);
+        System.out.println("Array for Quick Sort (Median Pivot):");
+        printArray(arr2);
+
+        quickSortUsingLeftPivot(arr1, 0, size - 1);
+        quickSortUsingMedianPivot(arr2, 0, size - 1);
+
+        System.out.println("\nAfter Sorting:");
+        System.out.println("Array sorted by Quick Sort (Left Pivot):");
+        printArray(arr1);
+        System.out.println("Array sorted by Quick Sort (Median Pivot):");
+        printArray(arr2);
     }
 
-    private static int partitionUsingLeftPivot(int low, int high) {
-        final int pivot = arr[low];
+    private static void printArray(final int[] array) {
+        for (int value : array) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
 
+    private static void quickSortUsingLeftPivot(final int[] arr, final int low, final int high) {
+        if (low < high) {
+            final int p = partitionUsingLeftPivot(arr, low, high);
+            quickSortUsingLeftPivot(arr, low, p - 1);
+            quickSortUsingLeftPivot(arr, p + 1, high);
+        }
+    }
+
+    private static void quickSortUsingMedianPivot(final int[] arr, final int low, final int high) {
+        if (low < high) {
+            final int p = partitionUsingMedianPivot(arr, low, high);
+            quickSortUsingMedianPivot(arr, low, p - 1);
+            quickSortUsingMedianPivot(arr, p + 1, high);
+        }
+    }
+
+    private static int partitionUsingLeftPivot(final int[] arr, int low, int high) {
+        final int pivot = arr[low];
+        int i = low - 1;
+        int j = high + 1;
         while (true) {
-            while (arr[low] < pivot)
-                low += 1;
-            while (arr[high] > pivot)
-                high -= 1;
-            if (low >= high)
-                return high;
-            swap(low, high);
+
+            do {
+                i += 1;
+            } while (arr[i] < pivot);
+
+            do {
+                j -= 1;
+            } while (arr[j] > pivot);
+
+            if (i >= j)
+                return j;
+
+            swap(arr, i, j);
         }
 
     }
 
-    private static int partitionUsingMedianPivot(int low, int high) {
+    private static int partitionUsingMedianPivot(final int[] arr, final int low, final int high) {
 
         final Random random = new Random();
         final int pivotIndex = medianOfThree(
+                arr,
                 low + random.nextInt(high - low + 1),
                 low + random.nextInt(high - low + 1),
                 low + random.nextInt(high - low + 1));
 
-        swap(low, pivotIndex);
-        return partitionUsingLeftPivot(low, high);
+        swap(arr, low, pivotIndex);
+        return partitionUsingLeftPivot(arr, low, high);
     }
 
-    private static int medianOfThree(final int index1, final int index2, final int index3) {
+    private static int medianOfThree(final int[] arr, final int index1, final int index2, final int index3) {
         final int value1 = arr[index1];
         final int value2 = arr[index2];
         final int value3 = arr[index3];
@@ -133,7 +179,7 @@ public final class Sorting {
             return index3;
     }
 
-    private static void swap(final int low, final int high) {
+    private static void swap(final int[] arr, final int low, final int high) {
         final int temp = arr[low];
         arr[low] = arr[high];
         arr[high] = temp;
@@ -141,20 +187,18 @@ public final class Sorting {
 
     /**
      * This function generated list of unique randoms number from 1 to n
-     * each multipled by a random constant
-     *
+     * 
      * @param n max random value
-     * @return List of unique random number from 1 to n each mutiplied by random
-     *         constant
+     * @return List of unique random number from 1 to n
      */
-    private static List<Integer> generateUniqueRandomNumbers(final int n) {
-        final Random random = new Random();
-        List<Integer> numbers = new ArrayList<>();
-
-        for (int i = 1; i <= n; i++)
-            numbers.add(i * random.nextInt(100_000));
+    private static int[] generateUniqueRandomNumbersArray(final int n) {
+        final List<Integer> numbers = IntStream.rangeClosed(1, n).boxed().collect(Collectors.toList());
         Collections.shuffle(numbers);
-        return numbers;
+        final int[] res = new int[n];
+        for (int i = 0; i < numbers.size(); i++)
+            res[i] = numbers.get(i);
+        return res;
+
     }
 
 }
