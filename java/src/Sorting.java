@@ -118,7 +118,7 @@ public final class Sorting {
     private static void quickSortUsingLeftPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
             final int p = partitionUsingLeftPivot(arr, low, high);
-            quickSortUsingLeftPivot(arr, low, p - 1);
+            quickSortUsingLeftPivot(arr, low, p);
             quickSortUsingLeftPivot(arr, p + 1, high);
         }
     }
@@ -126,29 +126,29 @@ public final class Sorting {
     private static void quickSortUsingMedianPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
             final int p = partitionUsingMedianPivot(arr, low, high);
-            quickSortUsingMedianPivot(arr, low, p - 1);
+            quickSortUsingMedianPivot(arr, low, p);
             quickSortUsingMedianPivot(arr, p + 1, high);
         }
     }
 
     private static int partitionUsingLeftPivot(final int[] arr, int low, int high) {
         final int pivot = arr[low];
-        int i = low - 1;
-        int j = high + 1;
+        low -= 1;
+        high += 1;
         while (true) {
 
             do {
-                i += 1;
-            } while (arr[i] < pivot);
+                low += 1;
+            } while (arr[low] < pivot);
 
             do {
-                j -= 1;
-            } while (arr[j] > pivot);
+                high -= 1;
+            } while (arr[high] > pivot);
 
-            if (i >= j)
-                return j;
+            if (low >= high)
+                return high;
 
-            swap(arr, i, j);
+            swap(arr, low, high);
         }
 
     }
