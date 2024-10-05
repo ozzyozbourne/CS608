@@ -15,6 +15,7 @@
  *  References:
  *  1) https://www.geeksforgeeks.org/insertion-sort-algorithm/
  *  2) https://www.geeksforgeeks.org/quick-sort-algorithm/
+ *  3) https://www.geeksforgeeks.org/hoares-vs-lomuto-partition-scheme-quicksort/
  *
  *  Assignment No.: 4
  *
@@ -82,11 +83,60 @@ import java.util.Collections;
 
 public final class Sorting {
 
+    // Globally declared array of size 10^6
+    private static final int[] arr = new int[1_000_000];
+
     private Sorting() {
     }
 
     public static void main(final String... args) {
 
+    }
+
+    private static int partitionUsingLeftPivot(int low, int high) {
+        final int pivot = arr[low];
+
+        while (true) {
+            while (arr[low] < pivot)
+                low += 1;
+            while (arr[high] > pivot)
+                high -= 1;
+            if (low >= high)
+                return high;
+            swap(low, high);
+        }
+
+    }
+
+    private static int partitionUsingMedianPivot(int low, int high) {
+
+        final Random random = new Random();
+        final int pivotIndex = medianOfThree(
+                low + random.nextInt(high - low + 1),
+                low + random.nextInt(high - low + 1),
+                low + random.nextInt(high - low + 1));
+
+        swap(low, pivotIndex);
+        return partitionUsingLeftPivot(low, high);
+    }
+
+    private static int medianOfThree(final int index1, final int index2, final int index3) {
+        final int value1 = arr[index1];
+        final int value2 = arr[index2];
+        final int value3 = arr[index3];
+
+        if ((value1 >= value2 && value1 <= value3) || (value1 <= value2 && value1 >= value3))
+            return index1;
+        else if ((value2 >= value1 && value2 <= value3) || (value2 <= value1 && value2 >= value3))
+            return index2;
+        else
+            return index3;
+    }
+
+    private static void swap(final int low, final int high) {
+        final int temp = arr[low];
+        arr[low] = arr[high];
+        arr[high] = temp;
     }
 
     /**
@@ -102,7 +152,7 @@ public final class Sorting {
         List<Integer> numbers = new ArrayList<>();
 
         for (int i = 1; i <= n; i++)
-            numbers.add(i * random.nextInt(100000));
+            numbers.add(i * random.nextInt(100_000));
         Collections.shuffle(numbers);
         return numbers;
     }
