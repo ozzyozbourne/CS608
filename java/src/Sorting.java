@@ -91,8 +91,11 @@ public final class Sorting {
         final int size = 100;
         final int[] arr1 = generateUniqueRandomNumbersArray(size);
         final int[] arr2 = generateUniqueRandomNumbersArray(size);
+        final int[] arr3 = generateUniqueRandomNumbersArray(size);
 
         System.out.println("Before Sorting:");
+        System.out.println("Array for Insertion sort:");
+        printArray(arr3);
         System.out.println("Array for Quick Sort (Left Pivot):");
         printArray(arr1);
         System.out.println("Array for Quick Sort (Median Pivot):");
@@ -102,6 +105,8 @@ public final class Sorting {
         quickSortUsingMedianPivot(arr2, 0, size - 1);
 
         System.out.println("\nAfter Sorting:");
+        System.out.println("Array sorted by Insertion Sort");
+        printArray(arr3);
         System.out.println("Array sorted by Quick Sort (Left Pivot):");
         printArray(arr1);
         System.out.println("Array sorted by Quick Sort (Median Pivot):");
@@ -115,9 +120,21 @@ public final class Sorting {
         System.out.println();
     }
 
+    private static void insertionSort(final int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            final int key = arr[i];
+            var j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j -= 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
     private static void quickSortUsingLeftPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
-            final int p = partitionUsingLumotoScheme(arr, low, high);
+            final int p = partitionUsingHoareSchemeWithDefaultLeftPivot(arr, low, high);
             quickSortUsingLeftPivot(arr, low, p);
             quickSortUsingLeftPivot(arr, p + 1, high);
         }
@@ -125,13 +142,13 @@ public final class Sorting {
 
     private static void quickSortUsingMedianPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
-            final int p = partitionUsingHoareScheme(arr, low, high);
+            final int p = partitionUsingHoareSchemeWithMedianPivot(arr, low, high);
             quickSortUsingMedianPivot(arr, low, p);
             quickSortUsingMedianPivot(arr, p + 1, high);
         }
     }
 
-    private static int partitionUsingLumotoScheme(final int[] arr, int low, int high) {
+    private static int partitionUsingHoareSchemeWithDefaultLeftPivot(final int[] arr, int low, int high) {
         final int pivot = arr[low];
         low -= 1;
         high += 1;
@@ -153,7 +170,7 @@ public final class Sorting {
 
     }
 
-    private static int partitionUsingHoareScheme(final int[] arr, int low, int high) {
+    private static int partitionUsingHoareSchemeWithMedianPivot(final int[] arr, int low, int high) {
 
         final int pivotIndex = medianOfThree(arr, low, high);
         final int pivot = arr[pivotIndex];
