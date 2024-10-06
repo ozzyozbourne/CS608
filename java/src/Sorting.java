@@ -117,7 +117,7 @@ public final class Sorting {
 
     private static void quickSortUsingLeftPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
-            final int p = partitionUsingLeftPivot(arr, low, high);
+            final int p = partitionUsingLumotoScheme(arr, low, high);
             quickSortUsingLeftPivot(arr, low, p);
             quickSortUsingLeftPivot(arr, p + 1, high);
         }
@@ -125,13 +125,13 @@ public final class Sorting {
 
     private static void quickSortUsingMedianPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
-            final int p = partitionUsingMedianPivot(arr, low, high);
+            final int p = partitionUsingHoareScheme(arr, low, high);
             quickSortUsingMedianPivot(arr, low, p);
             quickSortUsingMedianPivot(arr, p + 1, high);
         }
     }
 
-    private static int partitionUsingLeftPivot(final int[] arr, int low, int high) {
+    private static int partitionUsingLumotoScheme(final int[] arr, int low, int high) {
         final int pivot = arr[low];
         low -= 1;
         high += 1;
@@ -153,20 +153,39 @@ public final class Sorting {
 
     }
 
-    private static int partitionUsingMedianPivot(final int[] arr, final int low, final int high) {
+    private static int partitionUsingHoareScheme(final int[] arr, int low, int high) {
 
-        final Random random = new Random();
-        final int pivotIndex = medianOfThree(
-                arr,
-                low + random.nextInt(high - low + 1),
-                low + random.nextInt(high - low + 1),
-                low + random.nextInt(high - low + 1));
+        final int pivotIndex = medianOfThree(arr, low, high);
+        final int pivot = arr[pivotIndex];
 
-        swap(arr, low, pivotIndex);
-        return partitionUsingLeftPivot(arr, low, high);
+        low -= 1;
+        high += 1;
+
+        while (true) {
+
+            do {
+                low += 1;
+            } while (arr[low] < pivot);
+
+            do {
+                high -= 1;
+            } while (arr[high] > pivot);
+
+            if (low >= high)
+                return high;
+
+            swap(arr, low, high);
+        }
+
     }
 
-    private static int medianOfThree(final int[] arr, final int index1, final int index2, final int index3) {
+    private static int medianOfThree(final int[] arr, final int low, final int high) {
+        final Random random = new Random();
+
+        final int index1 = low + random.nextInt(high - low);
+        final int index2 = low + random.nextInt(high - low);
+        final int index3 = low + random.nextInt(high - low);
+
         final int value1 = arr[index1];
         final int value2 = arr[index2];
         final int value3 = arr[index3];
