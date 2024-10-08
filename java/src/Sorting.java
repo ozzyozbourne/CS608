@@ -38,9 +38,9 @@
  *
  *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
  *
- *  1)  Insertion Sort     
- *  2a) Quick Sort (Left Pivot)      
- *  2b) Quick Sort (Median Pivot)          
+ *  1)  Insertion Sort                |  7044875             |   1876458            |    407248508167
+ *  2a) Quick Sort (Left Pivot)       |  716004819500        |   719148505583       |    140445458 
+ *  2b) Quick Sort (Median Pivot)     |  113454208           |   96932042           |    182321667   
  *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
@@ -52,9 +52,9 @@
  *
  *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
  *
- *  1)  Insertion Sort     
- *  2a) Quick Sort (Left Pivot)      
- *  2b) Quick Sort (Median Pivot)          
+ *  1)  Insertion Sort                |  7044875             |   1876458            |    407248508167
+ *  2a) Quick Sort (Left Pivot)       |  716004819500        |   719148505583       |    140445458 
+ *  2b) Quick Sort (Median Pivot)     |  113454208           |   96932042           |    182321667   
  * 
  *
  *  Table of time and space complexities of search operations
