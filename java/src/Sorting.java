@@ -88,36 +88,103 @@ public final class Sorting {
     }
 
     public static void main(final String... args) {
-        final int size = 100;
+        final int size = 1000000;
+        testRuntimeForAscendingArray(size);
+        testRuntimeForRandomlyGeneratedArray(size);
+        testRuntimeForDescendingArray(size);
+    }
+
+    private static void testRuntimeForRandomlyGeneratedArray(final int size) {
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting sort time of Randomly generated array");
+        System.out.println("------------------------------------------------------------------------------");
+
         final int[] arr1 = generateUniqueRandomNumbersArray(size);
         final int[] arr2 = generateUniqueRandomNumbersArray(size);
         final int[] arr3 = generateUniqueRandomNumbersArray(size);
 
-        System.out.println("Before Sorting:");
-        System.out.println("Array for Insertion sort:");
-        printArray(arr3);
-        System.out.println("Array for Quick Sort (Left Pivot):");
-        printArray(arr1);
-        System.out.println("Array for Quick Sort (Median Pivot):");
-        printArray(arr2);
+        var startTime = System.nanoTime();
+        insertionSort(arr1);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken for insertion Sort-> " + (endTime - startTime));
 
-        quickSortUsingLeftPivot(arr1, 0, size - 1);
-        quickSortUsingMedianPivot(arr2, 0, size - 1);
+        startTime = System.nanoTime();
+        quickSortUsingLeftPivot(arr2, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using fixed left pivot -> " + (endTime - startTime));
 
-        System.out.println("\nAfter Sorting:");
-        System.out.println("Array sorted by Insertion Sort");
-        printArray(arr3);
-        System.out.println("Array sorted by Quick Sort (Left Pivot):");
-        printArray(arr1);
-        System.out.println("Array sorted by Quick Sort (Median Pivot):");
-        printArray(arr2);
+        startTime = System.nanoTime();
+        quickSortUsingMedianPivot(arr3, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using median pivot -> " + (endTime - startTime));
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting completed for Randomly generated array");
+        System.out.println("------------------------------------------------------------------------------");
+
     }
 
-    private static void printArray(final int[] array) {
-        for (int value : array) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
+    private static void testRuntimeForAscendingArray(final int size) {
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting sort time of Ascending array");
+        System.out.println("------------------------------------------------------------------------------");
+
+        final int[] arr1 = generateAscendingArray(size);
+        final int[] arr2 = generateAscendingArray(size);
+        final int[] arr3 = generateAscendingArray(size);
+
+        var startTime = System.nanoTime();
+        insertionSort(arr1);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken for insertion Sort-> " + (endTime - startTime));
+
+        startTime = System.nanoTime();
+        quickSortUsingLeftPivot(arr2, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using fixed left pivot -> " + (endTime - startTime));
+
+        startTime = System.nanoTime();
+        quickSortUsingMedianPivot(arr3, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using median pivot -> " + (endTime - startTime));
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting completed for Ascending array");
+        System.out.println("------------------------------------------------------------------------------");
+
+    }
+
+    private static void testRuntimeForDescendingArray(final int size) {
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting sort time of descending array");
+        System.out.println("------------------------------------------------------------------------------");
+
+        final int[] arr1 = generateDescendingArray(size);
+        final int[] arr2 = generateDescendingArray(size);
+        final int[] arr3 = generateDescendingArray(size);
+
+        var startTime = System.nanoTime();
+        insertionSort(arr1);
+        var endTime = System.nanoTime();
+        System.out.println("Time taken for insertion Sort-> " + (endTime - startTime));
+
+        startTime = System.nanoTime();
+        quickSortUsingLeftPivot(arr2, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using fixed left pivot -> " + (endTime - startTime));
+
+        startTime = System.nanoTime();
+        quickSortUsingMedianPivot(arr3, 0, size - 1);
+        endTime = System.nanoTime();
+        System.out.println("Time taken for quick Sort using median pivot -> " + (endTime - startTime));
+
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("\nTesting completed for Randomly generated array");
+        System.out.println("------------------------------------------------------------------------------");
+
     }
 
     private static void insertionSort(final int[] arr) {
@@ -222,10 +289,10 @@ public final class Sorting {
     }
 
     /**
-     * This function generated list of unique randoms number from 1 to n
+     * This function generates an array unique randoms number from 1 to n
      * 
      * @param n max random value
-     * @return List of unique random number from 1 to n
+     * @return Array of unique random number from 1 to n
      */
     private static int[] generateUniqueRandomNumbersArray(final int n) {
         final List<Integer> numbers = IntStream.rangeClosed(1, n).boxed().collect(Collectors.toList());
@@ -235,6 +302,32 @@ public final class Sorting {
             res[i] = numbers.get(i);
         return res;
 
+    }
+
+    /**
+     * This function generate an array of ascending values from 0 to n - 1
+     * 
+     * @param n max random value
+     * @return Array in ascending order from 0 to n - 1
+     */
+    private static int[] generateAscendingArray(final int n) {
+        final int[] res = new int[n];
+        for (int i = 0; i < n; i++)
+            res[i] = i;
+        return res;
+    }
+
+    /**
+     * This function generates an array of desceding values from n - 1 to 0
+     * 
+     * @param n max random value
+     * @return Array in descending order from n - 1 to 0
+     */
+    private static int[] generateDescendingArray(final int n) {
+        final int[] res = new int[n];
+        for (int i = n - 1; i >= 0; i--)
+            res[i] = i;
+        return res;
     }
 
 }
