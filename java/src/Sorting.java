@@ -94,6 +94,12 @@ public final class Sorting {
         testRuntimeForDescendingArray(size);
     }
 
+    /**
+     * This function generates an radom array of given size and tests the runtimes
+     * of the three sorting algorithms
+     *
+     * @param size size of the array
+     */
     private static void testRuntimeForRandomlyGeneratedArray(final int size) {
 
         System.out.println("------------------------------------------------------------------------------");
@@ -125,6 +131,12 @@ public final class Sorting {
 
     }
 
+    /**
+     * This function generates an Ascending array of given size and tests the
+     * runtimes of the three sorting algorithms
+     * 
+     * @param size size of the array
+     */
     private static void testRuntimeForAscendingArray(final int size) {
 
         System.out.println("------------------------------------------------------------------------------");
@@ -156,6 +168,12 @@ public final class Sorting {
 
     }
 
+    /**
+     * This function generates an decending array of given size and tests the
+     * runtimes of the three sorting algorithms
+     * 
+     * @param size size of the array
+     */
     private static void testRuntimeForDescendingArray(final int size) {
 
         System.out.println("------------------------------------------------------------------------------");
@@ -182,11 +200,15 @@ public final class Sorting {
         System.out.println("Time taken for quick Sort using median pivot -> " + (endTime - startTime));
 
         System.out.println("------------------------------------------------------------------------------");
-        System.out.println("\nTesting completed for Randomly generated array");
+        System.out.println("\nTesting completed for decending array");
         System.out.println("------------------------------------------------------------------------------");
 
     }
 
+    /**
+     *
+     * @param arr input array
+     */
     private static void insertionSort(final int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             final int key = arr[i];
@@ -199,6 +221,12 @@ public final class Sorting {
         }
     }
 
+    /**
+     *
+     * @param arr  input array
+     * @param low  starting position
+     * @param high ending position
+     */
     private static void quickSortUsingLeftPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
             final int p = partitionUsingHoareSchemeWithDefaultLeftPivot(arr, low, high);
@@ -207,6 +235,12 @@ public final class Sorting {
         }
     }
 
+    /**
+     *
+     * @param arr  input array
+     * @param low  starting position
+     * @param high ending position
+     */
     private static void quickSortUsingMedianPivot(final int[] arr, final int low, final int high) {
         if (low < high) {
             final int p = partitionUsingHoareSchemeWithMedianPivot(arr, low, high);
@@ -215,6 +249,16 @@ public final class Sorting {
         }
     }
 
+    /**
+     * This function using hoarse partition using that uses a left movable pivot,
+     * in this we move from both the direction of the pivot until the condition are
+     * true being all to the left of pivot must be smaller and all to the right of
+     * the pivot must be greater if this is not true then we swap the values
+     *
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
     private static int partitionUsingHoareSchemeWithDefaultLeftPivot(final int[] arr, int low, int high) {
         final int pivot = arr[low];
         low -= 1;
@@ -237,6 +281,16 @@ public final class Sorting {
 
     }
 
+    /**
+     * This function using hoarse partition using that uses a median movable pivot,
+     * in this we move from both the direction of the pivot until the condition are
+     * true being all to the left of pivot must be smaller and all to the right of
+     * the pivot must be greater if this is not true then we swap the values
+     * 
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
     private static int partitionUsingHoareSchemeWithMedianPivot(final int[] arr, int low, int high) {
 
         final int pivotIndex = medianOfThree(arr, low, high);
@@ -263,6 +317,14 @@ public final class Sorting {
 
     }
 
+    /**
+     * This function generate the median index out of three index
+     * chossen at random from low to high
+     * 
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
     private static int medianOfThree(final int[] arr, final int low, final int high) {
         final Random random = new Random();
 
@@ -282,6 +344,13 @@ public final class Sorting {
             return index3;
     }
 
+    /**
+     * This function swaps the value of the given position in the array
+     * 
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
     private static void swap(final int[] arr, final int low, final int high) {
         final int temp = arr[low];
         arr[low] = arr[high];
@@ -331,3 +400,40 @@ public final class Sorting {
     }
 
 }
+
+/*******
+ * ozzy@Mac src % java -Xss100m Sorting
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing sort time of Ascending array
+ * ------------------------------------------------------------------------------
+ * Time taken for insertion Sort-> 7044875
+ * Time taken for quick Sort using fixed left pivot -> 716004819500
+ * Time taken for quick Sort using median pivot -> 113454208
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for Ascending array
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing sort time of Randomly generated array
+ * ------------------------------------------------------------------------------
+ * Time taken for insertion Sort-> 407248508167
+ * Time taken for quick Sort using fixed left pivot -> 140445458
+ * Time taken for quick Sort using median pivot -> 182321667
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for Randomly generated array
+ * ------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing sort time of descending array
+ * ------------------------------------------------------------------------------
+ * Time taken for insertion Sort-> 1876458
+ * Time taken for quick Sort using fixed left pivot -> 719148505583
+ * Time taken for quick Sort using median pivot -> 96932042
+ * ------------------------------------------------------------------------------
+ * 
+ * Testing completed for decending array
+ * ------------------------------------------------------------------------------
+ **/
