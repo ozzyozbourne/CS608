@@ -88,7 +88,7 @@ public final class Sorting {
     }
 
     public static void main(final String... args) {
-        final int size = 1000000;
+        final int size = 1_000_000;
         testRuntimeForAscendingArray(size);
         testRuntimeForRandomlyGeneratedArray(size);
         testRuntimeForDescendingArray(size);
