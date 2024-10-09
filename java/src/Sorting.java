@@ -106,7 +106,7 @@
  *
  *
  *  ACTUAL RUNTIME
- *  Table with running times(in nanoseconds) hypotical for n = 1000000 
+ *  Table with running times(in nanoseconds) for n = 1_000_000 
  *
  *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
  *
@@ -276,7 +276,8 @@ public final class Sorting {
     }
 
     /**
-     *
+     * This function implements the insertion sort algorithm
+     * 
      * @param arr input array
      */
     private static void insertionSort(final int[] arr) {
@@ -292,6 +293,7 @@ public final class Sorting {
     }
 
     /**
+     * This function implements the quick sort using left pivot approch
      *
      * @param arr  input array
      * @param low  starting position
@@ -306,7 +308,8 @@ public final class Sorting {
     }
 
     /**
-     *
+     * This function implements the quick sort using median of random pivot approch
+     * 
      * @param arr  input array
      * @param low  starting position
      * @param high ending position
