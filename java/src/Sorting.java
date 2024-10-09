@@ -141,9 +141,47 @@
  *  
  *
  *  Conclusion -> 
- *      
- *  
  *
+ *  For Input in Ascending order -> 
+ *
+ *  Insertion sort is the fastest amongst the three since it is simply iterating through the array in 
+ *  theta (n) time due the inner while loop not activating
+ *
+ *  Quick Sort with left pivot has the highest runtime due the choice of pivot being fixed ie left, 
+ *  result in unbalanced partition being formed making the quick sort recursion runtime make n calls 
+ *  to the partition function hence giving it a runtime of theta (n ^ 2) also having a recursive 
+ *  call stack space overhead of n
+ *
+ *  Quick sort with randomized median pivot performs a lot better than Quick sort with left pivot, 
+ *  due to choice of the median pivot, producing balanced partitions giving it a runtime of 
+ *  theta (n log n)
+ *
+ *
+ *  For input in Descending order -> 
+ *
+ *  Insertion sort is the fastest here despite having the runtime of theta (n ^ 2), this discrepence would 
+ *  to due to the value of the array being known as compile time and jvm optimising the insertion sort with a 
+ *  reverse opertation since compliers are able to analyse simple for and while loops. 
+ *
+ *  Quick sort with left pivot has the highest runtime since due to poor choice of pivot producing un-balanced 
+ *  partitions giving it a runtime of theta (n ^ 2), also having a recursive call stack space overhead of n. 
+ *
+ *  Quick sort with randomized median pivot performs a lot better than Quick sort with left pivot, 
+ *  due to choice of the median pivot, producing balanced partitions giving it a runtime of 
+ *  theta (n log n)
+ *
+ *
+ *  Randomized input 
+ *   
+ *
+ *
+ *
+ *
+ *
+ *  Quick sort with randomized median pivot performs a lot better than insertiopn sort and Quick sort with 
+ *  left pivot due to choice of the median pivot, producing balanced partitions giving it a runtime of 
+ *  theta (n log n)
+
  *************************************************************************/
 
 import java.util.Random;
