@@ -159,9 +159,9 @@
  *
  *  For input in Descending order -> 
  *
- *  Insertion sort is the fastest here despite having the runtime of theta (n ^ 2), this discrepence would 
- *  to due to the value of the array being known as compile time and jvm optimising the insertion sort with a 
- *  reverse opertation since compliers are able to analyse simple for and while loops. 
+ *  Insertion sort is the fastest here despite having the runtime of theta (n ^ 2), this discrepence would be 
+ *  due to CPU Branch prediction and caching, also insertion sort has no recursion so the JIT compilier is able 
+ *  to optimize simply loops, improving performance further.
  *
  *  Quick sort with left pivot has the highest runtime since due to poor choice of pivot producing un-balanced 
  *  partitions giving it a runtime of theta (n ^ 2), also having a recursive call stack space overhead of n. 
@@ -173,14 +173,20 @@
  *
  *  Randomized input 
  *   
+ *  Insertion Sort performs the worst of the three due to the fact that it that it has theta (n ^ 2) 
+ *  runtime agreeing with our Hypothsis
+ *
+ *  Quick Sort with left pivot performs fastest here the input array is random making it a high 
+ *  possiblity the on choosing the left element as pivot we would be able to produce balance 
+ *  partitions without the need for a finding the a median pivot, due to thg nature of the input array
+ *  hence the runtime here is theta (n log n )
  *
  *
- *
- *
- *
- *  Quick sort with randomized median pivot performs a lot better than insertiopn sort and Quick sort with 
- *  left pivot due to choice of the median pivot, producing balanced partitions giving it a runtime of 
- *  theta (n log n)
+ *  Quick sort with randomized median pivot performs a lot better than insertion sort , but is slower by 
+ *  10 ^ 6 nanoseconds in comparison to other quick since calculating the median is adding extra overhead 
+ *  since we can get away by choose a fixed right or left pivot here, due to the nature of the input array 
+ *  being random. hence the runtime here is theta (n log n ), since we can median of three calculation is a 
+ *  constant operation
 
  *************************************************************************/
 
