@@ -148,8 +148,8 @@
  *  theta (n) time due the inner while loop not activating
  *
  *  Quick Sort with left pivot has the highest runtime due the choice of pivot being fixed ie left, 
- *  result in unbalanced partition being formed making the quick sort recursion runtime make n calls 
- *  to the partition function hence giving it a runtime of theta (n ^ 2) also having a recursive 
+ *  resulting in unbalanced partition being formed making the quick sort recursion calls equal to n(size of the input array),  
+ *  each of them calling partition function hence giving it a runtime of theta (n ^ 2) also having a recursive 
  *  call stack space overhead of n
  *
  *  Quick sort with randomized median pivot performs a lot better than Quick sort with left pivot, 
@@ -176,17 +176,16 @@
  *  Insertion Sort performs the worst of the three due to the fact that it that it has theta (n ^ 2) 
  *  runtime agreeing with our Hypothsis
  *
- *  Quick Sort with left pivot performs fastest here the input array is random making it a high 
+ *  Quick Sort with left pivot performs fastest here since the input array is random making it a high 
  *  possiblity the on choosing the left element as pivot we would be able to produce balance 
- *  partitions without the need for a finding the a median pivot, due to thg nature of the input array
+ *  partitions without the need for a finding a median pivot, due to the nature of the input array
  *  hence the runtime here is theta (n log n )
- *
  *
  *  Quick sort with randomized median pivot performs a lot better than insertion sort , but is slower by 
  *  10 ^ 6 nanoseconds in comparison to other quick since calculating the median is adding extra overhead 
- *  since we can get away by choose a fixed right or left pivot here, due to the nature of the input array 
- *  being random. hence the runtime here is theta (n log n ), since we can median of three calculation is a 
- *  constant operation
+ *  We can get away by choose a fixed right or left pivot here, due to the nature of the input array 
+ *  being random. hence the runtime here is theta (n log n ) inspite being slower that other quick sort 
+ *  since median of three calculation is a constant operation
 
  *************************************************************************/
 
