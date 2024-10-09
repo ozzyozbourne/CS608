@@ -28,24 +28,35 @@
  *  ----------------------------------------------------------------------------------------------------
  *
  *  Hypothsis - 
+ *   
+ *  Insertion sort is the least optimal to sort an given array since we iterate through the array once, 
+ *  and for each iteration, we choose the current as the key and sort every thing to its left make the runtime 
+ *  n ^ 2.
  *
- *  Assumption for the Runtime as a function of input size ->
+ *  Quick sort improves upon this by using a partition method that run once through the array sorting using a 
+ *  pivot, and returning a new pivot, which is used by the recursve quick sort methods to break the array in two, 
+ *  calling the partion method again, hence replacing outer loop by recursion to control the number of times 
+ *  we call the partition method, this reduces the time complexity of the outer procedure to log n since we are using 
+ *  a recursion, so the idea is the replace the outer loop by a recursion hence reducing the number of times 
+ *  we have to call the partition function since its an expensive linear time opertion, so we have choose our pivot 
+ *  skillfully inorde to sort the array by only calling the partition function log n time using recursion, hence making 
+ *  quick sort n * log n operation by also makes in dependant on the way we choose pivot since if the pivot 
+ *  is choosen naively ie always left or right, make the algorithm depandent on the arragment of the input since 
+ *  now the recursive (outer loop) will end up calling the theta (n) partition function n time making it similar 
+ *  to insertion with the added overhead of recursive stack space degrading its runtime worst than insertion sort   
  *
+ *
+ *  Assumption for the Runtime as a function of input size -> 
+ *
+ *  For Input array sorted in Ascending order -> 
+ *
+ *  Insertion sort -> Since input array is already sorted hence the inner while loop will not run, 
+ *                    making the runtime dependant on the outer for loop ie theta (n) 
+ * 
  *  
- *  HYPOTHICAL RUNTIME ->
- *
- *  Table with running times(in nanoseconds) hypotical for n = 1000000 
- *
- *                                    |  Sorted Increasing   |   Sorted Decreasing  |    Random   
- *
- *  1)  Insertion Sort                |  7044875             |   1876458            |    407248508167
- *  2a) Quick Sort (Left Pivot)       |  716004819500        |   719148505583       |    140445458 
- *  2b) Quick Sort (Median Pivot)     |  113454208           |   96932042           |    182321667   
- *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
  *
- *  plot ->   
  *
  *  ACTUAL RUNTIME
  *  Table with running times(in nanoseconds) hypotical for n = 1000000 
@@ -57,16 +68,24 @@
  *  2b) Quick Sort (Median Pivot)     |  113454208           |   96932042           |    182321667   
  * 
  *
- *  Table of time and space complexities of search operations
+ *  Table of time and space complexities of sort operations
  *  
- *                                   | Time Complexity          |  Space Complexity 
- *  1)  Insertion Sort               |                          |
- *  2a) Quick Sort (Left Pivot)      |                          | 
+ *  Sorted Ascending                 | Time Complexity          |  Space Complexity 
+ *  1)  Insertion Sort               | Theta(n)                 | theta(1)
+ *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
  *  2b) Quick Sort (Median Pivot)    |                          |      
  * 
  *
+ *  Sorted descending                | Time Complexity          |  Space Complexity 
+ *  1)  Insertion Sort               | Theta(n)                 | theta(1)
+ *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
+ *  2b) Quick Sort (Median Pivot)    |                          |      
  *
  *
+ *  Random                           | Time Complexity          |  Space Complexity 
+ *  1)  Insertion Sort               | Theta(n)                 | theta(1)
+ *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
+ *  2b) Quick Sort (Median Pivot)    |                          |      
  *  ------------------------------------------------------------------------------------
  *  
  *
