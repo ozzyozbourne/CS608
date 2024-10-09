@@ -27,7 +27,7 @@
  *  
  *  ----------------------------------------------------------------------------------------------------
  *
- *  Hypothsis - 
+ *  Hypothsis ->
  *   
  *  Insertion sort is the least optimal to sort an given array since we iterate through the array once, 
  *  and for each iteration, we choose the current as the key and sort every thing to its left make the runtime 
@@ -35,7 +35,7 @@
  *
  *  Quick sort improves upon this by using a partition method that run once through the array sorting using a 
  *  pivot, and returning a new pivot, which is used by the recursve quick sort methods to break the array in two, 
- *  calling the partion method again, hence replacing outer loop by recursion to control the number of times 
+ *  calling the partition method again, hence replacing outer loop by recursion to control the number of times 
  *  we call the partition method, this reduces the time complexity of the outer procedure to log n since we are using 
  *  a recursion, so the idea is the replace the outer loop by a recursion hence reducing the number of times 
  *  we have to call the partition function since its an expensive linear time opertion, so we have choose our pivot 
@@ -50,10 +50,54 @@
  *
  *  For Input array sorted in Ascending order -> 
  *
- *  Insertion sort -> Since input array is already sorted hence the inner while loop will not run, 
- *                    making the runtime dependant on the outer for loop ie theta (n) 
+ *  Insertion sort -> 
+ *  Since input array is already sorted hence the inner while loop will not run, making the runtime dependant 
+ *  on the outer for loop ie theta (n) 
  * 
- *  
+ *
+ *  Quick sort (left pivot) -> 
+ *  Since the array is already sorted the and pivot is also way the left most element hence the partition function 
+ *  will return the pivot itself since the everyting to left's right is already sorted, hence the new return pivot 
+ *  will be the left most element since recursion will then up calling the partition method n time making the runtime 
+ *  theta(n^2)
+ *                             
+ *  Quick sort (median of random) -> 
+ *  Inspite of the array being sorted, since we are choosing the pivot as random of median of three making it some 
+ *  what invariant on the arrangment of input, due to the fact the median pivot might end being the middle element 
+ *  of the low and high, hence reducing the depth of the recursion tree make the runtime theta (n log n)
+ *
+ *
+ *  For Input array sorted in Descending order -> 
+ *
+ *  Insertion sort -> This will make the both the loops run making the time complexicty theta (n^2) 
+ *
+ *  Quick sort (left pivot) -> 
+ *  Here the runtime will be theta (n^2) due to fact that we the partition method chooses the pivot as the the low 
+ *  hence the partition method will end part swaping all the elements since, and returning the last element as the new pivot
+ *  make the quick sort procedure to n recursive calls, hence the runtime will be n ^ 2 
+ *
+ *  Quick sort (median of random) -> 
+ *  As mentioned above since we choose median of random of three, this makes the it invariant on the arrangement input 
+ *  since there is a high change that pivot is middle element of low and high make the quick sort procedure calling 
+ *  partition function log n times, ie theta (n log n) runtime
+ *
+ *
+ *  For Input array in Random order -> 
+ *
+ *  Insertion sort -> 
+ *  Since the array is randomly generated hence we can rule out the possiblity the array will be 
+ *  completing in ascending order, the average and worst case of quick sort have n^2 runtime 
+ *  so the time complexcity will be O (n^2)
+ * 
+ *
+ *  Quick sort (left pivot) -> 
+ *
+ *  Quick sort (median of random) -> 
+ *  As mentioned above since we choose median of random of three, this makes the it invariant on the arrangement input 
+ *  since there is a high change that pivot is middle element of low and high make the quick sort procedure calling 
+ *  partition function log n times, ie theta (n log n) runtime
+
+ *
  *  -----------------------------------------------------------------------------------
  *  Actual Observation -> 
  *
@@ -73,19 +117,23 @@
  *  Sorted Ascending                 | Time Complexity          |  Space Complexity 
  *  1)  Insertion Sort               | Theta(n)                 | theta(1)
  *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
- *  2b) Quick Sort (Median Pivot)    |                          |      
+ *  2b) Quick Sort (Median Pivot)    | Theta(n log n)           | theta(log n)     
  * 
  *
  *  Sorted descending                | Time Complexity          |  Space Complexity 
- *  1)  Insertion Sort               | Theta(n)                 | theta(1)
+ *  1)  Insertion Sort               | Theta(n^2)               | theta(1)
  *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
- *  2b) Quick Sort (Median Pivot)    |                          |      
+ *  2b) Quick Sort (Median Pivot)    | Theta(n log n)           | theta(log n)     
  *
  *
  *  Random                           | Time Complexity          |  Space Complexity 
- *  1)  Insertion Sort               | Theta(n)                 | theta(1)
- *  2a) Quick Sort (Left Pivot)      | Theta(n^2)               | theta(n) 
- *  2b) Quick Sort (Median Pivot)    |                          |      
+ *  1)  Insertion Sort               | O(n^2)                   | theta(1)
+ *  2a) Quick Sort (Left Pivot)      | Theta(n log n)           | theta(log n)
+ *  2b) Quick Sort (Median Pivot)    | Theta(n log n)           | theta(log n)     
+ *
+ *
+ *
+ *
  *  ------------------------------------------------------------------------------------
  *  
  *
