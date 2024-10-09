@@ -86,12 +86,15 @@
  *
  *  Insertion sort -> 
  *  Since the array is randomly generated hence we can rule out the possiblity the array will be 
- *  completing in ascending order, the average and worst case of quick sort have n^2 runtime 
- *  so the time complexcity will be O (n^2)
+ *  completing in ascending order, the average, worst and best case of insertion sort have theta n^2 runtime 
+ *  so the time complexcity will be theta (n^2)
  * 
  *
  *  Quick sort (left pivot) -> 
- *
+ *  Since the array is randomly generated hence we can rule out the possiblity the array will be completly 
+ *  in ascending or descending order since we cannot have Big O n^2 as a runtime so since best worst average 
+ *  cases are all same here the runtime will be theta (n log n)
+ *  
  *  Quick sort (median of random) -> 
  *  As mentioned above since we choose median of random of three, this makes the it invariant on the arrangement input 
  *  since there is a high change that pivot is middle element of low and high make the quick sort procedure calling 
@@ -127,7 +130,7 @@
  *
  *
  *  Random                           | Time Complexity          |  Space Complexity 
- *  1)  Insertion Sort               | O(n^2)                   | theta(1)
+ *  1)  Insertion Sort               | theta(n^2)               | theta(1)
  *  2a) Quick Sort (Left Pivot)      | Theta(n log n)           | theta(log n)
  *  2b) Quick Sort (Median Pivot)    | Theta(n log n)           | theta(log n)     
  *
