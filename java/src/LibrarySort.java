@@ -21,8 +21,14 @@
  * Problem -> Implement Library Sort
  *
  * Input and Output ->
- * 
- * Conclusion ->
+ * Before sorting -> [7, 4, 5, 2, 8, 3]
+ * Before sorting -> [3, 6, 4, 3, 5, 6, 3, 2, 4, 5, 67, 78, 6, 5, 4, 3, 2, 4, 5, 6, 2, 4, 43, 3]
+ *
+ *
+ * After sorting -> [2, 3, 4, 5, 7, 8]
+ * After sorting -> [2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 43, 67, 78] 
+ *
+ * Conclusion -> 
  *
  * 
  ********************************************************************************/
@@ -34,57 +40,63 @@ public final class LibrarySort {
     private LibrarySort() {
     }
 
-    private static int binarySearch(final int[] arr, final int key, final int validLength) {
-        int low = 0, high = validLength - 1;
+    public static void librarySort(final int[] index, final int n) {
+        int lib_size = 1, index_pos = 1, target_lib = 0;
 
-        while (low <= high) {
-            final int mid = (low + high) / 2;
+        final int[] gaps = new int[n + 1];
+        final int[][] library = new int[2][];
+        final boolean[] numbered = new boolean[n + 1];
 
-            if (arr[mid] == -1 || arr[mid] > key) {
-                high = mid - 1;
-            } else if (arr[mid] < key) {
-                low = mid + 1;
+        for (int i = 0; i < 2; i++)
+            library[i] = new int[n];
+
+        library[target_lib][0] = index[0];
+
+        while (index_pos < n) {
+
+            int insert = Arrays.binarySearch(library[target_lib], 0, lib_size, index[index_pos]);
+
+            if (insert < 0)
+                insert = -insert - 1;
+
+            if (numbered[insert]) {
+                int prov_size = 0;
+                final int next_target_lib = 1 - target_lib;
+
+                for (int i = 0; i <= n; i++) {
+                    if (numbered[i]) {
+                        library[next_target_lib][prov_size] = gaps[i];
+                        prov_size += 1;
+                        numbered[i] = false;
+                    }
+
+                    if (i <= lib_size) {
+                        library[next_target_lib][prov_size] = library[target_lib][i];
+                        prov_size += 1;
+                    }
+                }
+
+                target_lib = next_target_lib;
+                lib_size = prov_size - 1;
             } else {
-                return mid;
+                numbered[insert] = true;
+                gaps[insert] = index[index_pos];
+                index_pos += 1;
             }
         }
-        return low;
-    }
 
-    private static void rebalance(final int[] arr, final int validLength) {
-        int[] newArr = new int[arr.length];
-        Arrays.fill(newArr, -1);
+        int index_pos_for_output = 0;
+        for (int i = 0; index_pos_for_output < n; i++) {
+            if (numbered[i]) {
+                index[index_pos_for_output] = gaps[i];
+                index_pos_for_output += 1;
+            }
 
-        var index = 0;
-        for (int i = 0; i < validLength; i++) {
-            newArr[index] = arr[i];
-            index += 2;
+            if (i < lib_size) {
+                index[index_pos_for_output] = library[target_lib][i];
+                index_pos_for_output += 1;
+            }
         }
-
-        System.arraycopy(newArr, 0, arr, 0, arr.length);
-    }
-
-    public static int[] librarySort(final int[] arr) {
-        final int[] sortedArr = new int[(int) ((1 + 0.5) * arr.length)];
-        Arrays.fill(sortedArr, -1);
-
-        sortedArr[0] = arr[0];
-        int validLength = 1;
-
-        for (int i = 1; i < arr.length; i++) {
-            if (validLength >= sortedArr.length)
-                rebalance(sortedArr, validLength);
-
-            int pos = binarySearch(sortedArr, arr[i], validLength);
-            for (int j = validLength; j > pos; j--)
-                sortedArr[j] = sortedArr[j - 1];
-
-            sortedArr[pos] = arr[i];
-            validLength += 1;
-        }
-
-        return Arrays.stream(sortedArr).filter(x -> x != -1).toArray();
-
     }
 
     public static void main(final String... args) {
@@ -96,8 +108,8 @@ public final class LibrarySort {
         System.out.println("Before sorting -> " + Arrays.toString(input_B));
         System.out.println();
 
-        input_A = librarySort(input_A);
-        input_B = librarySort(input_B);
+        librarySort(input_A, input_A.length);
+        librarySort(input_B, input_B.length);
 
         System.out.println();
         System.out.println("After sorting -> " + Arrays.toString(input_A));
