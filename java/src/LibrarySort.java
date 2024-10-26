@@ -28,7 +28,15 @@
  * After sorting -> [2, 3, 4, 5, 7, 8]
  * After sorting -> [2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 43, 67, 78] 
  *
- * Conclusion -> 
+ * Conclusion -> library in n log n implement of insertion sort where we replace the linear search 
+ *               to insert the key into its correct position by binary search, and it uses a rebalancing 
+ *               mechanism to make the array less dense. 
+ *               The whole point of libray sort to the reduce the time taken in swaping the elements 
+ *               so to implement this we use an array that is larger that the input array and we begin our 
+ *               insertion, we keep track of the gaps present in array if during insertion we find the the 
+ *               insertion position already has an element present meaning we need swap then instead of 
+ *               doing that we rebalance the array ie introduce gaps to the left and right indexes of the 
+ *               each element hence, making the insertion possible without the need of swapping.
  *
  * 
  ********************************************************************************/
