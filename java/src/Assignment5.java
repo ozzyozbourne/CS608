@@ -23,7 +23,7 @@
  *  Assumption for the runtimes as a function of the input size
  *
  *  HYPOTHICAL RUNTIME -> 
- *  Table with hypotical search times(in nanoseconds) measured for different values of 'n'
+ *  Table with hypotical actual times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
  *
@@ -32,10 +32,10 @@
  *
  *
  *
- *  Increase Factor for Quick Sort search hypotical search ->
+ *  Increase Factor for Quick Sort hypotical search ->
  *
  *
- *  Increase Factor for Bucket Sort search hypotical search ->
+ *  Increase Factor for Bucket Sort hypotical search ->
  * 
  *
  *  -----------------------------------------------------------------------------------
@@ -44,7 +44,7 @@
  *  
  *
  *  ACTUAL RUNTIME -> 
- *  Table with hypotical search times(in nanoseconds) measured for different values of 'n'
+ *  Table with actual sort times(in nanoseconds) measured for different values of 'n'
  *
  *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
  *
@@ -55,17 +55,17 @@
  *
  *
  *
- *  Table of time and space complexities of search and construction operations
+ *  Table of time and space complexities of sort operations
  *  
  *                     | Time Complexity          |  Space Complexity 
  *  Quick Sort         | theta (n log n )         |  theta ( log n ) 
  *  Bucket Sort        | theta ()                 |  theta (1)
  *                        
  *
- *  Increase Factor for Quick Sort search actual runtimes ->
+ *  Increase Factor for Quick Sort actual runtimes ->
  *
  *
- *  Increase Factor for Bucket Sort search actual runtimes ->
+ *  Increase Factor for Bucket Sort actual runtimes ->
  *  ------------------------------------------------------------------------------------
  *  
  *  plot ->   
@@ -86,6 +86,27 @@ public final class Assignment5 {
 
     public static void main(final String... args) {
         for (final int n : new int[] { 1000, 10_000, 100_000, 1_000_000, 10_000_000 }) {
+
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println("\nTesting sort time of Quick sort and Bucket Sort of size -> " + n + "\n");
+            System.out.println("------------------------------------------------------------------------------");
+
+            System.out.println("Sorting using Quick sort");
+            var startTime = System.nanoTime();
+            var endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+
+            System.out.println();
+
+            System.out.println("Sorting using Bucket sort");
+            startTime = System.nanoTime();
+            endTime = System.nanoTime();
+            System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
+
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println("\nTesting completed Quick sort and Bucket Sort of size -> " + n + "\n");
+            System.out.println("------------------------------------------------------------------------------");
+
         }
     }
 
