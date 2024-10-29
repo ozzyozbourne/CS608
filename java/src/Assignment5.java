@@ -58,7 +58,7 @@
  *  Table of time and space complexities of search and construction operations
  *  
  *                     | Time Complexity          |  Space Complexity 
- *  Quick Sort         | theta (n log n )         |  theta ( log n) 
+ *  Quick Sort         | theta (n log n )         |  theta ( log n ) 
  *  Bucket Sort        | theta ()                 |  theta (1)
  *                        
  *
@@ -85,6 +85,75 @@ public final class Assignment5 {
     }
 
     public static void main(final String... args) {
+        for (final int n : new int[] { 1000, 10_000, 100_000, 1_000_000, 10_000_000 }) {
+        }
+    }
 
+    /**
+     * This function implements the quick sort using left pivot approch
+     *
+     * @param arr  input array
+     * @param low  starting position
+     * @param high ending position
+     */
+    private static void quickSortUsingLeftPivot(final double[] arr, final int low, final int high) {
+        if (low < high) {
+            final int p = partitionUsingHoareSchemeWithDefaultLeftPivot(arr, low, high);
+            quickSortUsingLeftPivot(arr, low, p);
+            quickSortUsingLeftPivot(arr, p + 1, high);
+        }
+    }
+
+    /**
+     * This function using hoarse partition using that uses a left movable pivot,
+     * in this we move from both the direction of the pivot until the condition are
+     * true being all to the left of pivot must be smaller and all to the right of
+     * the pivot must be greater if this is not true then we swap the values
+     *
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
+    private static int partitionUsingHoareSchemeWithDefaultLeftPivot(final double[] arr, int low, int high) {
+        final double pivot = arr[low];
+        low -= 1;
+        high += 1;
+        while (true) {
+
+            do {
+                low += 1;
+            } while (arr[low] < pivot);
+
+            do {
+                high -= 1;
+            } while (arr[high] > pivot);
+
+            if (low >= high)
+                return high;
+
+            swap(arr, low, high);
+        }
+
+    }
+
+    /**
+     * This function swaps the value of the given position in the array
+     * 
+     * @param arr  input array
+     * @param low  1st position
+     * @param high 2nd position
+     */
+    private static void swap(final double[] arr, final int low, final int high) {
+        final double temp = arr[low];
+        arr[low] = arr[high];
+        arr[high] = temp;
+    }
+
+    private static double[] randomPoints(final int n) {
+        final double[] res = new double[n];
+        for (int i = 0; i < n; i++) {
+
+        }
+        return res;
     }
 }
