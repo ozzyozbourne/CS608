@@ -100,7 +100,7 @@
  *  plot -> https://colab.research.google.com/drive/1ab8eAEYDGmszOuRcChhNjbLZKO4qKOcx?usp=sharing  
  *  
  *
- *  Conclusion ->  As expected the sort of bucket sort is linear ie theta(n) since the input 
+ *  Conclusion ->  As expected the sort runtime of bucket sort is linear ie theta(n) since the input 
  *  is a random distribution of distances from a unit circle and sort of quick sort using a fixed 
  *  left pivot is also theta(n log n) due the nature of the input. 
  *
