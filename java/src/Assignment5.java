@@ -25,18 +25,26 @@
  *  HYPOTHICAL RUNTIME -> 
  *  Table with hypotical actual times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *                       | n = 10^3   | n = 10^4   | n = 10^5    | n = 10^6      | n = 10^7
  *
- *  Quick Sort           |             |               |                |                  |  
- *  Bucket Sort          |             |               |                |                  |  
+ *  Quick Sort           | 1,361,162  | 18,148,827 | 226,860,333 | 2,722,323,999 | 31,760,446,653 
+ *  Bucket Sort          | 234,188    | 2,341,877  | 23,418,766  | 234,187,661   | 2,341,876,607  
  *
  *
  *
  *  Increase Factor for Quick Sort hypotical search ->
- *
+ *  
+ *  From n^3 to n^4: 13.33
+ *  From n^4 to n^5: 12.50
+ *  From n^5 to n^6: 12.00
+ *  From n^6 to n^7: 11.67
  *
  *  Increase Factor for Bucket Sort hypotical search ->
- * 
+ *  
+ *  From n^3 to n^4: 10.00
+ *  From n^4 to n^5: 10.00
+ *  From n^5 to n^6: 10.00
+ *  From n^6 to n^7: 10.00
  *
  *  -----------------------------------------------------------------------------------
  *
@@ -61,11 +69,21 @@
  *
  *  Increase Factor for Quick Sort actual runtimes ->
  *
+ *  From n^3 to n^4: 4.36
+ *  From n^4 to n^5: 8.08
+ *  From n^5 to n^6: 10.12
+ *  From n^6 to n^7: 11.18
  *
  *  Increase Factor for Bucket Sort actual runtimes ->
+ *
+ *  From n^3 to n^4: 4.44
+ *  From n^4 to n^5: 3.98
+ *  From n^5 to n^6: 9.93
+ *  From n^6 to n^7: 8.91
+ *
  *  ------------------------------------------------------------------------------------
  *  
- *  plot ->   
+ *  plot -> https://colab.research.google.com/drive/1ab8eAEYDGmszOuRcChhNjbLZKO4qKOcx?usp=sharing  
  *  
  *
  *  Conclusion ->  
