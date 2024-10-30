@@ -122,7 +122,7 @@ public final class Assignment5 {
 
             System.out.println("Sorting using Bucket sort");
             startTime = System.nanoTime();
-            final double[] sortedArr = bucketSort(arr2);
+            bucketSort(arr2);
             endTime = System.nanoTime();
             System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
 
@@ -140,7 +140,7 @@ public final class Assignment5 {
      * @param arr input array of distances
      * @return sorted array
      */
-    private static double[] bucketSort(final double[] arr) {
+    private static void bucketSort(final double[] arr) {
 
         // Number of buckets will be square root of n
         final int numBuckets = (int) Math.sqrt(arr.length);
@@ -165,15 +165,26 @@ public final class Assignment5 {
 
         // Distribute input array values into buckets
         for (final double value : arr) {
-            final int bucketIndex = (int) ((value - minValue) / interval);
+            var bucketIndex = (int) ((value - minValue) / interval);
             // Handle edge case where value == maxValue
             if (bucketIndex == numBuckets)
                 bucketIndex--;
-
             buckets.get(bucketIndex).add(value);
         }
 
-        return output;
+        // Sort individual buckets and concatenate them
+        var index = 0;
+        for (List<Double> bucket : buckets) {
+            final double[] temp = new double[bucket.size()];
+            for (int i = 0; i < bucket.size(); i++)
+                temp[i] = bucket.get(i);
+            quickSortUsingLeftPivot(temp, 0, temp.length);
+            for (final double value : temp) {
+                arr[index] = value;
+                index += 1;
+            }
+        }
+
     }
 
     /**
