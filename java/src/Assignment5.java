@@ -11,14 +11,28 @@
  *
  *  Other collaborators: None.
  *  References:
+ *  1) https://www.geeksforgeeks.org/bucket-sort-2/
  *
  *  Assignment No.: 5
  *
- *  Problem -> 
+ *  Problem -> Test quicksort and bucket search time using a uniformly distributed random input
  *
  *  Input and Output -> Mentioned at the end of the file since it was too large 
  *
  *  Hypothesis -> 
+ *
+ *
+ *
+ *  Mean/Average scaling constant -> 
+ *      Ideally the runtime equal to the size of input for the bucket sort since the 
+ *      input is randomly distributed making the runtime theta (n + k) (k is the size 
+ *      the buckets being generates) and theta (n log n) for the quick sort, hence to 
+ *      account for the constant operation being formed we will used a Mean/Average
+ *      scaling constant thst is a average of  sum the actual runtime divided by the 
+ *      size of the input array.
+ *
+ *   Calculated Average scaling constant for Quick Sort: 137
+ *   Calculated Average scaling constant for Bucket Sort: 234
  *
  *  Assumption for the runtimes as a function of the input size
  *
@@ -298,99 +312,99 @@ public final class Assignment5 {
 /*
  * ozzy@Mac src % java -Xss100m Assignment5
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing sort time of Quick sort and Bucket Sort of size -> 1000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * Sorting using Quick sort
  * Time taken in nano seconds -> 268583
  * 
  * Sorting using Bucket sort
  * Time taken in nano seconds -> 599625
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing completed Quick sort and Bucket Sort of size -> 1000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * -----------------------------------------------------------------------------
- * -
+ * 
  * 
  * Testing sort time of Quick sort and Bucket Sort of size -> 10000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * Sorting using Quick sort
  * Time taken in nano seconds -> 1170916
  * 
  * Sorting using Bucket sort
  * Time taken in nano seconds -> 2664166
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing completed Quick sort and Bucket Sort of size -> 10000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing sort time of Quick sort and Bucket Sort of size -> 100000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * Sorting using Quick sort
  * Time taken in nano seconds -> 9458541
  * 
  * Sorting using Bucket sort
  * Time taken in nano seconds -> 10598292
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing completed Quick sort and Bucket Sort of size -> 100000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing sort time of Quick sort and Bucket Sort of size -> 1000000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * Sorting using Quick sort
  * Time taken in nano seconds -> 95680708
  * 
  * Sorting using Bucket sort
  * Time taken in nano seconds -> 105192042
  * -----------------------------------------------------------------------------
- * -
+ *
  * 
  * Testing completed Quick sort and Bucket Sort of size -> 1000000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * -----------------------------------------------------------------------------
- * -
+ * 
  * 
  * Testing sort time of Quick sort and Bucket Sort of size -> 10000000
  * 
  * -----------------------------------------------------------------------------
- * -
+ * 
  * Sorting using Quick sort
  * Time taken in nano seconds -> 1069769333
  * 
  * Sorting using Bucket sort
  * Time taken in nano seconds -> 937217416
  * -----------------------------------------------------------------------------
- * -
+ * 
  * 
  * Testing completed Quick sort and Bucket Sort of size -> 10000000
  * 
  * -----------------------------------------------------------------------------
- * -
+ *
  * ozzy@Mac src %
  */
