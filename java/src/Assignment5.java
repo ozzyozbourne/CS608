@@ -80,6 +80,8 @@
  */
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Assignment5 {
 
@@ -108,7 +110,7 @@ public final class Assignment5 {
             System.out.println("------------------------------------------------------------------------------");
 
             final double[] arr1 = generateUniformDistances(n);
-            final double[] arr2 = generateUniformDistances(n);
+            final double[] arr2 = arr1.clone();
 
             System.out.println("Sorting using Quick sort");
             var startTime = System.nanoTime();
@@ -120,6 +122,7 @@ public final class Assignment5 {
 
             System.out.println("Sorting using Bucket sort");
             startTime = System.nanoTime();
+            final double[] sortedArr = bucketSort(arr2);
             endTime = System.nanoTime();
             System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
 
@@ -128,6 +131,49 @@ public final class Assignment5 {
             System.out.println("------------------------------------------------------------------------------");
 
         }
+    }
+
+    /**
+     * This function implements bucket sort for sorting distances in range [0,1]
+     * using √n buckets and quicksort to sort individual buckets
+     * 
+     * @param arr input array of distances
+     * @return sorted array
+     */
+    private static double[] bucketSort(final double[] arr) {
+
+        // Number of buckets will be square root of n
+        final int numBuckets = (int) Math.sqrt(arr.length);
+
+        final List<List<Double>> buckets = new ArrayList<>(numBuckets);
+
+        // Initialize all buckets
+        for (int i = 0; i < numBuckets; i++)
+            buckets.add(new ArrayList<>());
+
+        // Find the maximum and minimum values to know the range
+        double maxValue = arr[0], minValue = arr[0];
+        for (double value : arr) {
+            if (value - maxValue > EPSILON)
+                maxValue = value;
+
+            if (minValue - value > EPSILON)
+                minValue = value;
+        }
+
+        final double interval = (maxValue - minValue + 1) / numBuckets;
+
+        // Distribute input array values into buckets
+        for (final double value : arr) {
+            final int bucketIndex = (int) ((value - minValue) / interval);
+            // Handle edge case where value == maxValue
+            if (bucketIndex == numBuckets)
+                bucketIndex--;
+
+            buckets.get(bucketIndex).add(value);
+        }
+
+        return output;
     }
 
     /**
