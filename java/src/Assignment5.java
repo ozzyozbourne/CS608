@@ -15,7 +15,7 @@
  *
  *  Assignment No.: 5
  *
- *  Problem -> Test quicksort and bucket search time using a uniformly distributed random input
+ *  Problem -> Test quick and bucket sorting runtimes using a uniformly distributed random input
  *
  *  Input and Output -> Mentioned at the end of the file since it was too large 
  *
@@ -49,15 +49,15 @@
  *  Increase Factor for Quick Sort hypotical search ->
  *  
  *  From n^3 to n^4: 13.33
- *  From n^4 to n^5: 12.50
+ *  From n^4 to n^5: 12.50  -> Shows n log n sort time
  *  From n^5 to n^6: 12.00
  *  From n^6 to n^7: 11.67
  *
  *  Increase Factor for Bucket Sort hypotical search ->
  *  
  *  From n^3 to n^4: 10.00
- *  From n^4 to n^5: 10.00
- *  From n^5 to n^6: 10.00
+ *  From n^4 to n^5: 10.00 -> Shows linear increase in sort time 
+ *  From n^5 to n^6: 10.00 
  *  From n^6 to n^7: 10.00
  *
  *  -----------------------------------------------------------------------------------
@@ -83,17 +83,17 @@
  *
  *  Increase Factor for Quick Sort actual runtimes ->
  *
- *  From n^3 to n^4: 4.36
- *  From n^4 to n^5: 8.08
- *  From n^5 to n^6: 10.12
- *  From n^6 to n^7: 11.18
- *
+ *  From n^3 to n^4: 4.36  ->  better than n logn increase in sort times possible due to caching
+ *  From n^4 to n^5: 8.08  ->  shows approximately nlogn increase in sort time as expected
+ *  From n^5 to n^6: 10.12 ->  shows approximately nlogn increase in sort time as expected
+ *  From n^6 to n^7: 11.18 ->  shows approximately nlogn increase in sort time as expected 
+ *  
  *  Increase Factor for Bucket Sort actual runtimes ->
  *
- *  From n^3 to n^4: 4.44
- *  From n^4 to n^5: 3.98
- *  From n^5 to n^6: 9.93
- *  From n^6 to n^7: 8.91
+ *  From n^3 to n^4: 4.44 -> better since linear increase possible due to caching
+ *  From n^4 to n^5: 3.98 -> better since linear increase possible due to caching
+ *  From n^5 to n^6: 9.93 -> shows linear increase in time as expected
+ *  From n^6 to n^7: 8.91 -> shows linear increase in time as expected
  *
  *  ------------------------------------------------------------------------------------
  *  
