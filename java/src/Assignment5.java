@@ -46,13 +46,10 @@
  *  ACTUAL RUNTIME -> 
  *  Table with actual sort times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^3   |    n = 10^4   |    n = 10^5    |    n = 10^6      |  n = 10^7
+ *                       | n = 10^3   | n = 10^4   | n = 10^5    | n = 10^6      | n = 10^7
  *
- *  Quick Sort           |             |               |                |                  |  
- *  Bucket Sort          |             |               |                |                  |  
- *
- *
- *
+ *  Quick Sort           | 268583     | 1170916    | 9458541     | 95680708      | 1069769333 
+ *  Bucket Sort          | 599625     | 2664166    | 10598292    | 105192042     | 937217416 
  *
  *
  *  Table of time and space complexities of sort operations
@@ -89,11 +86,14 @@ public final class Assignment5 {
      * Since here we are comparing floating point numbers so regular comparison
      * operators will not work properly since
      * hence
-     * If on subtracting two numbers (a, b) thier Mod |difference| is less than 10^7
+     * 
+     * If on subtracting two numbers (a, b) their Mod |difference| is less than 10^7
      * then are equal
-     * If on subtracting two numbers (a, b) thier difference is greater than 10^7
+     * 
+     * If on subtracting two numbers (a, b) their difference is greater than 10^7
      * then a is greater
-     * If on subtracting two numbers (a, b) thier difference is less than -10^7
+     * 
+     * If on subtracting two numbers (a, b) their difference is less than -10^7
      * then a is smaller
      *
      */
@@ -138,7 +138,6 @@ public final class Assignment5 {
      * using √n buckets and quicksort to sort individual buckets
      * 
      * @param arr input array of distances
-     * @return sorted array
      */
     private static void bucketSort(final double[] arr) {
 
