@@ -83,6 +83,20 @@ import java.util.Random;
 
 public final class Assignment5 {
 
+    /*
+     * Since here we are comparing floating point numbers so regular comparison
+     * operators will not work properly since
+     * hence
+     * If on subtracting two numbers (a, b) thier Mod |difference| is less than 10^7
+     * then are equal
+     * If on subtracting two numbers (a, b) thier difference is greater than 10^7
+     * then a is greater
+     * If on subtracting two numbers (a, b) thier difference is less than -10^7
+     * then a is smaller
+     *
+     */
+    private static final double EPSILON = 1e-7;
+
     private Assignment5() {
     }
 
@@ -149,12 +163,11 @@ public final class Assignment5 {
 
             do {
                 low += 1;
-            } while (arr[low] < pivot);
+            } while (arr[low] - pivot < -EPSILON); // a < b becomes (a - b) < -EPSILON due to floating point arithmatic
 
             do {
                 high -= 1;
-            } while (arr[high] > pivot);
-
+            } while (arr[high] - pivot > EPSILON); // a > b becomes (a - b) > EPSILON due to floating point arithmatic
             if (low >= high)
                 return high;
 
@@ -176,6 +189,14 @@ public final class Assignment5 {
         arr[high] = temp;
     }
 
+    /**
+     * This function generate a uniform distribution of distances within a unit
+     * circle
+     * 
+     * @param n number of distances to be generated
+     * @return array of n distances
+     *
+     */
     private static double[] generateUniformDistances(final int n) {
         final double[] distances = new double[n];
         final Random rand = new Random();
