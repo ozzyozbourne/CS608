@@ -78,10 +78,12 @@
  *
  *
  */
+
+import java.util.Random;
+
 public final class Assignment5 {
 
     private Assignment5() {
-
     }
 
     public static void main(final String... args) {
@@ -91,8 +93,12 @@ public final class Assignment5 {
             System.out.println("\nTesting sort time of Quick sort and Bucket Sort of size -> " + n + "\n");
             System.out.println("------------------------------------------------------------------------------");
 
+            final double[] arr1 = generateUniformDistances(n);
+            final double[] arr2 = generateUniformDistances(n);
+
             System.out.println("Sorting using Quick sort");
             var startTime = System.nanoTime();
+            quickSortUsingLeftPivot(arr1, 0, n - 1);
             var endTime = System.nanoTime();
             System.out.println("Time taken in nano seconds -> " + (endTime - startTime));
 
@@ -170,11 +176,26 @@ public final class Assignment5 {
         arr[high] = temp;
     }
 
-    private static double[] randomPoints(final int n) {
-        final double[] res = new double[n];
-        for (int i = 0; i < n; i++) {
+    private static double[] generateUniformDistances(final int n) {
+        final double[] distances = new double[n];
+        final Random rand = new Random();
 
+        for (int i = 0; i < n; i++) {
+            // Generat random an angle in radians (ie get a random angle from 0.0
+            // (inclusive) to 360(exclusive))
+            final double t = 2 * Math.PI * rand.nextDouble();
+
+            // Generate radius using the algorithm given
+            final double u = rand.nextDouble() + rand.nextDouble();
+            final double r = u > 1 ? 2 - u : u;
+
+            // Converting polar co-ordinates to cartesian co-ordinates
+            final double x = r * Math.cos(t);
+            final double y = r * Math.sin(t);
+
+            // Calculate distance from origin
+            distances[i] = Math.sqrt(x * x + y * y);
         }
-        return res;
+        return distances;
     }
 }
