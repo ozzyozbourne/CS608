@@ -19,9 +19,9 @@
  *
  *  Input and Output -> Mentioned at the end of the file since it was too large 
  *
- *  Hypothesis -> 
- *
- *
+ *  Hypothesis -> Due to the fact that input is randomly uniformly distributed, 
+ *  this will make the bucket sort runtime linear, and the quick sort will also 
+ *  work in n logn time due to the nature of the provided input 
  *
  *  Mean/Average scaling constant -> 
  *      Ideally the runtime equal to the size of input for the bucket sort since the 
@@ -78,7 +78,7 @@
  *  
  *                     | Time Complexity          |  Space Complexity 
  *  Quick Sort         | theta (n log n )         |  theta ( log n ) 
- *  Bucket Sort        | theta ()                 |  theta (1)
+ *  Bucket Sort        | theta (n)                |  theta (n)
  *                        
  *
  *  Increase Factor for Quick Sort actual runtimes ->
@@ -100,11 +100,9 @@
  *  plot -> https://colab.research.google.com/drive/1ab8eAEYDGmszOuRcChhNjbLZKO4qKOcx?usp=sharing  
  *  
  *
- *  Conclusion ->  
- *
- *
- *
- *
+ *  Conclusion ->  As expected the sort of bucket sort is linear ie theta(n) since the input 
+ *  is a random distribution of distances from a unit circle and sort of quick sort using a fixed 
+ *  left pivot is also theta(n log n) due the nature of the input. 
  *
  */
 
