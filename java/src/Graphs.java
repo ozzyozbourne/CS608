@@ -37,10 +37,10 @@
  *  HYPOTHICAL RUNTIME -> 
  *  Table with hypotical construction and search times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
- *
- *
- *
+ *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
+ *           |V| = 10    |                |                          |                      |   
+ *           |V| = 100   |                |                          |                      |
+ *           |V| = 1000  |                |                          |                      |
  *
  *  Increase Factor for creation of hastable for hypotical runtimes ->
  *
@@ -52,7 +52,10 @@
  *  ACTUAL RUNTIME -> 
  *  Table with Actual construction and search times(in nanoseconds) measured for different values of 'n'
  *
- *                       |  n = 10^2   |    n = 10^3   |    n = 10^4    |    n = 10^5      |  n = 10^6
+ *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
+ *           |V| = 10    |                |                          |                      |
+ *           |V| = 100   |                |                          |                      |
+ *           |V| = 1000  |                |                          |                      |
  *
  *
  *  Table of time and space complexities of search and construction operations
