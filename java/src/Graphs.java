@@ -95,9 +95,8 @@ public final class Graphs {
             for (final EdgeDensity density : EdgeDensity.values()) {
                 final int edgeCount = switch (density) {
                     case SPARSE -> vertexCount - 1;
-                    case MEDIUM -> (int) Math.floor(Math.pow(vertexCount - 1, 1.5));
+                    case MEDIUM -> (int) Math.pow(vertexCount - 1, 1.5);
                     case DENSE -> (vertexCount - 1) * (vertexCount - 1);
-                    default -> throw new IllegalArgumentException("Unknown density type");
                 };
 
                 final Map<Integer, List<Integer>> graph = generateDirectedGraph(vertexCount, edgeCount);
