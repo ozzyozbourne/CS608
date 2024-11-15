@@ -102,8 +102,10 @@ public final class Graphs {
 
                 final Map<Integer, List<Integer>> graph = generateDirectedGraph(vertexCount, edgeCount);
 
-                System.out.printf("\nGenerated graph -> |V| = %4d, density = %6s, |E| = %d\n",
+                System.out.printf("\n\nTesting dfs runtime on graph with -> |V| = %4d, density = %6s, |E| = %d\n\n",
                         vertexCount, density, edgeCount);
+
+                System.out.printf("\n\nTesting completed\n\n");
 
             }
         }
