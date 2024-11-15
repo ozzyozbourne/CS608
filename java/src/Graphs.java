@@ -23,26 +23,23 @@
  *
  *  Assumption for the runtimes as a function of the input size
  *
- *  Construction Time -> 
  *
  *
  * 
- *  Search Time -> 
+ *  Dfs runtime -> 
  *
- * 
- *  Calculated scaling constant for the hast-table creation -> 721
  *
- *  Calculated constant value for the search time ->  35917    
+ *  Calculated constant value for the Dfs runtime ->  35917    
  *      
  *  HYPOTHICAL RUNTIME -> 
- *  Table with hypotical construction and search times(in nanoseconds) measured for different values of 'n'
+ *  Table with hypotical Dfs runtimes(in nanoseconds) measured for different values of 'V'
  *
  *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
  *           |V| = 10    |                |                          |                      |   
  *           |V| = 100   |                |                          |                      |
  *           |V| = 1000  |                |                          |                      |
  *
- *  Increase Factor for creation of hastable for hypotical runtimes ->
+ *  Increase Factor for Dfs for hypotical runtimes ->
  *
  *  -----------------------------------------------------------------------------------
  *
@@ -50,7 +47,7 @@
  *  
  *
  *  ACTUAL RUNTIME -> 
- *  Table with Actual construction and search times(in nanoseconds) measured for different values of 'n'
+ *  Table with Actual Dfs runtimes(in nanoseconds) measured for different values of 'V'
  *
  *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
  *           |V| = 10    |                |                          |                      |
@@ -60,11 +57,10 @@
  *
  *  Table of time and space complexities of search and construction operations
  *  
- *                     | Time Complexity          |  Space Complexity 
+ *                     | Time Complexity  |  Space Complexity 
+ *                DFS  |                  |        
  *
- *  Increase Factor for creation of hastable for Actual runtimes ->
- *
- *  Increase factors for searching in hashtable for Actual runtimes ->
+ *  Increase Factor for Dfs for Actual runtimes ->
  *
  *  ------------------------------------------------------------------------------------
  *  
