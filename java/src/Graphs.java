@@ -77,7 +77,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
 
 public final class Graphs {
 
@@ -103,7 +102,7 @@ public final class Graphs {
 
                 final Map<Integer, List<Integer>> graph = generateDirectedGraph(vertexCount, edgeCount);
 
-                System.out.printf("\nGenerated graph with |V|=%d, density=%s, |E|=%d\n",
+                System.out.printf("\nGenerated graph -> |V| = %4d, density = %6s, |E| = %d\n",
                         vertexCount, density, edgeCount);
 
             }
