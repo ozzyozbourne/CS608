@@ -39,7 +39,7 @@
  *           |V| = 100   |                |                          |                      |
  *           |V| = 1000  |                |                          |                      |
  *
- *  Increase Factor for Dfs for hypotical runtimes ->
+ *  Increase Factor of Dfs for hypotical runtimes ->
  *
  *  -----------------------------------------------------------------------------------
  *
@@ -60,7 +60,7 @@
  *                     | Time Complexity  |  Space Complexity 
  *                DFS  |                  |        
  *
- *  Increase Factor for Dfs for Actual runtimes ->
+ *  Increase Factor of Dfs for Actual runtimes ->
  *
  *  ------------------------------------------------------------------------------------
  *  
@@ -71,6 +71,7 @@
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,24 +85,20 @@ public final class Graphs {
 
     public static void main(final String... args) {
 
-        enum EdgeDensity {
-            SPARSE, // |E| = |V| - 1
-            MEDIUM, // |E| = ⌊ (|V| - 1)^(3/2) ⌋
-            DENSE // |E| = (|V| - 1)^2
-        }
+        // Behavior to be applied
+        final List<Function<Integer, Integer>> densities = List.of(
+                v -> v - 1, // Sparse
+                v -> (int) Math.pow(v - 1, 1.5), // Medium
+                v -> (v - 1) * (v - 1)); // Dense
 
         for (final int vertexCount : new int[] { 10, 100, 1000 }) {
-            for (final EdgeDensity density : EdgeDensity.values()) {
-                final int edgeCount = switch (density) {
-                    case SPARSE -> vertexCount - 1;
-                    case MEDIUM -> (int) Math.pow(vertexCount - 1, 1.5);
-                    case DENSE -> (vertexCount - 1) * (vertexCount - 1);
-                };
+            for (final Function<Integer, Integer> density : densities) {
 
+                final int edgeCount = density.apply(vertexCount);
                 final Map<Integer, List<Integer>> graph = generateDirectedGraph(vertexCount, edgeCount);
 
-                System.out.printf("\n\nTesting dfs runtime on graph with -> |V| = %4d, density = %6s, |E| = %d\n\n",
-                        vertexCount, density, edgeCount);
+                System.out.printf("\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n",
+                        vertexCount, edgeCount);
 
                 System.out.printf("\n\nTesting completed\n\n");
 
