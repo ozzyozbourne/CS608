@@ -83,13 +83,17 @@ public final class Graphs {
     private Graphs() {
     }
 
-    public static void main(final String... args) {
+    private static final List<Function<Integer, Integer>> densities = List.of(
+            v -> v - 1, // Sparse
+            v -> (int) Math.pow(v - 1, 1.5), // Medium
+            v -> (v - 1) * (v - 1)); // Dense
 
-        // Behavior to be applied
-        final List<Function<Integer, Integer>> densities = List.of(
-                v -> v - 1, // Sparse
-                v -> (int) Math.pow(v - 1, 1.5), // Medium
-                v -> (v - 1) * (v - 1)); // Dense
+    private static final Map<Integer, Integer> discoveryTimes = new HashMap<>();
+    private static final Map<Integer, Integer> finishTimes = new HashMap<>();
+    private static final Set<Integer> visited = new HashSet<>();
+    private static int time = 0;
+
+    public static void main(final String... args) {
 
         for (final int vertexCount : new int[] { 10, 100, 1000 }) {
             for (final Function<Integer, Integer> density : densities) {
@@ -100,10 +104,32 @@ public final class Graphs {
                 System.out.printf("\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n",
                         vertexCount, edgeCount);
 
+                final long startTime = System.nanoTime();
+                for (final int vertex : graph.keySet()) {
+                    if (!visited.contains(vertex))
+                        dfsVisit(graph, vertex);
+                }
+                final long endTime = System.nanoTime();
+
+                System.out.printf("\nRuntime: %d nanoseconds\n", endTime - startTime);
                 System.out.printf("\n\nTesting completed\n\n");
 
             }
         }
+    }
+
+    private static void dfsVisit(final Map<Integer, List<Integer>> graph, final int vertex) {
+        visited.add(vertex);
+        time += 1;
+        discoveryTimes.put(vertex, time);
+
+        for (final int neighbor : graph.get(vertex)) {
+            if (!visited.contains(neighbor))
+                dfsVisit(graph, neighbor);
+        }
+
+        time += 1;
+        finishTimes.put(vertex, time);
     }
 
     public static Map<Integer, List<Integer>> generateDirectedGraph(final int vertexCount, final int edgeCount) {
