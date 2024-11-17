@@ -49,9 +49,9 @@
  *  Table with Actual Dfs runtimes(in nanoseconds) measured for different values of 'V'
  *
  *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
- *           |V| = 10    |                |                          |                      |
- *           |V| = 100   |                |                          |                      |
- *           |V| = 1000  |                |                          |                      |
+ *           |V| = 10    | 28333          | 5417                     |  3709                |
+ *           |V| = 100   | 129666         | 16209                    |  17792               |
+ *           |V| = 1000  | 779333         | 139709                   |  388084              |
  *
  *
  *  Table of time and space complexities of search and construction operations
