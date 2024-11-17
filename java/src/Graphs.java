@@ -17,7 +17,7 @@
  *
  *  Problem ->
  *
- *  Input and Output ->
+ *  Input and Output -> mention at the end of the file since it was too large
  *
  *  Hypothesis -> 
  *
@@ -74,6 +74,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -110,8 +111,11 @@ public final class Graphs {
                         dfsVisit(graph, vertex);
                 }
                 final long endTime = System.nanoTime();
+                final int travelTime = Collections.max(finishTimes.values()) - 1; // start time is always one
 
-                System.out.printf("\nRuntime: %d nanoseconds\n", endTime - startTime);
+                System.out.printf("\nRuntime: %10d ns DiscoveryTime - FinishTime: %d\n",
+                        endTime - startTime, travelTime);
+
                 System.out.printf("\n\nTesting completed\n\n");
 
             }
@@ -161,3 +165,99 @@ public final class Graphs {
         return adjacencyList;
     }
 }
+
+/*
+ * ozzy@Mac src % javac Graphs.java
+ * ozzy@Mac src % java Graphs
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 10, |E| = 9
+ * 
+ * 
+ * Runtime: 29167 ns DiscoveryTime - FinishTime: 19
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 10, |E| = 27
+ * 
+ * 
+ * Runtime: 5667 ns DiscoveryTime - FinishTime: 19
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 10, |E| = 81
+ * 
+ * 
+ * Runtime: 3791 ns DiscoveryTime - FinishTime: 19
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 100, |E| = 99
+ * 
+ * 
+ * Runtime: 121000 ns DiscoveryTime - FinishTime: 199
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 100, |E| = 985
+ * 
+ * 
+ * Runtime: 18459 ns DiscoveryTime - FinishTime: 199
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 100, |E| = 9801
+ * 
+ * 
+ * Runtime: 21541 ns DiscoveryTime - FinishTime: 199
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 1000, |E| = 999
+ * 
+ * 
+ * Runtime: 854375 ns DiscoveryTime - FinishTime: 1999
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 1000, |E| = 31575
+ * 
+ * 
+ * Runtime: 194709 ns DiscoveryTime - FinishTime: 1999
+ * 
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing dfs runtime on graph with -> |V| = 1000, |E| = 998001
+ * 
+ * 
+ * Runtime: 247125 ns DiscoveryTime - FinishTime: 1999
+ * 
+ * 
+ * Testing completed
+ * 
+ * ozzy@Mac src %
+ */
