@@ -20,11 +20,28 @@
  *
  *  Input and Output -> mention at the end of the file since it was too large
  *
- *  Hypothesis -> The runtime of the Dfs depends linearly on the number of vertex + edge count so, 
- *                as we double count of the vertex the runtime should double, but for each of the 
- *                vertex we have three types of graph edge densities ie, sparse(V-1),
- *                medium((V-1)^1.5) and dense((V-1)^2) since here we are dealing with
- *                a directed graph that has no self loops, so the edge
+ *  Hypothesis  -> The runtime of the DFS depends linearly on the number of vertices + edge count, so 
+ *                 as we double the count of vertices, the runtime should double. 
+ *                 But for each of the vertices, we have three types of graph edge densities, 
+ *                 i.e., sparse(V-1), medium((V-1)^1.5), and dense((V-1)^2). 
+ *
+ *                 Since here we are dealing with a directed graph that has no self-loops, as we increase 
+ *                 the edge count (i.e., making the graph more connected), we will see a decrease in the runtime of DFS. 
+ *                 When sending the first vertex to the recursive DFS procedure, it will be able to 
+ *                 traverse the whole graph since, due to the increase in density, there is a high 
+ *                 likelihood that we won't encounter any disconnected components. 
+ *                 But in the case of sparse graphs, we will have a lot of disconnected components, 
+ *                 so the outer for-loop needs to invoke the DFS function again and again due to the 
+ *                 fact that each call of the DFS is unable to explore the graph deeply since it is seeing 
+ *                 a lot of vertices/nodes whose adjacencyList is empty (i.e., that vertex is not connected). 
+ *
+ *                At best, on each call to the DFS recursive function by the outer for-loop, 
+ *                the DFS function is only able to travel one or two nodes deep at best in the graph. 
+ *                This will add overhead in runtime since when we make a function call, 
+ *                a new call stack needs to be allocated in memory. 
+ *                So for all sparsely dense graphs, when we move to a more dense graph of the same size, 
+ *                we will see a decrease in the runtime as the recursion is being 
+ *                able to explore the graph deeply without needing a lot of invocations from the outer for-loop.
  *
  *  Assumption for the runtimes as a function of the input size
  *
