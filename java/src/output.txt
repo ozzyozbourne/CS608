@@ -1,210 +1,9 @@
-/*
- *  Pace University
- *  Fall 2024
- *  Algorithms and Computing Theory
- *
- *  Course: CS 608
- *  Team members:
- *  1) Adam Miftahelidrissi
- *  2) Marlen Cuevas Duarte
- *  3) Osaid Khan
- *
- *  Other collaborators: None.
- *  References:
- *
- *  Assignment No.: 6
- *
- *  Problem ->
- *
- *  Input and Output -> mention at the end of the file since it was too large
- *
- *  Hypothesis ->
- *
- *  Assumption for the runtimes as a function of the input size
- *
- *
- *
- *
- *  Dfs runtime ->
- *
- *
- *  Calculated constant value for the Dfs runtime ->  35917
- *
- *  HYPOTHICAL RUNTIME ->
- *  Table with hypotical Dfs runtimes(in nanoseconds) measured for different values of 'V'
- *
- *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
- *           |V| = 10    |                |                          |                      |
- *           |V| = 100   |                |                          |                      |
- *           |V| = 1000  |                |                          |                      |
- *
- *  Increase Factor of Dfs for hypotical runtimes ->
- *
- *  -----------------------------------------------------------------------------------
- *
- *  OBSERVATIONS ->
- *
- *
- *  ACTUAL RUNTIME ->
- *  Table with Actual Dfs runtimes(in nanoseconds) measured for different values of 'V'
- *
- *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
- *           |V| = 10    |                |                          |                      |
- *           |V| = 100   |                |                          |                      |
- *           |V| = 1000  |                |                          |                      |
- *
- *
- *  Table of time and space complexities of search and construction operations
- *
- *                     | Time Complexity  |  Space Complexity
- *                DFS  |                  |
- *
- *  Increase Factor of Dfs for Actual runtimes ->
- *
- *  ------------------------------------------------------------------------------------
- *
- *  plot ->
- *
- *  Conclusion ->
- */
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Function;
 
-public final class Graphs {
-
-    private Graphs() {}
-
-    private static final List<Function<Integer, Integer>> densities = List.of(
-        v -> v - 1, // Sparse
-        v -> (int) Math.pow(v - 1, 1.5), // Medium
-        v -> (v - 1) * (v - 1)
-    ); // Dense
-
-    private static final Map<Integer, Integer> discoveryTimes = new HashMap<>();
-    private static final Map<Integer, Integer> finishTimes = new HashMap<>();
-    private static final Set<Integer> visited = new HashSet<>();
-    private static int time = 0;
-
-    public static void main(final String... args) {
-        for (final int vertexCount : new int[] { 10, 100, 1000 }) {
-            for (final Function<Integer, Integer> density : densities) {
-                final int edgeCount = density.apply(vertexCount);
-                final Map<Integer, List<Integer>> graph = generateDirectedGraph(
-                    vertexCount,
-                    edgeCount
-                );
-
-                System.out.printf(
-                    "\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n",
-                    vertexCount,
-                    edgeCount
-                );
-
-                final long startTime = System.nanoTime();
-                for (final int vertex : graph.keySet()) {
-                    if (!visited.contains(vertex)) dfsVisit(graph, vertex);
-                }
-                final long endTime = System.nanoTime();
-                final int travelTime =
-                    Collections.max(finishTimes.values()) - 1; // start time is always one
-                //
-                System.out.printf("\nDiscovery Times -> \n");
-                discoveryTimes
-                    .entrySet()
-                    .forEach(entry ->
-                        System.out.printf(
-                            "%5d : %d\n",
-                            entry.getKey(),
-                            entry.getValue()
-                        )
-                    );
-
-                System.out.printf("\nFinishing Times -> \n");
-                finishTimes
-                    .entrySet()
-                    .forEach(entry ->
-                        System.out.printf(
-                            "%5d : %d\n",
-                            entry.getKey(),
-                            entry.getValue()
-                        )
-                    );
-
-                System.out.printf("%s\n", "-".repeat(120));
-                System.out.printf(
-                    "\nRuntime: %10d ns DiscoveryTime - FinishTime: %d\n",
-                    endTime - startTime,
-                    travelTime
-                );
-                System.out.printf("\n%s\n", "-".repeat(120));
-
-                System.out.printf("\n\nTesting completed\n\n");
-            }
-        }
-    }
-
-    private static void dfsVisit(
-        final Map<Integer, List<Integer>> graph,
-        final int vertex
-    ) {
-        visited.add(vertex);
-        time += 1;
-        discoveryTimes.put(vertex, time);
-
-        for (final int neighbor : graph.get(vertex)) {
-            if (!visited.contains(neighbor)) dfsVisit(graph, neighbor);
-        }
-
-        time += 1;
-        finishTimes.put(vertex, time);
-    }
-
-    public static Map<Integer, List<Integer>> generateDirectedGraph(
-        final int vertexCount,
-        final int edgeCount
-    ) {
-        final Map<Integer, List<Integer>> adjacencyList = new HashMap<>();
-        final Random rand = new Random();
-        final Set<String> addedEdges = new HashSet<>();
-
-        for (int i = 0; i < vertexCount; i++) adjacencyList.put(
-            i,
-            new ArrayList<>()
-        );
-
-        var edgesAdded = 0;
-
-        while (edgesAdded < edgeCount) {
-            final int source = rand.nextInt(vertexCount);
-            final int target = rand.nextInt(vertexCount);
-
-            // Skip self-loops
-            if (source == target) continue;
-
-            // Check if edge already exists
-            final String edge = source + "," + target;
-            if (!addedEdges.contains(edge)) {
-                adjacencyList.get(source).add(target);
-                addedEdges.add(edge);
-                edgesAdded += 1;
-            }
-        }
-        return adjacencyList;
-    }
-}
-/*
 Testing dfs runtime on graph with -> |V| =   10, |E| = 9
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -216,7 +15,7 @@ Discovery Times ->
     8 : 17
     9 : 19
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -241,7 +40,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| =   10, |E| = 27
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -253,7 +52,7 @@ Discovery Times ->
     8 : 17
     9 : 19
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -278,7 +77,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| =   10, |E| = 81
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -290,7 +89,7 @@ Discovery Times ->
     8 : 17
     9 : 19
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -315,7 +114,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| =  100, |E| = 99
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -417,7 +216,7 @@ Discovery Times ->
    98 : 60
    99 : 199
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -532,7 +331,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| =  100, |E| = 985
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -634,7 +433,7 @@ Discovery Times ->
    98 : 60
    99 : 199
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -749,7 +548,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| =  100, |E| = 9801
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -851,7 +650,7 @@ Discovery Times ->
    98 : 60
    99 : 199
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -966,7 +765,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| = 1000, |E| = 999
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -1968,7 +1767,7 @@ Discovery Times ->
   998 : 841
   999 : 1564
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -2983,7 +2782,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| = 1000, |E| = 31575
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -3985,7 +3784,7 @@ Discovery Times ->
   998 : 841
   999 : 1564
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -5000,7 +4799,7 @@ Testing completed
 Testing dfs runtime on graph with -> |V| = 1000, |E| = 998001
 
 
-Discovery Times ->
+Discovery Times -> 
     0 : 1
     1 : 4
     2 : 9
@@ -6002,7 +5801,7 @@ Discovery Times ->
   998 : 841
   999 : 1564
 
-Finishing Times ->
+Finishing Times -> 
     0 : 14
     1 : 5
     2 : 10
@@ -6587,13 +6386,428 @@ Finishing Times ->
   581 : 432
   582 : 926
   583 : 1007
-  584:1588 585:1590 586:1594 587:1596 588:1600 589:796 590:1199 591:1604 592:1606 593:694 594:1608 595:1373 596:1091 597:671 598:1177 599:1610 600:1612 601:844 602:780 603:273 604:1616 605:721 606:1347 607:1313 608:1622 609:1624 610:882 611:1626 612:1305 613:352 614:995 615:1628 616:824 617:1630 618:1327 619:1632 620:334 621:1636 622:1638 623:1640 624:594 625:1167 626:1642 627:1424 628:1644 629:759 630:630 631:1646 632:784 633:952 634:1648 635:1650 636:1652 637:887 638:460 639:1654 640:300 641:705 642:1656 643:1658 644:389 645:1505 646:1660 647:323 648:1662 649:755 650:1205 651:257 652:1268 653:1666 654:1397 655:1668 656:735 657:967 658:1670 659:372 660:924 661:1672 662:1420 663:644 664:320 665:1674 666:1069 667:611 668:395 669:1676 670:1678 671:1405 672:1680 673:1682 674:1686 675:1688 676:1425 677:1692 678:583 679:765 680:1615 681:1694 682:1696 683:587 684:586 685:1153 686:593 687:1698 688:1704 689:955 690:1706 691:220 692:1708 693:1710 694:1712 695:405 696:1585 697:1714 698:1716 699:1718 700:1720 701:1722 702:839 703:396 704:609 705:1724 706:308 707:1726 708:1728 709:1730 710:1732 711:421 712:1734 713:1736 714:1738 715:1740 716:618 717:565 718:733 719:613 720:1333 721:1742 722:1744 723:893 724:1746 725:1748 726:1665 727:1750 728:1752 729:1754 730:403 731:1756 732:1758 733:1489 734:1760 735:1053 736:879 737:1762 738:1764 739:542 740:1432 741:1766 742:1768 743:1770 744:1772 745:1593 746:1774 747:1776 748:1778 749:1185 750:1353 751:1780 752:1396 753:1782 754:840 755:435 756:719 757:1620 758:1784 759:805 760:362 761:895 762:894 763:1786 764:1792 765:999 766:1794 767:424 768:1796 769:1798 770:339 771:1800 772:1147 773:1802 774:1804 775:280 776:1806 777:1808 778:678 779:1810 780:698 781:406 782:1812 783:1685 784:1814 785:568 786:1304 787:582 788:592 789:428 790:1198 791:1386 792:1818 793:939 794:1121 795:1433 796:908 797:376 798:360 799:524 800:1545 801:913 802:1820 803:1822 804:1824 805:747 806:1577 807:309 808:1828 809:744 810:656 811:415 812:1830 813:1832 814:1834 815:1141 816:449 817:285 818:891 819:782 820:1635 821:1051 822:1836 823:641 824:365 825:1838 826:1840 827:608 828:1621 829:1267 830:366 831:1842 832:1422 833:1844 834:1846 835:1848 836:931 837:1850 838:1852 839:1854 840:645 841:1703 842:623 843:1817 844:915 845:322 846:1856 847:1858 848:315 849:1120 850:1287 851:1691 852:525 853:1860 854:1862 855:1864 856:1866 857:1297 858:1868 859:945 860:709 861:333 862:1870 863:1791 864:1872 865:431 866:1874 867:1555 868:1878 869:1882 870:1269 871:1884 872:1886 873:318 874:1888 875:1089 876:1890 877:475 878:1892 879:1894 880:716 881:1896 882:1898 883:1535 884:1900 885:276 886:466 887:307 888:221 889:539 890:1902 891:880 892:553 893:1881 894:1904 895:864 896:1603 897:228 898:1216 899:763 900:1906 901:693 902:970 903:756 904:814 905:1413 906:1559 907:1273 908:1908 909:1052 910:1910 911:1912 912:1914 913:1391 914:1701 915:1916 916:499 917:1918 918:417 919:1920 920:1827 921:1922 922:964 923:1924 924:1363 925:1926 926:1930 927:1932 928:1039 929:505 930:316 931:1934 932:1936 933:1938 934:1940 935:937 936:1789 937:359 938:1043 939:1599 940:1929 941:1942 942:1944 943:1946 944:699 945:341 946:448 947:1948 948:1950 949:930 950:1952 951:1954 952:1956 953:356 954:317 955:971 956:743 957:1958 958:1960 959:1165 960:1050 961:1005 962:872 963:1547 964:492 965:1111 966:1962 967:1964 968:1966 969:1968 970:1970 971:1972 972:407 973:1191 974:1974 975:1978 976:1980 977:585 978:1877 979:1982 980:1984 981:1986 982:234 983:1115 984:1988 985:1279 986:1990 987:1977 988:1992 989:855 990:878 991:1994 992:1996 993:1998 994:402 995:416 996:1193 997:2000 998:842 999:1565------------------------------------------------------------------------------------------------------------------------
+  584 : 1588
+  585 : 1590
+  586 : 1594
+  587 : 1596
+  588 : 1600
+  589 : 796
+  590 : 1199
+  591 : 1604
+  592 : 1606
+  593 : 694
+  594 : 1608
+  595 : 1373
+  596 : 1091
+  597 : 671
+  598 : 1177
+  599 : 1610
+  600 : 1612
+  601 : 844
+  602 : 780
+  603 : 273
+  604 : 1616
+  605 : 721
+  606 : 1347
+  607 : 1313
+  608 : 1622
+  609 : 1624
+  610 : 882
+  611 : 1626
+  612 : 1305
+  613 : 352
+  614 : 995
+  615 : 1628
+  616 : 824
+  617 : 1630
+  618 : 1327
+  619 : 1632
+  620 : 334
+  621 : 1636
+  622 : 1638
+  623 : 1640
+  624 : 594
+  625 : 1167
+  626 : 1642
+  627 : 1424
+  628 : 1644
+  629 : 759
+  630 : 630
+  631 : 1646
+  632 : 784
+  633 : 952
+  634 : 1648
+  635 : 1650
+  636 : 1652
+  637 : 887
+  638 : 460
+  639 : 1654
+  640 : 300
+  641 : 705
+  642 : 1656
+  643 : 1658
+  644 : 389
+  645 : 1505
+  646 : 1660
+  647 : 323
+  648 : 1662
+  649 : 755
+  650 : 1205
+  651 : 257
+  652 : 1268
+  653 : 1666
+  654 : 1397
+  655 : 1668
+  656 : 735
+  657 : 967
+  658 : 1670
+  659 : 372
+  660 : 924
+  661 : 1672
+  662 : 1420
+  663 : 644
+  664 : 320
+  665 : 1674
+  666 : 1069
+  667 : 611
+  668 : 395
+  669 : 1676
+  670 : 1678
+  671 : 1405
+  672 : 1680
+  673 : 1682
+  674 : 1686
+  675 : 1688
+  676 : 1425
+  677 : 1692
+  678 : 583
+  679 : 765
+  680 : 1615
+  681 : 1694
+  682 : 1696
+  683 : 587
+  684 : 586
+  685 : 1153
+  686 : 593
+  687 : 1698
+  688 : 1704
+  689 : 955
+  690 : 1706
+  691 : 220
+  692 : 1708
+  693 : 1710
+  694 : 1712
+  695 : 405
+  696 : 1585
+  697 : 1714
+  698 : 1716
+  699 : 1718
+  700 : 1720
+  701 : 1722
+  702 : 839
+  703 : 396
+  704 : 609
+  705 : 1724
+  706 : 308
+  707 : 1726
+  708 : 1728
+  709 : 1730
+  710 : 1732
+  711 : 421
+  712 : 1734
+  713 : 1736
+  714 : 1738
+  715 : 1740
+  716 : 618
+  717 : 565
+  718 : 733
+  719 : 613
+  720 : 1333
+  721 : 1742
+  722 : 1744
+  723 : 893
+  724 : 1746
+  725 : 1748
+  726 : 1665
+  727 : 1750
+  728 : 1752
+  729 : 1754
+  730 : 403
+  731 : 1756
+  732 : 1758
+  733 : 1489
+  734 : 1760
+  735 : 1053
+  736 : 879
+  737 : 1762
+  738 : 1764
+  739 : 542
+  740 : 1432
+  741 : 1766
+  742 : 1768
+  743 : 1770
+  744 : 1772
+  745 : 1593
+  746 : 1774
+  747 : 1776
+  748 : 1778
+  749 : 1185
+  750 : 1353
+  751 : 1780
+  752 : 1396
+  753 : 1782
+  754 : 840
+  755 : 435
+  756 : 719
+  757 : 1620
+  758 : 1784
+  759 : 805
+  760 : 362
+  761 : 895
+  762 : 894
+  763 : 1786
+  764 : 1792
+  765 : 999
+  766 : 1794
+  767 : 424
+  768 : 1796
+  769 : 1798
+  770 : 339
+  771 : 1800
+  772 : 1147
+  773 : 1802
+  774 : 1804
+  775 : 280
+  776 : 1806
+  777 : 1808
+  778 : 678
+  779 : 1810
+  780 : 698
+  781 : 406
+  782 : 1812
+  783 : 1685
+  784 : 1814
+  785 : 568
+  786 : 1304
+  787 : 582
+  788 : 592
+  789 : 428
+  790 : 1198
+  791 : 1386
+  792 : 1818
+  793 : 939
+  794 : 1121
+  795 : 1433
+  796 : 908
+  797 : 376
+  798 : 360
+  799 : 524
+  800 : 1545
+  801 : 913
+  802 : 1820
+  803 : 1822
+  804 : 1824
+  805 : 747
+  806 : 1577
+  807 : 309
+  808 : 1828
+  809 : 744
+  810 : 656
+  811 : 415
+  812 : 1830
+  813 : 1832
+  814 : 1834
+  815 : 1141
+  816 : 449
+  817 : 285
+  818 : 891
+  819 : 782
+  820 : 1635
+  821 : 1051
+  822 : 1836
+  823 : 641
+  824 : 365
+  825 : 1838
+  826 : 1840
+  827 : 608
+  828 : 1621
+  829 : 1267
+  830 : 366
+  831 : 1842
+  832 : 1422
+  833 : 1844
+  834 : 1846
+  835 : 1848
+  836 : 931
+  837 : 1850
+  838 : 1852
+  839 : 1854
+  840 : 645
+  841 : 1703
+  842 : 623
+  843 : 1817
+  844 : 915
+  845 : 322
+  846 : 1856
+  847 : 1858
+  848 : 315
+  849 : 1120
+  850 : 1287
+  851 : 1691
+  852 : 525
+  853 : 1860
+  854 : 1862
+  855 : 1864
+  856 : 1866
+  857 : 1297
+  858 : 1868
+  859 : 945
+  860 : 709
+  861 : 333
+  862 : 1870
+  863 : 1791
+  864 : 1872
+  865 : 431
+  866 : 1874
+  867 : 1555
+  868 : 1878
+  869 : 1882
+  870 : 1269
+  871 : 1884
+  872 : 1886
+  873 : 318
+  874 : 1888
+  875 : 1089
+  876 : 1890
+  877 : 475
+  878 : 1892
+  879 : 1894
+  880 : 716
+  881 : 1896
+  882 : 1898
+  883 : 1535
+  884 : 1900
+  885 : 276
+  886 : 466
+  887 : 307
+  888 : 221
+  889 : 539
+  890 : 1902
+  891 : 880
+  892 : 553
+  893 : 1881
+  894 : 1904
+  895 : 864
+  896 : 1603
+  897 : 228
+  898 : 1216
+  899 : 763
+  900 : 1906
+  901 : 693
+  902 : 970
+  903 : 756
+  904 : 814
+  905 : 1413
+  906 : 1559
+  907 : 1273
+  908 : 1908
+  909 : 1052
+  910 : 1910
+  911 : 1912
+  912 : 1914
+  913 : 1391
+  914 : 1701
+  915 : 1916
+  916 : 499
+  917 : 1918
+  918 : 417
+  919 : 1920
+  920 : 1827
+  921 : 1922
+  922 : 964
+  923 : 1924
+  924 : 1363
+  925 : 1926
+  926 : 1930
+  927 : 1932
+  928 : 1039
+  929 : 505
+  930 : 316
+  931 : 1934
+  932 : 1936
+  933 : 1938
+  934 : 1940
+  935 : 937
+  936 : 1789
+  937 : 359
+  938 : 1043
+  939 : 1599
+  940 : 1929
+  941 : 1942
+  942 : 1944
+  943 : 1946
+  944 : 699
+  945 : 341
+  946 : 448
+  947 : 1948
+  948 : 1950
+  949 : 930
+  950 : 1952
+  951 : 1954
+  952 : 1956
+  953 : 356
+  954 : 317
+  955 : 971
+  956 : 743
+  957 : 1958
+  958 : 1960
+  959 : 1165
+  960 : 1050
+  961 : 1005
+  962 : 872
+  963 : 1547
+  964 : 492
+  965 : 1111
+  966 : 1962
+  967 : 1964
+  968 : 1966
+  969 : 1968
+  970 : 1970
+  971 : 1972
+  972 : 407
+  973 : 1191
+  974 : 1974
+  975 : 1978
+  976 : 1980
+  977 : 585
+  978 : 1877
+  979 : 1982
+  980 : 1984
+  981 : 1986
+  982 : 234
+  983 : 1115
+  984 : 1988
+  985 : 1279
+  986 : 1990
+  987 : 1977
+  988 : 1992
+  989 : 855
+  990 : 878
+  991 : 1994
+  992 : 1996
+  993 : 1998
+  994 : 402
+  995 : 416
+  996 : 1193
+  997 : 2000
+  998 : 842
+  999 : 1565
+------------------------------------------------------------------------------------------------------------------------
 
-Runtime:388084
-ns DiscoveryTime-FinishTime:1999
+Runtime:     388084 ns DiscoveryTime - FinishTime: 1999
 
 ------------------------------------------------------------------------------------------------------------------------
 
-Testing
-completed
-*/
+
+Testing completed
+
