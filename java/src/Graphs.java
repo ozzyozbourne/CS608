@@ -10,15 +10,21 @@
  *  3) Osaid Khan
  *
  *  Other collaborators: None.
- *  References:
+ *  References: None
  *
  *  Assignment No.: 6
  *
- *  Problem ->
+ *  Problem -> Evaluate the experimentally performance of a DFS alogorithm on different 
+ *             different vertex count with different edge densities ie sparse, medium and
+ *             dense
  *
  *  Input and Output -> mention at the end of the file since it was too large
  *
- *  Hypothesis ->
+ *  Hypothesis -> The runtime of the Dfs depends linearly on the number of vertex + edge count so, 
+ *                as we double count of the vertex the runtime should double, but for each of the 
+ *                vertex we have three types of graph edge densities ie, sparse(V-1),
+ *                medium((V-1)^1.5) and dense((V-1)^2) since here we are dealing with
+ *                a directed graph that has no self loops, so the edge
  *
  *  Assumption for the runtimes as a function of the input size
  *
@@ -57,13 +63,13 @@
  *  Table of time and space complexities of search and construction operations
  *
  *                     | Time Complexity  |  Space Complexity
- *                DFS  |                  |
+ *                DFS  | O(V + E)         |  O(V)
  *
  *  Increase Factor of Dfs for Actual runtimes ->
  *
  *  ------------------------------------------------------------------------------------
  *
- *  plot ->
+ *  plot -> https://colab.research.google.com/drive/1mWxRUXbntiVi45AZPnlJqAzSraTq8N-E?usp=sharing
  *
  *  Conclusion ->
  */
