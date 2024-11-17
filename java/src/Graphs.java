@@ -35,33 +35,31 @@
  *                 fact that each call of the DFS is unable to explore the graph deeply since it is seeing 
  *                 a lot of vertices/nodes whose adjacencyList is empty (i.e., that vertex is not connected). 
  *
- *                At best, on each call to the DFS recursive function by the outer for-loop, 
- *                the DFS function is only able to travel one or two nodes deep at best in the graph. 
- *                This will add overhead in runtime since when we make a function call, 
- *                a new call stack needs to be allocated in memory. 
- *                So for all sparsely dense graphs, when we move to a more dense graph of the same size, 
- *                we will see a decrease in the runtime as the recursion is being 
- *                able to explore the graph deeply without needing a lot of invocations from the outer for-loop.
- *
- *  Assumption for the runtimes as a function of the input size
+ *                 At best, on each call to the DFS recursive function by the outer for-loop, 
+ *                 the DFS function is only able to travel one or two nodes deep at best in the graph. 
+ *                 This will add overhead in runtime since when we make a function call, 
+ *                 a new call stack needs to be allocated in memory. 
+ *                 So for all sparsely dense graphs, when we move to a more dense graph of the same size, 
+ *                 we will see a decrease in the runtime as the recursion is being 
+ *                 able to explore the graph deeply without needing a lot of invocations from the outer for-loop.
  *
  *
+ *  Calculated scaling constants value for the Dfs runtime ->  
  *
- *
- *  Dfs runtime ->
- *
- *
- *  Calculated constant value for the Dfs runtime ->  35917
+ *              Density    |     Scaling Constant
+ *              ----------------------------------------
+ *              sparse     |            104148.00
+ *              medium     |             17926.11
+ *              dense      |             45509.44
  *
  *  HYPOTHICAL RUNTIME ->
  *  Table with hypotical Dfs runtimes(in nanoseconds) measured for different values of 'V'
  *
  *                       | |E| = |V| - 1  | |E| = ⌊(|V| - 1)^(3/2)⌋  |  |E| = (|V| - 1)^2   |
- *           |V| = 10    |                |                          |                      |
- *           |V| = 100   |                |                          |                      |
- *           |V| = 1000  |                |                          |                      |
+ *           |V| = 10    | 1,041,480.00   | 179,261.11               |  455,094.44          |
+ *           |V| = 100   | 10,414,800.00  | 1,792,611.11             |  4,550,944.44        |
+ *           |V| = 1000  | 104,148,000.00 | 17,926,111.1             |  45,509,444.44       |
  *
- *  Increase Factor of Dfs for hypotical runtimes ->
  *
  *  -----------------------------------------------------------------------------------
  *
@@ -82,7 +80,6 @@
  *                     | Time Complexity  |  Space Complexity
  *                DFS  | O(V + E)         |  O(V)
  *
- *  Increase Factor of Dfs for Actual runtimes ->
  *
  *  ------------------------------------------------------------------------------------
  *
