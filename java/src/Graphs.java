@@ -122,7 +122,11 @@
  * ----------------------------------------------------------------------------------------------  
  *
  *  Conclusion -> As expected we see linear increase in the plots when we keep keep the densities 
- *                constant and increase the vertex count, and we 
+ *                constant and increase the vertex count, and we increase the density while keepin the 
+ *                vertex constant the dfs performance is best for medium density of egdes, this is due to 
+ *                fact we dont have to call the recursive dfs function again and again the adjaceny list 
+ *                is not for large as in the case of dense graph that we are checking the visted set more 
+ *                times adding a small overhead.
  */
 
 import java.util.ArrayList;
