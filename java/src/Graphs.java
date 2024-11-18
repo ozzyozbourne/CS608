@@ -77,7 +77,7 @@
  *           |V| = 1000  | 779333         | 139709                   |  388084              |
  *
  *
- *  Table of time and space complexities of search and construction operations
+ *  Table of time and space complexities of Dfs search 
  *
  *                     | Time Complexity  |  Space Complexity
  *                DFS  | O(V + E)         |  O(V)
