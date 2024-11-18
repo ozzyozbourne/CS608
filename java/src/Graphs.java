@@ -26,23 +26,25 @@
  *                 i.e., sparse(V-1), medium((V-1)^1.5), and dense((V-1)^2). 
  *
  *                 Since here we are dealing with a directed graph that has no self-loops, as we increase 
- *                 the edge count (i.e., making the graph more connected), we will see a decrease in the runtime of DFS. 
- *                 When sending the first vertex to the recursive DFS procedure, it will be able to 
- *                 traverse the whole graph since, due to the increase in density, there is a high 
- *                 likelihood that we won't encounter any disconnected components. 
- *                 But in the case of sparse graphs, we will have a lot of disconnected components, 
- *                 so the outer for-loop needs to invoke the DFS function again and again due to the 
- *                 fact that each call of the DFS is unable to explore the graph deeply since it is seeing 
- *                 a lot of vertices/nodes whose adjacencyList is empty (i.e., that vertex is not connected). 
+ *                 the edge count (i.e., making the graph more connected), we will see a decrease in the runtime of DFS
+ *                 upto certain density then the runtime we start to increase. 
  *
- *                 At best, on each call to the DFS recursive function by the outer for-loop, 
- *                 the DFS function is only able to travel one or two nodes deep at best in the graph. 
- *                 This will add overhead in runtime since when we make a function call, 
- *                 a new call stack needs to be allocated in memory. 
- *                 So for all sparsely dense graphs, when we move to a more dense graph of the same size, 
- *                 we will see a decrease in the runtime as the recursion is being 
- *                 able to explore the graph deeply without needing a lot of invocations from the outer for-loop.
+ *                 This is due to the fact that as we increase the edge it make the graph more connected,
+ *                 so when outer for loop calls the recursive dfs function it is able to travel to all the 
+ *                 vertex from the starting vertex.
  *
+ *                 If is graph is sparsely connected then there are alot of disconnected components, hence the 
+ *                 dfs is unable to travel to all the vertex from the starting node and the outer for loop calls 
+ *                 dfs again and again since we fragmentation in the graph.
+ *
+ *                 If is graph is too densely connected the for loop is constant checking the visited set to see 
+ *                 current vertex is tranvered or not adding a little extra over head 
+ *
+ *                 So we have assuming the when we keep the density (sparse, medium and densities) constant 
+ *                 and we increase the vertex count the runtime will increase linearly, 
+ *                 And when we keep the vertex count constant and increase the density (sparse -> medium -> dense)
+ *                 the runtime will be highest for the spare graph and will drop drastically for medium graph 
+ *                 and will increase a little bit for dense graph
  *
  *  Calculated scaling constants value for the Dfs runtime ->  
  *
@@ -85,7 +87,42 @@
  *
  *  plot -> https://colab.research.google.com/drive/1mWxRUXbntiVi45AZPnlJqAzSraTq8N-E?usp=sharing
  *
- *  Conclusion ->
+ * ----------------------------------------------------------------------------------------------  
+ *
+ *  Increase in runtime as we increase the vertex count for sparse, medium and dense graph
+ *
+ *  Increase factors in sparse graph as we increase the vertex count :
+ *      From n^1 to n^2: 4.58   |  ->  approx linear increase
+ *      From n^2 to n^3: 6.01   |  -> 
+ *
+ *  Increase factors in medium graph as we increase the vertex count :
+ *      From n^1 to n^2: 2.99   |  ->  approx linear increase
+ *      From n^2 to n^3: 8.62   |  -> 
+ *
+ *  Increase factors in dense graph as we increase the vertex count :
+ *      From n^1 to n^2: 4.80   |  ->  approx linear increase 
+ *      From n^2 to n^3: 21.81  |  -> 
+ *
+ * ----------------------------------------------------------------------------------------------  
+ *
+ *  Increase in runtime as we increase the edge count for 10, 100 and 1000 vertex count graph
+ *
+ *  Increase factors in 10 vertex graph as we increase the edge count :
+ *      From n^1 to n^2: 0.19  -> sharp decrease
+ *      From n^2 to n^3: 0.68  -> only a little increase
+ *
+ *  Increase factors in 100 vertex graph as we increase the edge count :
+ *      From n^1 to n^2: 0.13  -> sharp decrease
+ *      From n^2 to n^3: 1.10  -> only a little increase
+ *
+ *  Increase factors in 1000 vertex graph as we increase the edge count :
+ *      From n^1 to n^2: 0.18  -> sharp decrease
+ *      From n^2 to n^3: 2.78  -> only a little increase
+ *
+ * ----------------------------------------------------------------------------------------------  
+ *
+ *  Conclusion -> As expected we see linear increase in the plots when we keep keep the densities 
+ *                constant and increase the vertex count, and we 
  */
 
 import java.util.ArrayList;
