@@ -46,6 +46,18 @@
  *                 the runtime will be highest for the spare graph and will drop drastically for medium graph 
  *                 and will increase a little bit for dense graph
  *
+ *  Mean/Average scaling constant -> The density scaling constant is defined as taking the average of the 
+ *                 actual runtime values as we increase the count of the vertex so we are going to have 
+ *                 3 density constants.
+ *
+ *                 For the hypotical runtime we are assuming the number of vertex * density scaling constant to be 
+ *                 the hypothetical runtime
+ *  
+ *  Formae -> 
+ *
+ *     hypotical runtime =  (number of vertex count * density scaling constant) ns
+ *
+ *
  *  Calculated scaling constants value for the Dfs runtime ->  
  *
  *              Density    |     Scaling Constant
