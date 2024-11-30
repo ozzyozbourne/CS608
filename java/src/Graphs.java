@@ -12,6 +12,8 @@
  *  Other collaborators: None.
  *  References: None
  *
+ *  ExtraCredit cycle detection DFS implementation program and output added to the end of the file
+ *
  *  Assignment No.: 6
  *
  *  Problem -> Evaluate the experimentally performance of a DFS alogorithm on different 
@@ -220,17 +222,16 @@ public final class Graphs {
                 final int edgeCount = density.apply(vertexCount);
                 final Map<Integer, List<Integer>> graph = generateGraph(density.apply(vertexCount), edgeCount, type);
 
-                System.out.printf("\n\nTesting dfs runtime on %7s graph with -> |V| = %4d, |E| = %d\n\n", type,
+                System.out.printf("\n\nTesting if %s graph with -> |V| = %4d, |E| = %d has a cycle\n\n", type,
                         vertexCount,
                         edgeCount);
-                final long startTime = System.nanoTime();
+
                 for (final int vertex : graph.keySet()) {
                     if (!visited.contains(vertex) && !hasCycle)
                         hasCycle = dfsDetectCycle(graph, vertex);
                 }
-                final long endTime = System.nanoTime();
 
-                System.out.printf("Runtime: %10d ns has cycle: %b", endTime - startTime, hasCycle);
+                System.out.printf("Has cycle -> %b", hasCycle);
                 System.out.printf("\n\nTesting completed\n\n");
                 resetCollections();
             }
@@ -329,3 +330,50 @@ public final class Graphs {
         return false;
     }
 }
+/*
+ * Testing if DAG graph with -> |V| = 1001, |E| = 1000 has a cycle
+ * 
+ * Has cycle -> false
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing if DAG graph with -> |V| = 1001, |E| = 31622 has a cycle
+ * 
+ * Has cycle -> false
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing if DAG graph with -> |V| = 1001, |E| = 1000000 has a cycle
+ * 
+ * Has cycle -> false
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing if CYCLIC graph with -> |V| = 1001, |E| = 1000 has a cycle
+ * 
+ * Has cycle -> true
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing if CYCLIC graph with -> |V| = 1001, |E| = 31622 has a cycle
+ * 
+ * Has cycle -> true
+ * 
+ * Testing completed
+ * 
+ * 
+ * 
+ * Testing if CYCLIC graph with -> |V| = 1001, |E| = 1000000 has a cycle
+ * 
+ * Has cycle -> true
+ * 
+ * Testing completed
+ */
