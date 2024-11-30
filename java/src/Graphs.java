@@ -156,6 +156,18 @@ public final class Graphs {
     private Graphs() {
     }
 
+    /**
+     * Graph types that can be generated:
+     * RANDOM_DIRECTED: A directed graph that may or may not contain cycles
+     * DAG: A Directed Acyclic Graph (no cycles)
+     * CYCLIC: A directed graph guaranteed to contain at least one cycle
+     */
+    private enum GraphType {
+        RANDOM_DIRECTED, // May or may not have cycles
+        DAG, // Guaranteed no cycles
+        CYCLIC // Guaranteed to have at least one cycle
+    }
+
     private static final List<Function<Integer, Integer>> densities = List.of(
             v -> v - 1, // Sparse
             v -> (int) Math.pow(v - 1, 1.5), // Medium
@@ -170,7 +182,8 @@ public final class Graphs {
         for (final int vertexCount : new int[] { 10, 100, 1000 }) {
             for (final Function<Integer, Integer> density : densities) {
                 final int edgeCount = density.apply(vertexCount);
-                final Map<Integer, List<Integer>> graph = generateDirectedGraph(vertexCount, edgeCount);
+                final Map<Integer, List<Integer>> graph = generateGraph(vertexCount, edgeCount,
+                        GraphType.RANDOM_DIRECTED);
 
                 System.out.printf(
                         "\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n",
@@ -229,28 +242,46 @@ public final class Graphs {
         finishTimes.put(vertex, time);
     }
 
-    public static Map<Integer, List<Integer>> generateDirectedGraph(
-            final int vertexCount,
-            final int edgeCount) {
+    public static Map<Integer, List<Integer>> generateGraph(final int vertexCount, final int edgeCount,
+            final GraphType type) {
         final Map<Integer, List<Integer>> adjacencyList = new HashMap<>();
         final Random rand = new Random();
         final Set<String> addedEdges = new HashSet<>();
 
         for (int i = 0; i < vertexCount; i++)
-            adjacencyList.put(
-                    i,
-                    new ArrayList<>());
+            adjacencyList.put(i, new ArrayList<>());
 
         var edgesAdded = 0;
+
+        // For CYCLIC type, first create a guaranteed cycle
+        if (type == GraphType.CYCLIC) {
+            // First, add a guaranteed cycle
+            final int cycleSize = 3 + rand.nextInt(5); // Random cycle size between 3 and 7
+            for (int i = 0; i < cycleSize - 1; i++) {
+                adjacencyList.get(i).add(i + 1);
+                addedEdges.add(i + "," + (i + 1));
+            }
+            // Complete the cycle
+            adjacencyList.get(cycleSize - 1).add(0);
+            addedEdges.add((cycleSize - 1) + ",0");
+
+            edgesAdded = cycleSize;
+        }
 
         while (edgesAdded < edgeCount) {
             final int source = rand.nextInt(vertexCount);
             final int target = rand.nextInt(vertexCount);
 
-            // Skip self-loops
-            if (source == target)
-                continue;
-
+            switch (type) {
+                case RANDOM_DIRECTED, CYCLIC -> {
+                    if (source == target)
+                        continue;
+                }
+                case DAG -> {
+                    if (source >= target)
+                        continue;
+                }
+            }
             // Check if edge already exists
             final String edge = source + "," + target;
             if (!addedEdges.contains(edge)) {
