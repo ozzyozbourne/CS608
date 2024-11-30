@@ -172,7 +172,8 @@ public final class Graphs {
             v -> v - 1, // Sparse
             v -> (int) Math.pow(v - 1, 1.5), // Medium
             v -> (v - 1) * (v - 1)); // Dense
-
+                                     //
+    private static final Set<Integer> recursionStack = new HashSet<>();
     private static final Map<Integer, Integer> discoveryTimes = new HashMap<>();
     private static final Map<Integer, Integer> finishTimes = new HashMap<>();
     private static final Set<Integer> visited = new HashSet<>();
@@ -185,8 +186,31 @@ public final class Graphs {
                 final Map<Integer, List<Integer>> graph = generateGraph(vertexCount, edgeCount,
                         GraphType.RANDOM_DIRECTED);
 
-                System.out.printf(
-                        "\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n",
+                System.out.printf("\n\nTesting dfs runtime on graph with -> |V| = %4d, |E| = %d\n\n", vertexCount,
+                        edgeCount);
+
+                final long startTime = System.nanoTime();
+                for (final int vertex : graph.keySet()) {
+                    if (!visited.contains(vertex))
+                        dfsVisit(graph, vertex);
+                }
+                final long endTime = System.nanoTime();
+                final int travelTime = Collections.max(finishTimes.values()) - 1; // start time is always one
+
+                System.out.printf("Runtime: %10d ns DiscoveryTime - FinishTime: %d", endTime - startTime, travelTime);
+                System.out.printf("\n\nTesting completed\n\n");
+                resetCollections();
+            }
+        }
+
+        // Extra credit
+        for (final GraphType type : List.of(GraphType.DAG, GraphType.CYCLIC)) {
+            final int vertexCount = 1001;
+            for (final Function<Integer, Integer> density : densities) {
+                final int edgeCount = density.apply(vertexCount);
+                final Map<Integer, List<Integer>> graph = generateGraph(density.apply(vertexCount), edgeCount, type);
+
+                System.out.printf("\n\nTesting dfs runtime on %7s graph with -> |V| = %4d, |E| = %d\n\n", type,
                         vertexCount,
                         edgeCount);
 
@@ -198,32 +222,19 @@ public final class Graphs {
                 final long endTime = System.nanoTime();
                 final int travelTime = Collections.max(finishTimes.values()) - 1; // start time is always one
 
-                System.out.printf("\nDiscovery Times -> \n");
-                discoveryTimes
-                        .entrySet()
-                        .forEach(entry -> System.out.printf(
-                                "%5d : %d\n",
-                                entry.getKey(),
-                                entry.getValue()));
-
-                System.out.printf("\nFinishing Times -> \n");
-                finishTimes
-                        .entrySet()
-                        .forEach(entry -> System.out.printf(
-                                "%5d : %d\n",
-                                entry.getKey(),
-                                entry.getValue()));
-
-                System.out.printf("%s\n", "-".repeat(120));
-                System.out.printf(
-                        "\nRuntime: %10d ns DiscoveryTime - FinishTime: %d\n",
-                        endTime - startTime,
-                        travelTime);
-                System.out.printf("\n%s\n", "-".repeat(120));
-
+                System.out.printf("Runtime: %10d ns DiscoveryTime - FinishTime: %d", endTime - startTime, travelTime);
                 System.out.printf("\n\nTesting completed\n\n");
+                resetCollections();
             }
         }
+    }
+
+    private static void resetCollections() {
+        discoveryTimes.clear();
+        finishTimes.clear();
+        visited.clear();
+        recursionStack.clear();
+        time = 0;
     }
 
     private static void dfsVisit(
