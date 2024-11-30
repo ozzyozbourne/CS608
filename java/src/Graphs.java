@@ -215,7 +215,7 @@ public final class Graphs {
         final int vertexCount = 1001;
         for (final GraphType type : List.of(GraphType.DAG, GraphType.CYCLIC)) {
             for (final Function<Integer, Integer> density : densities) {
-                var hasCycle = true;
+                var hasCycle = false;
 
                 final int edgeCount = density.apply(vertexCount);
                 final Map<Integer, List<Integer>> graph = generateGraph(density.apply(vertexCount), edgeCount, type);
@@ -225,14 +225,12 @@ public final class Graphs {
                         edgeCount);
                 final long startTime = System.nanoTime();
                 for (final int vertex : graph.keySet()) {
-                    if (!visited.contains(vertex) && hasCycle)
+                    if (!visited.contains(vertex) && !hasCycle)
                         hasCycle = dfsDetectCycle(graph, vertex);
                 }
                 final long endTime = System.nanoTime();
-                final int travelTime = Collections.max(finishTimes.values()) - 1;
 
-                System.out.printf("Runtime: %10d ns DiscoveryTime - FinishTime: %d has cycle: %b", endTime - startTime,
-                        travelTime, hasCycle);
+                System.out.printf("Runtime: %10d ns has cycle: %b", endTime - startTime, hasCycle);
                 System.out.printf("\n\nTesting completed\n\n");
                 resetCollections();
             }
